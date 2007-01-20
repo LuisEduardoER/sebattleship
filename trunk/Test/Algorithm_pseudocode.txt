@@ -1,0 +1,22 @@
+count occurance of each possible value in row
+if a value only occurs in the same grid, eliminate that value from all other cells in that grid
+
+count occurance of each possible value in col
+if a value only occurs in the same gride, eliminate that value from all other cells in that grid
+
+count occurance of each possible value in grid
+if a value only occurs in the same row/col, eliminate that value from all other cels in that row/col
+
+
+
+
+how?
+
+create a giant 3-D array [possible value(0-8)][occurance(0-80)][row and column(0,1)]
+
+
+
+
+
+
+check row
