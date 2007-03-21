@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.5.1-p1">
+  <compound refid="class_junk" kind="class"><name>Junk</name>
+    <member refid="class_junk_1a88508c7425ff03cea9d2ec019e3b942" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="_junk_8java" kind="file"><name>Junk.java</name>
+  </compound>
+</doxygenindex>
