@@ -1,13 +1,18 @@
-# Doxyfile 1--s--------------s
-s
-s
-s
-ss
+# Doxyfile 1.5.1-p1
 
+# This file describes the settings to be used by the documentation system
+# doxygen (www.doxygen.org) for a project
+#
+# All text after a hash (#) is considered a comment and will be ignored
+# The format is:
+#       TAG = value [value, ...]
+# For lists items can also be appended using:
+#       TAG += value [value, ...]
+# Values that contain spaces should be placed between quotes (" ")
 
-
-
-sss
+#---------------------------------------------------------------------------
+# Project related configuration options
+#---------------------------------------------------------------------------
 
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
