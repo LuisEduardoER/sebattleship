@@ -6,7 +6,7 @@
  * @author Josh
  *
  */
-public class Battleship {
+public class BattleshipGame {
 
 	/**
 	 * @param args
