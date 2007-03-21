@@ -1,16 +1,5 @@
 #include <iostream>
-#include <fstream>
-using namespace std;
-
-#include "utilities.h"
-#include "math.h"
-
-extern int known[][9];
-extern bool possible[][9][9];
-extern int coords[][9*9][2];
-extern int gridStartRow[];
-extern int gridStartCol[];
-extern bool refresh;
+#i
 
 
 
