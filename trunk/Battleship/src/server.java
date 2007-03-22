@@ -15,35 +15,36 @@
 import java.net.*;
 import java.io.*;
 
-public class server {
-    public static void main(String[] args) throws IOException {
+/**
+ * 
+ * @author SeungJin Lim
+ *
+ * Creates a server that listens on a specified port
+ *   for clients to connect.
+ * Establishes a socket with the client when one
+ *   does attempt a connection.
+ * Creates an unlimited number of client sockets.
+ * 
+ */
+public class Server {
+	private static String serverName;
+	private static String clientName;
+	
+    public static void main(int port, String name) throws IOException {
 
-    	/**
-    	 * Check the program parameter(s).
-    	 */
-		if( args.length < 1 ) {
-			System.err.println( "Usage: java server <port>" );
-			System.exit(1);
-		} // if
-
+    	serverName = name;
+    	
         ServerSocket serverSocket = null;
-        String localHostAddress = null;
-        int localPortNumber;
-        String clientHostAddress = null;
-        int clientPortNumber;
-        
+    	DataInputStream in = null;
+    	DataOutputStream out = null;
+    	
 		/**
 		 * 1. Open a server socket.
 		 */
         try {
-			serverSocket = new ServerSocket( Integer.parseInt( args[0] ) );
+			serverSocket = new ServerSocket( port );
 
-			localHostAddress = InetAddress.getLocalHost().getHostAddress();
-			localPortNumber = serverSocket.getLocalPort();
-			
-			System.out.println( "Server (" + localHostAddress + ") is listening on " +
-								"server port " + 
-								localPortNumber + " ... " );
+			System.out.println( "Game created...  Waiting for a player to join." );
 
 			/**
 			 * 2. Accept a client connection.
@@ -51,15 +52,23 @@ public class server {
     		while( true ) {
     	        Socket clientSocket = null;
         	    try {
+        	    	// stalls on this line until a client tries to connect
             	    clientSocket = serverSocket.accept();
-            	    
-            	    clientHostAddress = clientSocket.getInetAddress().getHostAddress();
-            	    clientPortNumber = clientSocket.getPort();
-            	    
-        	        System.out.println(	"Client (" + clientHostAddress + ") is talking through " +
-        	        				"client port " + clientPortNumber + " ... " );
+    
+        			in = new DataInputStream( clientSocket.getInputStream() );
+        			out = new DataOutputStream( clientSocket.getOutputStream() );
+        			
+        			// Exchange client and server names
+        			out.writeUTF(serverName);
+        			clientName=in.readUTF();
+        			
+        			// To be displayed upon creation of socket with client
+        	        System.out.println(	clientName + " has joined your game.");
         	        
     				@SuppressWarnings("unused")
+    				// Connection creates new thread and stalls in the run
+    				//   method until termination of client connection
+    				//   This threading allows multiple connecions
     				Connection c = new Connection( clientSocket );
     	        } catch (IOException e) {
         	        System.err.println( "Accept failed. ");
@@ -68,14 +77,19 @@ public class server {
     		} // while
 
         } catch( IOException e ) {
-            System.err.println( "Could not listen on local port: "+args[0] );
+            System.err.println( "Could not listen on local port: "+port );
             System.exit(1);
         } // try_catch
-
     } // main
 }
 
-
+/**
+ * @class Connection
+ * 
+ * Establishes a threaded I/O connection to the client.
+ * This connection continually listens for text, receives it, and relays it back
+ * Useful for chatting.
+ */
 class Connection extends Thread {
 	
 	DataInputStream in = null;
@@ -84,7 +98,7 @@ class Connection extends Thread {
 
 	public Connection( Socket client ) {
 		/**
-		 * 3. Open an input and output streams from the client socket.
+		 * 3. Open input and output streams from the client socket.
 		 */
 		try {
 			clientSocket = client;
@@ -94,6 +108,8 @@ class Connection extends Thread {
 			System.out.println( "[Server Thread "+this.getId()+"] Input/OutputStream is ready for " +
 								clientSocket.getInetAddress().getHostAddress() +
 								" ..." );
+
+			// Starts the thread which calls the run function
 			this.start();
 
 		} catch( IOException e ) {
@@ -107,6 +123,7 @@ class Connection extends Thread {
 		 */
 		try {
 			String data;
+			// As long as the client has not hit enter without typing anyting and has not typed "bye"
 			while( (data = in.readUTF()) != null && (!data.equalsIgnoreCase("bye")) ) {
 
 				System.out.println( "[Server Thread " + this.getId() + "] talks back to Client (" +

@@ -16,52 +16,41 @@ import java.net.*;
  *
  *	@author SeungJin Lim
  */
-public class client {
+public class Client {
 
-    public static void main(String[] args) throws IOException {
+	private static String clientName;
+	private static String serverName;
+		
+    public static void main(String serverIP, int serverPort, String name) throws IOException {
 
-    	/**
-    	 * Check the program parameter(s).
-    	 */
-		if( args.length < 2 ) {
-			System.err.println( "Usage: java client <server address> <server port>" );
-			System.err.print( "   args.length="+args.length );
-			for( int i=0; i<args.length; i++ ) {
-				System.err.print( " "+args[i] );
-			}
-			System.err.println();
-			System.exit(-1);
-		} // if
-
+    	clientName=name;
+    	
        	Socket clientSocket = null;
    	    DataOutputStream out = null;
         DataInputStream in = null;
-        String localHostAddress = null;
-        int localPortNumber;
-        String serverHostAddress = null;
-        int serverPortNumber;
+
 
         try {
         	/**
         	 * 1. Open a client stream socket and connect it to the specified port number on the named server 
         	 */
-			clientSocket = new Socket( args[0], Integer.parseInt( args[1] ) );
-
-			localHostAddress = InetAddress.getLocalHost().getHostAddress(); // the local host address.
-			localPortNumber = clientSocket.getLocalPort(); // the local port to which this socket is bound.
-			serverHostAddress = clientSocket.getInetAddress().getHostAddress(); // the address to which the socket is connected.
-			serverPortNumber = clientSocket.getPort(); // the remote port to which this socket is connected.
-			
-            System.out.println( "Client (" + localHostAddress + ") is listening on " +
-            					"server port " + serverPortNumber + " of " + 
-								"server (" + serverHostAddress + ") using " +
-								"local port " + localPortNumber + " ... " );
+			clientSocket = new Socket( serverIP, serverPort );
 
             /**
-             * 2. Establish an input and output streams by openning an input and output streams for this socket. 
+             * 2. Establish an input and output stream for this socket. 
              */
 			out = new DataOutputStream( clientSocket.getOutputStream() );
-			in = new DataInputStream( clientSocket.getInputStream() );
+			in = new DataInputStream( clientSocket.getInputStream() );			
+			
+			// Exchange client and server names
+			out.writeUTF(clientName);
+			serverName=in.readUTF();
+			
+			
+			// To display on connection establishment
+            System.out.println( "You have joined " + serverName + "'s game." );
+
+
 
 			
 			/**
@@ -73,20 +62,15 @@ public class client {
 			while( (user_input = stdin.readLine()) != null && (!user_input.equalsIgnoreCase("bye")) ) {
 
 				/**
-				 * 3.b Write out the message to the output stream. 
+				 * 3.b Write out the message to the output stream.  Display verification of sent msg. 
 				 */
 				out.writeUTF( user_input );
 				
-				System.out.println( "Message sent to server (" + serverHostAddress + ":" + serverPortNumber + "): " +
-						user_input );
 
 				/**
-				 * 3.c Read from the input stream. 
+				 * 3.c Read from the input stream to receive verification of receipt from server.
 				 */
-				String serverMessage = in.readUTF(); 
-				
-				System.out.println( "Message arrived from server (" + serverHostAddress + ":" + serverPortNumber + "): " +
-									serverMessage + " ... " );
+
 			} // while
 
 			/**
@@ -96,10 +80,10 @@ public class client {
 	        in.close();
 
         } catch( UnknownHostException e ) {
-            System.err.println( "Unknown host: "+args[0] );
+            System.err.println( "Unknown host: "+serverIP );
             System.exit(1);
         } catch( IOException e ) {
-            System.err.println( "I/O exception in connecting to: "+args[0] );
+            System.err.println( "I/O exception in connecting to: "+serverPort );
             System.exit(1);
         } // try_catch
 
