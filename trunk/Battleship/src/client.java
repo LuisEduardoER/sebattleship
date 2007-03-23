@@ -14,7 +14,6 @@ public class Client {
 	private String serverIP;
 	private int serverPort;
     private DataOutputStream out = null;
- //   private DataInputStream in = null;	
    	private Socket clientSocket = null;
    	
    	
@@ -23,10 +22,10 @@ public class Client {
     	this.serverPort=serverPort;
 	 
         try {
-        	
+        	System.out.println("Test HEre");
 			clientSocket = new Socket( this.serverIP, this.serverPort );
+			System.out.println("Test Here is better!");
 			out = new DataOutputStream( clientSocket.getOutputStream() );
-//			in = new DataInputStream( clientSocket.getInputStream() );		
 			
 	    } catch( UnknownHostException e ) {
 	        System.err.println( "Unknown host: " + serverIP );

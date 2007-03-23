@@ -19,11 +19,12 @@ public class Server{
 	private Socket clientSocket=null;
 	private DataOutputStream out = null;
 	private int port;
-
+	private ServerSocket serverSocket = null;
+    
 	
 	/**
 	 * Server Constructor.
-	 * Establishes a socket and waits fora connection
+	 * Establishes a socket and waits for a connection.
 	 * 
 	 * @param port Port of the local computer to listen on for clients.
 	 * @param serverName Name of the server as to be displayed.
@@ -31,30 +32,27 @@ public class Server{
 	public Server(int port){
 
     	this.port=port;
-      	  
-        ServerSocket serverSocket = null;
-
+    	
         try {
 			serverSocket = new ServerSocket( this.port );
-
-    		while( true ) {
-        	    try {
-        	    	// stalls on this line until a client connects
-            	    clientSocket = serverSocket.accept();
-            	    // establish the in/out communication streams
-             	    out = new DataOutputStream(clientSocket.getOutputStream());
-    	        } catch (IOException e) {
-        	        System.err.println( "Accept failed. ");
-            	    System.exit(1);
-    	        } // try_catch
-    		} // while
-
         } catch( IOException e ) {
             System.err.println( "Could not listen on local port: " + port );
             System.exit(1);
         } // try_catch    	       
 	}
 	
+	public void Connect(){
+		try {
+	    		// stalls on this line until a client connects
+		    clientSocket = serverSocket.accept();
+		    System.out.println("Here I am!");
+		    	// establish the in/out communication streams
+	 	    out = new DataOutputStream(clientSocket.getOutputStream());
+	    } catch (IOException e) {
+	        System.err.println( "Accept failed. ");
+		    System.exit(1);
+	    } // try_catch
+	}
 	
 	public void Send(String msg) throws IOException{
 		out.writeUTF(msg);
