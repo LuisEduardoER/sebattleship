@@ -11,7 +11,7 @@ import java.net.Socket;
  * This connection continually listens for text, receives it, and relays it back
  * Useful for chatting.
  */
-class Connection extends Thread {
+class Connection{
 	
 	private DataInputStream in = null;
 	private DataOutputStream out = null;
@@ -26,14 +26,14 @@ class Connection extends Thread {
 			out = new DataOutputStream( this.socket.getOutputStream() );
 
 			// Starts the thread which calls the run function
-			this.start();
+//			this.start();
 
 		} catch( IOException e ) {
 			e.printStackTrace();
 		} // try_catch
-	} // Connection
+//	} // Connection
 
-	public void run() {
+//	public void run() {
 
 		try {
 			String data;
