@@ -33,26 +33,26 @@ public class ThreadedXmitter extends Thread {
 		BufferedReader stdin = new BufferedReader( new InputStreamReader(System.in));
 		String data=null;
 		if(server != null){
-//			while(server.out != null){
-		    	try {
-		    		// wait for message to be typed
-					while( (data=stdin.readLine()) != null )
-						// send it
-						server.Send(data);
-		        } catch (IOException e) {
-					System.out.println( "IO: "+e.getMessage() );
-		        }
-//			}
+	    	try {
+	    		// wait for message to be typed
+				while( (data=stdin.readLine()) != null ){
+					// send it
+					server.Send(data);
+					System.out.println(server.GetServerName() + ": " + data);
+				}
+	        } catch (IOException e) {
+				System.out.println( "IO: "+e.getMessage() );
+	        }
 		}
 		else if(client != null){
-//			while(client.out != null){
-		    	try {
-					while( (data=stdin.readLine()) != null )
-						client.Send(data);
-		        } catch (IOException e) {
-					System.out.println( "IO: "+e.getMessage() );
-		        }
-			}
-//		}
+	    	try {
+				while( (data=stdin.readLine()) != null ){
+					client.Send(data);
+					System.out.println(client.GetClientName() + ": " + data);
+				}
+	        } catch (IOException e) {
+				System.out.println( "IO: "+e.getMessage() );
+	        }
+		}
 	}
 }

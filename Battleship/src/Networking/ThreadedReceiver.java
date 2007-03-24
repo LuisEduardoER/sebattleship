@@ -30,12 +30,13 @@ public class ThreadedReceiver extends Thread {
 	public void run(){
 		String data=null;
 		if(server != null){
+			// NEED TO DO: Figure a way to detect socket disconnections
 			while(server.in != null){
 		    	try {
 		    			// Wait for a message to arrive
 					while( (data=server.in.readUTF()) == null );
 						// Display message
-					System.out.println("   Message from ____ " + data);
+					System.out.println(server.GetClientName() + ": " + data);
 		        } catch (IOException e) {
 					System.out.println( "IO: "+e.getMessage() );
 		        }
@@ -45,7 +46,7 @@ public class ThreadedReceiver extends Thread {
 			while(client.in != null){
 		    	try {
 					while( (data=client.in.readUTF()) == null );
-					System.out.println("   Message from ____ " + data);
+					System.out.println(client.GetServerName() + ": " + data);
 		        } catch (IOException e) {
 					System.out.println( "IO: "+e.getMessage() );
 		        }
