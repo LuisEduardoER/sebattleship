@@ -1,3 +1,4 @@
+package Gameplay;
 
 public abstract class Grid {
 public static final int max_x=9;
