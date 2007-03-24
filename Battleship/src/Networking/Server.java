@@ -1,3 +1,4 @@
+package Networking;
 
 import java.net.*;
 import java.io.*;
@@ -10,15 +11,16 @@ import java.io.*;
  *   does attempt a connection.
  * Creates an unlimited number of client sockets.
  * 
- * @author SeungJin Lim
+ * @author Josh
  * 
  */
 public class Server{
 	
 
-	private Socket clientSocket=null;
-	private DataOutputStream out = null;
-	private int port;
+	public Socket clientSocket=null;
+	public DataOutputStream out = null;
+	public DataInputStream in = null;
+	private int port = 0;
 	private ServerSocket serverSocket = null;
     
 	
@@ -45,9 +47,9 @@ public class Server{
 		try {
 	    		// stalls on this line until a client connects
 		    clientSocket = serverSocket.accept();
-		    System.out.println("Here I am!");
 		    	// establish the in/out communication streams
 	 	    out = new DataOutputStream(clientSocket.getOutputStream());
+	 	    in  = new DataInputStream(clientSocket.getInputStream());
 	    } catch (IOException e) {
 	        System.err.println( "Accept failed. ");
 		    System.exit(1);
@@ -60,7 +62,18 @@ public class Server{
 	
 	
     public String Listen(){
-		Connection c = new Connection( clientSocket);
-		return c.GetMsg();
+		String data=null;
+ //   	try {
+//			while( (data=in.readUTF()) != null );
+ //       } catch (IOException e) {
+//			System.out.println( "IO: "+e.getMessage() );
+ //       }
+//		return data;
+    	try{
+        	data = in.readUTF();  		
+        } catch (IOException e) {
+			System.out.println( "IO: "+e.getMessage() );
+        }
+        return data;
     } // main
 }

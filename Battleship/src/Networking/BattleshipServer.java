@@ -1,16 +1,18 @@
+package Networking;
+
+
 
 public class BattleshipServer extends Server{
 
-	private String serverName;
-	private String clientName;
-	private int port;
+	private String serverName = null;
+	private String clientName = null;
 	
 	public BattleshipServer(int port, String name) {
 		super(port);
 		serverName=name;
-		this.port=port;
 			// Wait for a connection
-		this.run();
+		super.Connect();
+		System.out.println("We have Connection!");
 	}
 	
 	
@@ -22,10 +24,4 @@ public class BattleshipServer extends Server{
 	public String GetServerName(){
 		return serverName;
 	}
-	
-	public void run(){
-		super.Connect();
-		System.out.println("We have Connection!");
-	}
-	
 }

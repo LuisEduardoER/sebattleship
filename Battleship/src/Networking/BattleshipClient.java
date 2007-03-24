@@ -1,3 +1,4 @@
+package Networking;
 /**
  * 
  * @author Josh
@@ -5,16 +6,12 @@
  */
 public class BattleshipClient extends Client {
 
-	private String serverName;
-	private String clientName;
-	private int serverPort;
-	private String serverIP;
+	private String serverName = null;
+	private String clientName = null;
 	
 	public BattleshipClient(String serverIP, int serverPort, String clientName){
 		super(serverIP, serverPort);
 		this.clientName=clientName;
-		this.serverPort=serverPort;
-		this.serverIP=serverIP;
 	}
 	
 	
