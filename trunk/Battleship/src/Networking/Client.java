@@ -1,3 +1,4 @@
+package Networking;
 import java.io.*;
 import java.net.*;
 
@@ -6,15 +7,16 @@ import java.net.*;
  *	</p>
  *
  *
- *	@author SeungJin Lim
+ *	@author Josh
  */
 public class Client {
 
 
-	private String serverIP;
-	private int serverPort;
-    private DataOutputStream out = null;
-   	private Socket clientSocket = null;
+	private String serverIP = null;
+	private int serverPort = 0;
+    public DataOutputStream out = null;
+    public DataInputStream in = null;
+    public Socket clientSocket = null;
    	
    	
 	public Client(String serverIP, int serverPort){
@@ -22,11 +24,9 @@ public class Client {
     	this.serverPort=serverPort;
 	 
         try {
-        	System.out.println("Test HEre");
 			clientSocket = new Socket( this.serverIP, this.serverPort );
-			System.out.println("Test Here is better!");
 			out = new DataOutputStream( clientSocket.getOutputStream() );
-			
+			in = new DataInputStream(clientSocket.getInputStream());
 	    } catch( UnknownHostException e ) {
 	        System.err.println( "Unknown host: " + serverIP );
 	        System.exit(1);
@@ -41,7 +41,12 @@ public class Client {
 	}
 	
     public String Listen() {
-		Connection c = new Connection( clientSocket);
-		return c.GetMsg();
+    	String data = null;
+    	try{
+        	data = in.readUTF();  		
+        } catch (IOException e) {
+			System.out.println( "IO: "+e.getMessage() );
+        }
+        return data;
     } 
 }
