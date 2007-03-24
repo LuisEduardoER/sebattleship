@@ -6,6 +6,7 @@ package Gameplay;
  *
  */
 public abstract class Board extends Grid{
+private int [][] hit_history;
 /**
  
  */
