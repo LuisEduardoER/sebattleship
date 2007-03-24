@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 public class ThreadedXmitter extends Thread {
 	private BattleshipServer server = null;
 	private BattleshipClient client = null;
-	
+
 	
 	public ThreadedXmitter (BattleshipServer server){
 		this.server = server;
@@ -29,6 +29,7 @@ public class ThreadedXmitter extends Thread {
 		System.out.println("ThreadedXmitter Thread Started...");
 	}
 	
+	// dedicated for chatting
 	public void run(){
 		BufferedReader stdin = new BufferedReader( new InputStreamReader(System.in));
 		String data=null;
@@ -37,17 +38,21 @@ public class ThreadedXmitter extends Thread {
 	    		// wait for message to be typed
 				while( (data=stdin.readLine()) != null ){
 					// send it
-					server.Send(data);
+					String temp = "M";
+					temp = temp.concat(data);
+					server.Send(temp);
 					System.out.println(server.GetServerName() + ": " + data);
 				}
 	        } catch (IOException e) {
 				System.out.println( "IO: "+e.getMessage() );
-	        }
+	        }				
 		}
 		else if(client != null){
 	    	try {
 				while( (data=stdin.readLine()) != null ){
-					client.Send(data);
+					String temp = "M";	// affix the message type indicator
+					temp = temp.concat(data);
+					client.Send(temp);
 					System.out.println(client.GetClientName() + ": " + data);
 				}
 	        } catch (IOException e) {
