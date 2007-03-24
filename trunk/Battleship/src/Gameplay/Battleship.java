@@ -1,3 +1,4 @@
+package Gameplay;
 
 public class Battleship extends Ship{
 	public static final String name="Battleship";

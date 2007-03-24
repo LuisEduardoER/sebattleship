@@ -1,3 +1,5 @@
+package Gameplay;
+
 /**
  * Describes a generic BattleshipGame Board.  
  * @author Nathan
@@ -5,6 +7,9 @@
  */
 public abstract class Board extends Grid{
 private int [][] hit_history;
+/**
+ 
+ */
 private Carrier carrier = new Carrier();
 private Battleship battleship = new Battleship();
 private Cruiser cruiser = new Cruiser();
@@ -18,7 +23,13 @@ public Board(){
 		}
 	}
 }
-/* returns true if coordinates input match the coordinates of any ships. */
+/**
+ *  returns true if coordinates input match the coordinates of any ships. */
+/**
+ * @param xcoor
+ * @param ycoor
+ * @return
+ */
 public boolean hit_or_miss(int xcoor, int ycoor)
 {
 	if(battleship.position[xcoor][ycoor]>=1)
@@ -47,7 +58,8 @@ public boolean already_attacked(int xcoor, int ycoor){
 }
 
 
-/*checks to see if any of the ships were sunk this turn.  
+/**
+ * checks to see if any of the ships were sunk this turn.  
  * Returns which ship if it was sunk this turn
  * Returns "nothing" if no ships sunk this turn
  * 
@@ -70,7 +82,8 @@ public String check_sunk(){
 	
 }
 
-/*Checks to see if all of the ships of the board are sunk this turn
+/**
+ * Checks to see if all of the ships of the board are sunk this turn
  * returns true if all are sunk
  * returns false if not all are sunk
  */
