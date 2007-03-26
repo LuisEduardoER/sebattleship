@@ -7,7 +7,7 @@ package Gameplay;
  * @author Nathan
  *
  */
-public class Opponent_Board {
+public class Opponent_Board extends Board{
 
 	/**
 	 * 

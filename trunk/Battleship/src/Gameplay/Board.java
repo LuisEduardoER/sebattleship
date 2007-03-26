@@ -44,6 +44,7 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 		return true;
 	else 
 		return false;
+	hit_history[xcoor][ycoor]=1;
 }
 
 
