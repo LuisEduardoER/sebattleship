@@ -4,6 +4,8 @@ import java.io.*;
 public class Player {
 	
 	public String name;
+	private long IP_address;
+	public boolean connected;
 	public boolean isTurn;
 	private boolean victory;
 	private My_Board myBoard = new My_Board();
