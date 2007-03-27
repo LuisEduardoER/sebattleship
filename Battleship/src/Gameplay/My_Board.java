@@ -1,5 +1,6 @@
 package Gameplay;
 
+import Gameplay.Board;
 /**
  * 
  */

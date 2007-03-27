@@ -6,15 +6,15 @@ package Gameplay;
  *
  */
 public abstract class Board extends Grid{
-private int [][] hit_history;
+private int [][] hit_history = new int [Grid.max_x][Grid.max_y];
 /**
  
  */
-private Carrier carrier = new Carrier();
-private Battleship battleship = new Battleship();
-private Cruiser cruiser = new Cruiser();
-private Submarine submarine = new Submarine();
-private PatrolBoat patrolboat = new PatrolBoat();
+public Carrier carrier = new Carrier();
+public Battleship battleship = new Battleship();
+public Cruiser cruiser = new Cruiser();
+public Submarine submarine = new Submarine();
+public PatrolBoat patrolboat = new PatrolBoat();
 	
 public Board(){
 	for(int i=0;i<max_x;i++){
@@ -32,6 +32,11 @@ public Board(){
  */
 public boolean hit_or_miss(int xcoor, int ycoor)
 {
+	if(!in_Grid(xcoor, ycoor))
+		return false;
+	
+	hit_history[xcoor][ycoor] = 1;
+	
 	if(battleship.position[xcoor][ycoor]>=1)
 		return true;
 	if(carrier.position[xcoor][ycoor]>=1)
@@ -44,7 +49,6 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 		return true;
 	else 
 		return false;
-	hit_history[xcoor][ycoor]=1;
 }
 
 
@@ -79,7 +83,7 @@ public String check_sunk(){
 	if(patrolboat.sunk_this_turn)
 		return PatrolBoat.name;
 	else
-		return "nothing";
+		return null;
 	
 }
 

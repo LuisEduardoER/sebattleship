@@ -3,52 +3,100 @@
  */
 package menuPack;
 
+import Gameplay.Carrier;
+import Gameplay.Battleship;
+import Gameplay.Cruiser;
+import Gameplay.Submarine;
+import Gameplay.PatrolBoat;
 import Gameplay.Ship;
+import Gameplay.Player;
 
 /**
  * @author Steve
- *
+ * 
  */
 public class CustomBoardMenu extends Menu {
 
-	/* (non-Javadoc)
+	String whichShip;
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see menuPack.Menu#printMenu()
 	 */
-	void PrintMenu() {		
-		//DISPLAY BOARDS!!!!!
-		
-		System.out.println("1) Place Carrier");
-		System.out.println("2) Place Battleship");
-		System.out.println("3) Place Cruiser");
-		System.out.println("4) Place Submarine");
-		System.out.println("5) Place Patrol Boat");
-		System.out.println("6) Quit");
-		System.out.println();
-		System.out.println("\nuser> ");
-		
-		for(getInput(); check(1, 6);)
-			getInput();
-		System.out.println();
-	}
-	
-	private void placeShipMenu(Ship thisShip) {
-		boolean placed = false;
-		while(!placed)
-		{
-		System.out.println("Please enter the start coordinate:");
-		System.out.println("user> ");
-		getInput();
-		String coordinate = choice;
-		System.out.println();
-		
-		System.out.println("Please enter the direction");
-		System.out.println("1) Up   2) Right   3) Down   4) Left");
-		System.out.println("user> ");
-		getInput();
-		String direction = choice;
-		System.out.println();
-		
-		placed = placeShip(thisShip, coordinate, direction);
+	void PrintMenu() {
+		// DISPLAY BOARDS!!!!!
+		while (!Player.myBoard.carrier.placed
+				&& !Player.myBoard.battleship.placed
+				&& !Player.myBoard.cruiser.placed
+				&& !Player.myBoard.submarine.placed
+				&& !Player.myBoard.patrolboat.placed) {
+			System.out.println("1) Place Carrier");
+			System.out.println("2) Place Battleship");
+			System.out.println("3) Place Cruiser");
+			System.out.println("4) Place Submarine");
+			System.out.println("5) Place Patrol Boat");
+			System.out.println("6) Quit");
+			System.out.println();
+			System.out.println("\nuser> ");
+
+			for (getInput(); check(1, 6);)
+				getInput();
+			whichShip = choice;
+			Ship temp = new Ship();
+			String coordinate = new String();
+			String direction = new String();
+
+			boolean placed = false;
+			while (!placed) {
+				System.out.println("Please enter the start coordinate:");
+				System.out.println("user> ");
+				getInput();
+				coordinate = choice;
+				System.out.println();
+
+				System.out.println("Please enter the direction");
+				System.out.println("1) Up   2) Right   3) Down   4) Left");
+				System.out.println("user> ");
+				getInput();
+				direction = choice;
+				System.out.println();
+
+				temp = new Ship();
+				switch (Integer.parseInt(whichShip)) {
+				case 1:
+					temp = new Carrier();
+					break;
+				case 2:
+					temp = new Battleship();
+					break;
+				case 3:
+					temp = new Cruiser();
+					break;
+				case 4:
+					temp = new Submarine();
+					break;
+				case 5:
+					temp = new PatrolBoat();
+					break;
+				}
+
+				placed = validateShipPlacement(temp, coordinate, direction);
+
+				if (placed) {
+					System.out.println("Success");
+				} else {
+					System.out
+							.println("Invalid coordinate, please enter another");
+				}
+			}
+
+			placeShip(temp, coordinate, direction);
 		}
 	}
+
+	// private boolean placeShipMenu(Ship temp, String coordinate, String
+	// direction) {
+
+	//}
 }
