@@ -35,7 +35,14 @@ public class ThreadedReceiver extends Thread {
 			while(true){
 		    	try {
 		    			// Wait for a message to arrive
-					while( (data=server.in.readUTF()) == null );
+					while( (data=server.in.readUTF()) == null ){
+						try {
+							this.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					
 						// Switch the message type
 					switch(data.charAt(0)){			
@@ -73,7 +80,14 @@ public class ThreadedReceiver extends Thread {
 		else if(client != null){
 			while(true){
 		    	try {
-					while( (data=client.in.readUTF()) == null );
+					while( (data=client.in.readUTF()) == null ){
+						try {
+							this.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					
 					// Switch the message type
 					switch(data.charAt(0)){			
