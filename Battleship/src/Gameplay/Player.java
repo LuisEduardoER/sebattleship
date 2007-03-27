@@ -1,4 +1,4 @@
-/*
+
 package Gameplay;
 
 import java.io.*;
@@ -9,7 +9,7 @@ public class Player {
 	public boolean connected;
 	public boolean isTurn;
 	private boolean victory;
-	private My_Board myBoard = new My_Board();
+	public static My_Board myBoard = new My_Board();
 	private Opponent_Board hisBoard = new Opponent_Board();
 	protected int xcoor;
 	protected int ycoor;
@@ -105,4 +105,4 @@ public class Player {
 	}
 
 }
-*/
+
