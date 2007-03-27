@@ -1,4 +1,5 @@
 package Networking;
+
 import java.io.IOException;
 
 /**
@@ -31,7 +32,7 @@ public class ThreadedReceiver extends Thread {
 		String data=null;
 		if(server != null){
 			// NEED TO DO: Figure a way to detect socket disconnections
-			while(server.in != null){
+			while(true){
 		    	try {
 		    			// Wait for a message to arrive
 					while( (data=server.in.readUTF()) == null );
@@ -58,12 +59,19 @@ public class ThreadedReceiver extends Thread {
 							System.out.println(server.GetClientName() + ": " + data.substring(1));	
 					}
 		        } catch (IOException e) {
-					System.out.println( "IO: "+e.getMessage() );
+		        	System.out.println( "Server Disconnection Detected... Press any key to continue.");
+		
+		        	try {
+						client.in.read();
+					} catch (IOException e1) {
+					}
+		        	return;
+			//		System.out.println( "IO: "+e.getMessage() );
 		        }
 			}
 		}
 		else if(client != null){
-			while(client.in != null){
+			while(true){
 		    	try {
 					while( (data=client.in.readUTF()) == null );
 					
@@ -89,7 +97,14 @@ public class ThreadedReceiver extends Thread {
 							System.out.println(client.GetServerName() + ": " + data.substring(1));
 					}
 		        } catch (IOException e) {
-					System.out.println( "IO: "+e.getMessage() );
+		        	System.out.println( "Server Disconnection Detected... Press any key to continue.");
+		
+		        	try {
+						client.in.read();
+					} catch (IOException e1) {
+					}
+		        	return;
+			//		System.out.println( "IO: "+e.getMessage() );
 		        }
 			}
 		}

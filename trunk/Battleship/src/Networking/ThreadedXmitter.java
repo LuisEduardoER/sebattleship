@@ -1,4 +1,5 @@
 package Networking;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -41,7 +42,8 @@ public class ThreadedXmitter extends Thread {
 					System.out.println(server.GetServerName() + ": " + data);
 				}
 	        } catch (IOException e) {
-				System.out.println( "IO: "+e.getMessage() );
+	        	return;
+	//			System.out.println( "IO: "+e.getMessage() );
 	        }				
 		}
 		else if(client != null){
@@ -53,7 +55,8 @@ public class ThreadedXmitter extends Thread {
 					System.out.println(client.GetClientName() + ": " + data);
 				}
 	        } catch (IOException e) {
-				System.out.println( "IO: "+e.getMessage() );
+	        	return;
+		//		System.out.println( "IO: "+e.getMessage() );
 	        }
 		}
 	}
