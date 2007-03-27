@@ -6,5 +6,6 @@ public class Carrier extends Ship{
 	public Carrier(){
 		super();
 		size=5;
+		placed = false;
 	}
 }

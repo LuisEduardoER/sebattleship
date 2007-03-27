@@ -5,6 +5,7 @@ public class Battleship extends Ship{
 	public Battleship(){
 		super();
 		size=4;
+		placed = false;
 	}
 }
 

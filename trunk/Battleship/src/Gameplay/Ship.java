@@ -8,11 +8,14 @@ package Gameplay;
  * Describes the abstract ship class.  The five different ship classes inherit this class.
  */
 public class Ship {
-protected static int size;
+
+protected String name;
+protected int size;
+public boolean placed;
 protected boolean sunk;
 private int count_hits;
-protected int [][] position;
-protected int [][] position_hit;
+protected int [][] position = new int [Grid.max_x][Grid.max_y];
+protected int [][] position_hit = new int [Grid.max_x][Grid.max_y];
 protected boolean sunk_this_turn;
 
 public Ship(){
@@ -58,5 +61,16 @@ protected void update_sunk(){
  */
 public void set_position(int xcoor, int ycoor){
 	position[xcoor][ycoor]=1;
+}
+
+public boolean get_position(int xcoor, int ycoor){
+	if(position[xcoor][ycoor] == 1)
+		return true;
+	else
+		return false;
+}
+
+public int getSize() {
+	return size;
 }
 }
