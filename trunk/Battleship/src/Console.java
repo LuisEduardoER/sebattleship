@@ -57,10 +57,12 @@ for example to produce menus or text-based graphics.
 */
 public class Console {
 
-	public static final int ROWS = 23;
+	public static final int ROWS = 24; // -1 for the prompt placement at the bottom
 	public static final int COLS = 80;
+	public static final int CHATSIZE = 8;
 
 	private static char[][] screen;
+	private static char[][] blankscreen;
 	private static int cursorRow = 0;
 	private static int cursorCol = 0;
 
@@ -71,6 +73,7 @@ of text (ASCII characters).  The screen is initially cleared.
 	public Console ()
 	{
 		screen = new char[ROWS][COLS];
+		blankscreen = new char[ROWS][COLS];
 		initScreen();
 	}
 
@@ -88,7 +91,7 @@ See also: gotoXY
 	{
 		for (int row=0; row<ROWS; row++)
 			for (int col=0; col<COLS; col++)
-				screen[row][col] = ' ';
+				blankscreen[row][col] = screen[row][col] = ' ';
 		cursorRow = 0;
 		cursorCol = 0;
 	}
@@ -129,6 +132,11 @@ the monitor.
 		for (int i=0;i<25;i++) System.out.println();
 	}
 
+	
+	public void printClean(){
+		for(int i=0; i<25; i++)
+			System.out.println();
+	}
 /**
 Allows the placement of a single ASCII (ANSI) character at any screen location
 desired. The character will not show up on the monitor until the next
@@ -192,6 +200,27 @@ method to set the cursor, or use the putStringAt() method.
 		putStringAt(s,cursorRow, cursorCol);
 	}
 
+	
+	public void scroll(String s){
+		int x,y;
+		String temp;
+		// run x from ROWS-CHATSIZE+1 to ROWS-1
+		//  eg, 21 to 23
+		for(x=ROWS-CHATSIZE+1; x<ROWS; x++){
+			// run y from 0 to COLS-1
+			for(y=0; y<COLS; y++){
+	//			System.out.print(screen[x][y]);
+				this.putCharAt(screen[x][y], x-1,y);
+				this.putCharAt(' ', x, y);
+			}
+	//		temp = screen[ROWS-x+1].toString();
+	//		putStringAt(temp,ROWS-x,0);
+		}
+		this.putStringAt(s,ROWS-1,0);
+		
+	}
+	
+	
 /**
 Sets the screen cursor to locations indicated by <i>x</i> and <i>y</i> parameters.
 The <i>x</i> parameter is the column number; the <i>y</i> parameter is the
@@ -296,16 +325,22 @@ user of the error and waits for a number to be entered.
 	   Console c = new Console();
 
 	   c.clearScreen();
-	   c.gotoXY(20, 6);
-	   c.putString("Hello world");
+//	   c.gotoXY(20, 6);
+//	   c.putString("Hello world");
+//	   c.printScreen();
+//	   String a = c.readLine("Press enter: ");
+//	   c.clearScreen();
+	   c.putStringAt("Welcome to ...",1,0);
+	   c.putStringAt("  SCROLLING TEXTINATOR!!  ",2,0);
+	   c.putStringAt("Type text and watch it scroll up to: ".concat("7").concat(" lines."),4,0);
 	   c.printScreen();
-	   String a = c.readLine("Press enter: ");
 	   //c.initScreen();
 	   //c.printScreen();
-	   c.clearScreen();
-	   String ans = c.readLine("Enter data here: ");
-	   c.putStringAt(ans, 7, 20);
-	   c.printScreen();
-	   ans = c.readLine("A second input line: ");
+	   while(true){
+		   c.printScreen();   
+		   String ans = c.readLine("Text: ");
+		   c.scroll(ans);		   
+	   }
+
    }
 }
