@@ -26,8 +26,8 @@ public class My_Board extends Board{
 	 * 
 	 */
 	public String Display(int line_index){
+		if(line_index>0 && line_index<11){
 		dynamic_line= new StringBuffer(display_line[line_index]);
-		
 		for(int i=0;i<max_x;i++){     
 			if(battleship.position[i][line_index-1]>0){
 				dynamic_line.deleteCharAt(2+3*i);
@@ -59,21 +59,22 @@ public class My_Board extends Board{
 			}
 		}
 		display_line[line_index] = dynamic_line.toString();  //save the modified string
-		
+		}
 		//return the string
 		switch(line_index) {
-		case 0: return display_line[0];  break;
-		case 1: return display_line[1];  break;
-		case 2: return display_line[2];  break;
-		case 3: return display_line[3];  break;
-		case 4: return display_line[4];  break;
-		case 5: return display_line[5];  break;
-		case 6: return display_line[6];  break;
-		case 7: return display_line[7];  break;
-		case 8: return display_line[8];  break;
-		case 9: return display_line[9];  break;
-		case 10: return display_line[10];  break;
-		case 11: return display_line[11]; break;
+		case 0: return display_line[0];  
+		case 1: return display_line[1];  
+		case 2: return display_line[2];  
+		case 3: return display_line[3];  
+		case 4: return display_line[4];  
+		case 5: return display_line[5]; 
+		case 6: return display_line[6];  
+		case 7: return display_line[7];  
+		case 8: return display_line[8];  
+		case 9: return display_line[9];  
+		case 10: return display_line[10];  
+		case 11: return display_line[11]; 
+		default: return "";
 				
 		}
 	
