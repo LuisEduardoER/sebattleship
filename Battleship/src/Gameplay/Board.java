@@ -6,8 +6,8 @@ package Gameplay;
  *
  */
 public abstract class Board extends Grid{
-private int [][] hit_history = new int [Grid.max_x][Grid.max_y];
-protected String [] display_line;
+protected int [][] hit_history = new int [Grid.max_x][Grid.max_y];
+protected String [] display_line = new String [12];
 /**
  
  */
@@ -113,5 +113,5 @@ public boolean check_all_sunk(){
 /*
  * Must be defined by subclasses.  Displays the board.
  */
-abstract void Display();
+//abstract String Display();
 }

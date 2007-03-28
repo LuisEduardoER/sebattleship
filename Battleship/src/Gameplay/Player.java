@@ -15,6 +15,19 @@ public class Player {
 	protected int xcoor;
 	protected int ycoor;
 	
+	public Player(){
+		name="unknown";
+		xcoor=0;
+		ycoor=0;
+		attack_coord="";
+		isTurn=false;
+		connected=false;
+	}
+	
+	/* Gets the input.  Doesn't handle the IOException.
+	 *   
+	 *    tested.  Seemed to work.
+	 */
 	public String Get_Input()throws IOException{
 		String input="";
 		InputStreamReader converter = new InputStreamReader(System.in);
@@ -28,10 +41,18 @@ public class Player {
 	public void My_Turn() {
 		
 			System.out.println("Enter the position you want to Attack (i.e. A2");
+			try{
 			attack_coord=Get_Input();
+			}catch(IOException ioe){
+				attack_coord="INVALID COMMAND";
+			}
 		while(!Validate_Input(attack_coord)){
 			System.out.println("Enter the position you want to Attack (i.e. A2");
-			attack_coord=Get_Input();
+			try{
+				attack_coord=Get_Input();
+				}catch(IOException ioe){
+					attack_coord="INVALID COMMAND";
+				}
 		}
 		
 		//SEND ATTACK_COORD TO OPPONENT HERE
@@ -76,6 +97,16 @@ public class Player {
 		
 	}
 	
+	/*
+	 * Returns true if the coordinate entered is a legal move.  
+	 * 
+	 * For the coordinate to be a legal move it must be:
+	 * 1. in the grid
+	 * 2. be in the correct format
+	 * 3. not have already been attacked
+	 * 
+	 * tested.  Seems to work.
+	 */
 	public boolean Validate_Input(String attack_coord){
 		attack_coord=attack_coord.trim();   //deletes any unecessary whitespace
 		if(attack_coord.length()>2)    //format incorrect
@@ -83,8 +114,8 @@ public class Player {
 		attack_coord.toUpperCase();    //normalize any case differences
 		
 		// Convert the string inputs into integers
-		String x_as_string=attack_coord.substring(0, 0);
-		String y_as_string=attack_coord.substring(1,1);
+		String x_as_string = attack_coord.substring(1);
+		String y_as_string = attack_coord.substring(0,1);
 		
 		try{
 			xcoor=Integer.parseInt(x_as_string);
@@ -107,11 +138,17 @@ public class Player {
 		if(hisBoard.already_attacked(xcoor,ycoor))
 			return false;
 		
-		
+		return true;
 	}
 	
+	/*
+	 * Displays the opponent board and the myboard.
+	 * uses the myboard and opponentboard methods to display line-by-line.  
+	 * 
+	 * tested. works fine.
+	 */
 	public void Display_Boards(){
-		for(int i=0; i<11; i++){
+		for(int i=0; i<12; i++){
 			System.out.println(myBoard.Display(i)+"       "+hisBoard.Display(i));
 		}
 	}
