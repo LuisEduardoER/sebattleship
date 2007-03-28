@@ -57,7 +57,9 @@ public class Player {
 	public void His_Turn(){
 		//WAIT FOR OPPONENT TO SEND ATTACK_COORD
 		Validate_Input(attack_coord);   //will get xcoor and ycoor
-		myBoard.hit_history[xcoor][ycoor]=1;
+		
+		myBoard.hit_history[xcoor][ycoor]=1;  //update hit_history
+		
 		if(myBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
 		else
@@ -107,6 +109,11 @@ public class Player {
 		
 		
 	}
-
+	
+	public void Display_Boards(){
+		for(int i=0; i<11; i++){
+			System.out.println(myBoard.Display(i)+"       "+hisBoard.Display(i));
+		}
+	}
 }
 
