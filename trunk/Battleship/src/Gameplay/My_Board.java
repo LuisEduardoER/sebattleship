@@ -1,9 +1,7 @@
 package Gameplay;
 
 import Gameplay.Board;
-/**
- * 
- */
+
 
 /**
  * @author Nathan

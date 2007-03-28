@@ -1,11 +1,17 @@
 
 package Gameplay;
-
+import Networking.*;
 import java.io.*;
+/**
+ * @author Nathan & Quinn
+ *
+ */
 public class Player {
 	
 	public String name;
-	private long IP_address;
+	//needs to be initialized in setup menus
+	private long IP_address; 
+	//needs to be initialized in setup menus
 	public boolean connected;
 	public boolean isTurn;
 	private boolean victory;
@@ -15,6 +21,9 @@ public class Player {
 	protected int xcoor;
 	protected int ycoor;
 	
+	/**
+	 * Player class constructor
+	 */
 	public Player(){
 		name="unknown";
 		xcoor=0;
@@ -24,7 +33,8 @@ public class Player {
 		connected=false;
 	}
 	
-	/* Gets the input.  Doesn't handle the IOException.
+	/**
+	 *  Gets the input.  Doesn't handle the IOException.
 	 *   
 	 *    tested.  Seemed to work.
 	 */
@@ -38,6 +48,11 @@ public class Player {
 		return input;
 	}
 	
+	/**
+	 * My_Turn is the code that is ran when the 
+	 * game is in play and then calls His_Turn to 
+	 * continue the game play.
+	 */
 	public void My_Turn() {
 		
 			System.out.println("Enter the position you want to Attack (i.e. A2");
@@ -55,9 +70,25 @@ public class Player {
 				}
 		}
 		
-		//SEND ATTACK_COORD TO OPPONENT HERE
+		/**
+		 * SEND ATTACK_COORD TO OPPONENT
+		 */
 		
-		hisBoard.hit_history[xcoor][ycoor]=1;   //update hit_history
+		Client snd_message= new Client("192.168.128.4",112);
+		try {
+			/**
+			 * send coordinates with C in front to indicate they are coordinate
+			 */
+			snd_message.Send("C " + attack_coord); 
+		} catch (Exception e) {
+			System.out.println("Error sending coordinates");
+			//need to resovle this somehow.
+		}		
+		
+		/**
+		 * update hit_history
+		 */
+		hisBoard.hit_history[xcoor][ycoor]=1;   
 		
 		if(hisBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
@@ -72,14 +103,43 @@ public class Player {
 				victory=true;
 			}
 		}
-		
-	}
 	
+		/**
+		 * Maybe call His_Turn to continue gameplay here, if victory equals false?
+		 */
+		if(victory==false){
+			His_Turn();
+		}
+		else{
+			//return to menu here, don't know syntax
+		}
+}
+
+	/**
+	 * His_Turn is the code ran for the opponents turn
+	 */
 	public void His_Turn(){
-		//WAIT FOR OPPONENT TO SEND ATTACK_COORD
-		Validate_Input(attack_coord);   //will get xcoor and ycoor
 		
-		myBoard.hit_history[xcoor][ycoor]=1;  //update hit_history
+		/**
+		 * WAIT FOR OPPONENT TO SEND ATTACK_COORD
+		 * create a client object to recieve coordinates
+		 */
+		Client rcv_message = new Client("192.168.128.4"/*will need to be IP_address when finished*/,112);
+		
+		/**
+		 * store message in attack_coord
+		 */
+		attack_coord = rcv_message.Listen();  
+		
+		/**
+		 * will get xcoor and ycoor
+		 */
+		Validate_Input(attack_coord);
+		
+		/**
+		 * update hit_history
+		 */
+		myBoard.hit_history[xcoor][ycoor]=1;  
 		
 		if(myBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
@@ -95,9 +155,18 @@ public class Player {
 			}
 		}
 		
+		/**
+		 * call My_Turn here to continue gameplay, if victory equals false
+		 */
+		if(victory==false){
+			My_Turn();
+		}
+		else{
+			//return to menu here, don't know syntax
+		}
 	}
 	
-	/*
+	/**
 	 * Returns true if the coordinate entered is a legal move.  
 	 * 
 	 * For the coordinate to be a legal move it must be:
@@ -141,7 +210,7 @@ public class Player {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Displays the opponent board and the myboard.
 	 * uses the myboard and opponentboard methods to display line-by-line.  
 	 * 
