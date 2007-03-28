@@ -9,8 +9,9 @@ public class Player {
 	public boolean connected;
 	public boolean isTurn;
 	private boolean victory;
-	public static My_Board myBoard = new My_Board();
+	private My_Board myBoard = new My_Board();
 	private Opponent_Board hisBoard = new Opponent_Board();
+	private String attack_coord;
 	protected int xcoor;
 	protected int ycoor;
 	
@@ -27,13 +28,15 @@ public class Player {
 	public void My_Turn() {
 		
 			System.out.println("Enter the position you want to Attack (i.e. A2");
-			String attack_coord=Get_Input();
+			attack_coord=Get_Input();
 		while(!Validate_Input(attack_coord)){
 			System.out.println("Enter the position you want to Attack (i.e. A2");
 			attack_coord=Get_Input();
 		}
 		
 		//SEND ATTACK_COORD TO OPPONENT HERE
+		
+		hisBoard.hit_history[xcoor][ycoor]=1;   //update hit_history
 		
 		if(hisBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
@@ -54,6 +57,7 @@ public class Player {
 	public void His_Turn(){
 		//WAIT FOR OPPONENT TO SEND ATTACK_COORD
 		Validate_Input(attack_coord);   //will get xcoor and ycoor
+		myBoard.hit_history[xcoor][ycoor]=1;
 		if(myBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
 		else
