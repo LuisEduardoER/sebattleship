@@ -7,6 +7,7 @@ package Gameplay;
  */
 public abstract class Board extends Grid{
 private int [][] hit_history = new int [Grid.max_x][Grid.max_y];
+protected String [] display_line;
 /**
  
  */
@@ -22,6 +23,17 @@ public Board(){
 			hit_history[i][k]=0;
 		}
 	}
+	display_line[0]= " |1 |2 |3 |4 |5 |6 |7 |8 |9 |10|";
+	display_line[1]= "A|  |  |  |  |  |  |  |  |  |  |";
+	display_line[2]= "B|  |  |  |  |  |  |  |  |  |  |";
+	display_line[3]= "C|  |  |  |  |  |  |  |  |  |  |";
+	display_line[4]= "D|  |  |  |  |  |  |  |  |  |  |";
+	display_line[5]= "E|  |  |  |  |  |  |  |  |  |  |";
+	display_line[6]= "F|  |  |  |  |  |  |  |  |  |  |";
+	display_line[7]= "G|  |  |  |  |  |  |  |  |  |  |";
+	display_line[8]= "H|  |  |  |  |  |  |  |  |  |  |";
+	display_line[9]= "I|  |  |  |  |  |  |  |  |  |  |";
+	display_line[10]="J|  |  |  |  |  |  |  |  |  |  |";
 }
 /**
  *  returns true if coordinates input match the coordinates of any ships. */
@@ -34,8 +46,6 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 {
 	if(!in_Grid(xcoor, ycoor))
 		return false;
-	
-	hit_history[xcoor][ycoor] = 1;
 	
 	if(battleship.position[xcoor][ycoor]>=1)
 		return true;
