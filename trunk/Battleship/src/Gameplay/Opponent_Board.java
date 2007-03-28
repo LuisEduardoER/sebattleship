@@ -14,18 +14,8 @@ public class Opponent_Board extends Board{
 	 */
 	public Opponent_Board() {
 		super();
-		display_line[0]= " |1 |2 |3 |4 |5 |6 |7 |8 |9 |10|";
-		display_line[1]= "A|  |  |  |  |  |  |  |  |  |  |";
-		display_line[2]= "B|  |  |  |  |  |  |  |  |  |  |";
-		display_line[3]= "C|  |  |  |  |  |  |  |  |  |  |";
-		display_line[4]= "D|  |  |  |  |  |  |  |  |  |  |";
-		display_line[5]= "E|  |  |  |  |  |  |  |  |  |  |";
-		display_line[6]= "F|  |  |  |  |  |  |  |  |  |  |";
-		display_line[7]= "G|  |  |  |  |  |  |  |  |  |  |";
-		display_line[8]= "H|  |  |  |  |  |  |  |  |  |  |";
-		display_line[9]= "I|  |  |  |  |  |  |  |  |  |  |";
-		display_line[10]="J|  |  |  |  |  |  |  |  |  |  |";
-		
+	
+		display_line[11]="       opponent's board         ";
 		
 	}
 	
@@ -39,11 +29,12 @@ public class Opponent_Board extends Board{
 				if(hit_history[i][line_index-1]!=0){
 					dynamic_line.deleteCharAt(2+3*i);
 					dynamic_line.insert(2+3*i, 'O');
+					if(hit_or_miss(i,line_index-1)){
+						dynamic_line.deleteCharAt(2+3*i);
+						dynamic_line.insert(2+3*i, 'X');
+					}
 				}
-				if(hit_or_miss(i,line_index-1)){
-					dynamic_line.deleteCharAt(2+3*i);
-					dynamic_line.insert(2+3*i, 'X');
-				}
+				
 			
 		}
 		display_line[line_index] = dynamic_line.toString();
