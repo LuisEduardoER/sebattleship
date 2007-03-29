@@ -3,13 +3,12 @@
  */
 package menuPack;
 
-import Gameplay.Carrier;
 import Gameplay.Battleship;
+import Gameplay.Carrier;
 import Gameplay.Cruiser;
-import Gameplay.Submarine;
 import Gameplay.PatrolBoat;
 import Gameplay.Ship;
-import Gameplay.Player;
+import Gameplay.Submarine;
 
 /**
  * @author Steve
@@ -26,11 +25,11 @@ public class CustomBoardMenu extends Menu {
 	 */
 	void PrintMenu() {
 		// DISPLAY BOARDS!!!!!
-		while (!Player.myBoard.carrier.placed
-				&& !Player.myBoard.battleship.placed
-				&& !Player.myBoard.cruiser.placed
-				&& !Player.myBoard.submarine.placed
-				&& !Player.myBoard.patrolboat.placed) {
+		while (myBoard.carrier.placed
+				&& myBoard.battleship.placed
+				&& myBoard.cruiser.placed
+				&& myBoard.submarine.placed
+				&& myBoard.patrolboat.placed) {
 			System.out.println("1) Place Carrier");
 			System.out.println("2) Place Battleship");
 			System.out.println("3) Place Cruiser");
