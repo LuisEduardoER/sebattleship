@@ -20,8 +20,8 @@ protected boolean sunk_this_turn;
 
 public Ship(){
 	sunk=false;
-	for(int i=0;i<=Grid.max_x; i++){
-		for(int j=0; j<=Grid.max_y; j++){
+	for(int i=0;i<Grid.max_x; i++){
+		for(int j=0; j<Grid.max_y; j++){
 			position[i][j]=0;
 			position_hit[i][j]=0;
 		}

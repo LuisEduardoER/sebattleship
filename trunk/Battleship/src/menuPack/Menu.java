@@ -25,9 +25,9 @@ public abstract class Menu {
 	abstract void PrintMenu();
 
 	boolean check(int min, int max) {
-		if (Integer.parseInt(choice.substring(1, 1)) < min)
+		if (Integer.parseInt(choice.substring(0, 1)) < min)
 			return false;
-		if (Integer.parseInt(choice.substring(1, 1)) > max)
+		if (Integer.parseInt(choice.substring(0, 1)) > max)
 			return false;
 		return true;
 	}
@@ -61,8 +61,11 @@ public abstract class Menu {
 		// readLine() method
 		try {
 			choice = br.readLine();
-			for (; check(min, max);)
-				choice = br.readLine();
+			for (; !check(min, max);){
+				System.out.println("Not a Valid Choice");
+				choice = br.readLine();			
+			}
+
 			return true;
 		} catch (IOException ioe) {
 			System.out.println("Invalid Command");
