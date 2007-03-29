@@ -16,8 +16,9 @@ import Gameplay.Submarine;
  */
 public class CustomBoardMenu extends Menu {
 
-	String whichShip;
-
+	int whichShip;
+	String coord;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,15 +44,13 @@ public class CustomBoardMenu extends Menu {
 				getInput();
 			whichShip = choice;
 			Ship temp = new Ship();
-			String coordinate = new String();
-			String direction = new String();
+			int direction=0;
 
 			boolean placed = false;
 			while (!placed) {
 				System.out.println("Please enter the start coordinate:");
 				System.out.println("user> ");
-				getInput();
-				coordinate = choice;
+				GetCoord();
 				System.out.println();
 
 				System.out.println("Please enter the direction");
@@ -62,7 +61,7 @@ public class CustomBoardMenu extends Menu {
 				System.out.println();
 
 				temp = new Ship();
-				switch (Integer.parseInt(whichShip)) {
+				switch (whichShip) {
 				case 1:
 					temp = new Carrier();
 					break;
@@ -80,7 +79,7 @@ public class CustomBoardMenu extends Menu {
 					break;
 				}
 
-				placed = validateShipPlacement(temp, coordinate, direction);
+				placed = validateShipPlacement(temp, coord, direction);
 
 				if (placed) {
 					System.out.println("Success");
@@ -90,10 +89,16 @@ public class CustomBoardMenu extends Menu {
 				}
 			}
 
-			placeShip(temp, coordinate, direction);
+			placeShip(temp, coord, direction);
 		}
 	}
 
+	
+	public void GetCoord(){
+		
+	}
+	
+	
 	// private boolean placeShipMenu(Ship temp, String coordinate, String
 	// direction) {
 

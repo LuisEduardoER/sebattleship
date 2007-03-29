@@ -36,6 +36,7 @@ public class BattleshipServer extends Server{
 		super(port);
 		serverName=name;
 			// Wait for a connection
+		System.out.println("Waiting for a connection...");
 		super.Connect();
 			// Send server name and block to receive client name
 		try {

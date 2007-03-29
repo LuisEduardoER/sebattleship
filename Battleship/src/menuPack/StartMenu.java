@@ -16,11 +16,12 @@ public class StartMenu extends Menu {
 	}
 	
 
-	public void Input(){
+	public int Input(){
 		// block until the user gives appropriate input
 		for (getInput(); !check(1, 3);) {
 			getInput();
 		}
+		return choice;
 	}
 
 	//I'm assuming i then need to know how to return choice to some other
