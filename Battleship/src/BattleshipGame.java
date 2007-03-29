@@ -4,6 +4,7 @@ import java.io.*;
 import Networking.*;
 
 
+
 /**
  * @author Josh
  *
@@ -21,7 +22,9 @@ public class BattleshipGame{
 /* Temporary Driver for Josh's Stuff 
  * -- DELETE ME
  */
+
 		
+/*
 		BattleshipServer server = null;
 		BattleshipClient client = null;
 		
@@ -65,7 +68,9 @@ public class BattleshipGame{
 		
 	//	server.Host();
 	//	client.Join();
+	
 		
+*/
 		
 /*
  * End Temporary Driver
