@@ -1,6 +1,7 @@
 
 
 import java.io.*;
+
 import Networking.*;
 import Gameplay.*;
 import menuPack.*;
@@ -13,17 +14,72 @@ import menuPack.*;
  */
 public class BattleshipGame{
 
+	private static BattleshipServer server;
+	private static BattleshipClient client;
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
-		
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		StartMenu start_menu = new StartMenu();
 		
+		
 		start_menu.PrintMenu();
-		start_menu.Input();
+		int choice = start_menu.Input();
+		String name=null;
+		String server_ip=null;	
+		int server_port=7777;
+		
+		switch(choice){
+		case 1:
+			System.out.println("Enter your name: ");
+			try {
+				name = stdin.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Enter the server port: ");
+			try {
+				server_port = Integer.parseInt(stdin.readLine());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			server = new BattleshipServer(server_port, name);
+			break;
+		case 2:
+			System.out.println("Enter your name: ");
+			try {
+				name = stdin.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Enter the server IP: ");
+			try {
+				server_ip = stdin.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			System.out.println("Enter the server port: ");
+			try {
+				server_port = Integer.parseInt(stdin.readLine());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			client = new BattleshipClient(server_ip, server_port, name);
+			break;
+		case 3:
+			
+			break;
+		}
+		
 		
 		
 /* Temporary Driver for Josh's Stuff 

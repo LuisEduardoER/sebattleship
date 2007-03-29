@@ -21,6 +21,7 @@ public class RandomBoardMenu extends Menu {
 	static int whichInput = 0;
 
 	String whichShip;
+	String coordinate;
 
 	/*
 	 * (non-Javadoc)
@@ -40,8 +41,7 @@ public class RandomBoardMenu extends Menu {
 
 			whichShip = String.valueOf(whichInput);
 			Ship temp = new Ship();
-			String coordinate = new String();
-			String direction = new String();
+			int direction=0;
 
 			boolean placed = false;
 			while (!placed) {
@@ -49,7 +49,7 @@ public class RandomBoardMenu extends Menu {
 				coordinate = indexToLetter(randomIndex);
 				coordinate += String.valueOf(generator.nextInt());
 
-				direction = String.valueOf(generator.nextInt(4) + 1);
+				direction = generator.nextInt(4) + 1;
 
 				temp = new Ship();
 				switch (Integer.parseInt(whichShip)) {

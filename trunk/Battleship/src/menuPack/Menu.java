@@ -20,14 +20,14 @@ public abstract class Menu {
 
 	protected My_Board myBoard = new My_Board();
 	
-	protected String choice;
+	protected int choice;
 
 	abstract void PrintMenu();
 
 	boolean check(int min, int max) {
-		if (Integer.parseInt(choice.substring(0, 1)) < min)
+		if (choice < min)
 			return false;
-		if (Integer.parseInt(choice.substring(0, 1)) > max)
+		if (choice > max)
 			return false;
 		return true;
 	}
@@ -36,13 +36,13 @@ public abstract class Menu {
 	protected boolean getInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		choice = null;
+		choice = 0;
 
 		// read the username from the command-line; need to use try/catch with
 		// the
 		// readLine() method
 		try {
-			choice = br.readLine();
+			choice = Integer.parseInt(br.readLine());
 			return true;
 		} catch (IOException ioe) {
 			System.out.println("Invalid Command");
@@ -54,16 +54,16 @@ public abstract class Menu {
 	protected boolean getInput(int min, int max) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		choice = null;
+		choice = 0;
 
 		// read the username from the command-line; need to use try/catch with
 		// the
 		// readLine() method
 		try {
-			choice = br.readLine();
+			choice = Integer.parseInt(br.readLine());
 			for (; !check(min, max);){
 				System.out.println("Not a Valid Choice");
-				choice = br.readLine();			
+				choice = Integer.parseInt(br.readLine());			
 			}
 
 			return true;
@@ -138,24 +138,24 @@ public abstract class Menu {
 		return false;
 	}
 
-	public void placeShip(Ship thisShip, String coordinate, String direction){
+	public void placeShip(Ship thisShip, String coordinate, int direction){
 		thisShip.placed = true;
 		int letterCoord = letterToIndex(coordinate.charAt(0));
 		int numberCoord = Integer.parseInt(coordinate.substring(1, 1));
 		
-			if (direction == "1") {
+			if (direction == 1) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
 						thisShip.set_position(letterCoord, numberCoord + i);
 					}
-			} else if (direction == "2") {
+			} else if (direction == 2) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
 					thisShip.set_position(letterCoord + i, numberCoord);
 					}
-			} else if (direction == "3") {
+			} else if (direction == 3) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
 					thisShip.set_position(letterCoord, numberCoord - i);
 				}
-			} else if (direction == "4") {
+			} else if (direction == 4) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
 					thisShip.set_position(letterCoord - i, numberCoord);
 				}
@@ -163,7 +163,7 @@ public abstract class Menu {
 		}
 
 	public boolean validateShipPlacement(Ship thisShip, String coordinate,
-			String direction) {
+			int direction) {
 		int letterCoord = letterToIndex(coordinate.charAt(0));
 		int numberCoord = Integer.parseInt(coordinate.substring(1, 1));
 
@@ -171,7 +171,7 @@ public abstract class Menu {
 			return false;
 		else {
 			if (myBoard.in_Grid(letterCoord, numberCoord)) {
-				if (direction == "1") {
+				if (direction == 1) {
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord, numberCoord + i) == false
@@ -179,7 +179,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == "2") {
+				} else if (direction == 2) {
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord + i, numberCoord) == false
@@ -187,7 +187,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == "3") {
+				} else if (direction == 3) {
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord, numberCoord - i) == false
@@ -195,7 +195,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == "4") {
+				} else if (direction == 4) {
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord - i, numberCoord) == false
