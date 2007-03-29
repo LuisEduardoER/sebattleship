@@ -221,5 +221,19 @@ public class Player {
 			System.out.println(myBoard.Display(i)+"       "+hisBoard.Display(i));
 		}
 	}
+
+	/**
+	 * @return the myBoard
+	 */
+	public My_Board getMyBoard() {
+		return myBoard;
+	}
+
+	/**
+	 * @param myBoard the myBoard to set
+	 */
+	public void setMyBoard(My_Board myBoard) {
+		this.myBoard = myBoard;
+	}
 }
 

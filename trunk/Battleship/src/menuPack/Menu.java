@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import Gameplay.Player;
+import Gameplay.Board;
+import Gameplay.My_Board;
 import Gameplay.Ship;
 
 /**
@@ -16,6 +18,8 @@ import Gameplay.Ship;
  */
 public abstract class Menu {
 
+	protected My_Board myBoard = new My_Board();
+	
 	protected String choice;
 
 	abstract void PrintMenu();
@@ -117,15 +121,15 @@ public abstract class Menu {
 	}
 	
 	public boolean isOccupied(int x, int y){
-		if(Player.myBoard.carrier.get_position(x, y))
+		if(myBoard.carrier.get_position(x, y))
 			return true;
-		if(Player.myBoard.battleship.get_position(x, y))
+		if(myBoard.battleship.get_position(x, y))
 			return true;
-		if(Player.myBoard.cruiser.get_position(x, y))
+		if(myBoard.cruiser.get_position(x, y))
 			return true;
-		if(Player.myBoard.submarine.get_position(x, y))
+		if(myBoard.submarine.get_position(x, y))
 			return true;
-		if(Player.myBoard.patrolboat.get_position(x, y))
+		if(myBoard.patrolboat.get_position(x, y))
 			return true;
 		
 		return false;
@@ -163,10 +167,10 @@ public abstract class Menu {
 		if (thisShip.placed = true)
 			return false;
 		else {
-			if (Player.myBoard.in_Grid(letterCoord, numberCoord)) {
+			if (myBoard.in_Grid(letterCoord, numberCoord)) {
 				if (direction == "1") {
 					for (int i = 0; i < thisShip.getSize(); i++) {
-						if (Player.myBoard
+						if (myBoard
 								.in_Grid(letterCoord, numberCoord + i) == false
 								|| isOccupied(letterCoord, numberCoord)) {
 							return false;
@@ -174,7 +178,7 @@ public abstract class Menu {
 					}
 				} else if (direction == "2") {
 					for (int i = 0; i < thisShip.getSize(); i++) {
-						if (Player.myBoard
+						if (myBoard
 								.in_Grid(letterCoord + i, numberCoord) == false
 								|| isOccupied(letterCoord, numberCoord)) {
 							return false;
@@ -182,7 +186,7 @@ public abstract class Menu {
 					}
 				} else if (direction == "3") {
 					for (int i = 0; i < thisShip.getSize(); i++) {
-						if (Player.myBoard
+						if (myBoard
 								.in_Grid(letterCoord, numberCoord - i) == false
 								|| isOccupied(letterCoord, numberCoord)) {
 							return false;
@@ -190,7 +194,7 @@ public abstract class Menu {
 					}
 				} else if (direction == "4") {
 					for (int i = 0; i < thisShip.getSize(); i++) {
-						if (Player.myBoard
+						if (myBoard
 								.in_Grid(letterCoord - i, numberCoord) == false
 								|| isOccupied(letterCoord, numberCoord)) {
 							return false;
@@ -200,5 +204,19 @@ public abstract class Menu {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * @return the myBoard
+	 */
+	public My_Board getMyBoard() {
+		return myBoard;
+	}
+
+	/**
+	 * @param myBoard the myBoard to set
+	 */
+	public void setMyBoard(My_Board myBoard) {
+		this.myBoard = myBoard;
 	}
 }

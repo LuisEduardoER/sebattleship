@@ -22,12 +22,18 @@ public class BoardSetupMenu extends Menu {
 	
 	void PrintMenu() {
 		System.out.println("1) Make your own board");
-		System.out.println("1) Generate a random board");
-		System.out.println("1) Quit");
+		System.out.println("2) Generate a random board");
+		System.out.println("3) Cancel");		
+		System.out.println("4) Quit");
 		System.out.println();
-		System.out.println("user> ");
+		System.out.print("user> ");
 		
-		for(;getInput(););
+		for(getInput();check(1, 4);){
+			System.out.println("Invalid command");
+			System.out.print("user> ");
+			getInput();
+		}
+			
 		System.out.println();
 	}
 	

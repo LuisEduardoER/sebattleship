@@ -19,6 +19,7 @@ import Gameplay.Player;
 public class RandomBoardMenu extends Menu {
 
 	static int whichInput = 0;
+
 	String whichShip;
 
 	/*
@@ -30,15 +31,13 @@ public class RandomBoardMenu extends Menu {
 		// DISPLAY BOARDS!!!!!
 		Random generator = new Random();
 		int randomIndex = generator.nextInt();
-		
-		while (!Player.myBoard.carrier.placed
-				&& !Player.myBoard.battleship.placed
-				&& !Player.myBoard.cruiser.placed
-				&& !Player.myBoard.submarine.placed
-				&& !Player.myBoard.patrolboat.placed) {
-			
+
+		while (!myBoard.carrier.placed && !myBoard.battleship.placed
+				&& !myBoard.cruiser.placed && !myBoard.submarine.placed
+				&& !myBoard.patrolboat.placed) {
+
 			whichInput = generator.nextInt(5) + 1;
-			
+
 			whichShip = String.valueOf(whichInput);
 			Ship temp = new Ship();
 			String coordinate = new String();
@@ -46,10 +45,10 @@ public class RandomBoardMenu extends Menu {
 
 			boolean placed = false;
 			while (!placed) {
-				randomIndex = generator.nextInt( 10 );
+				randomIndex = generator.nextInt(10);
 				coordinate = indexToLetter(randomIndex);
 				coordinate += String.valueOf(generator.nextInt());
-				
+
 				direction = String.valueOf(generator.nextInt(4) + 1);
 
 				temp = new Ship();
