@@ -16,6 +16,7 @@ import Gameplay.Board;
  */
 public class BoardSetupMenu extends Menu {
 
+	
 	/* (non-Javadoc)
 	 * @see menuPack.Menu#printMenu()
 	 */

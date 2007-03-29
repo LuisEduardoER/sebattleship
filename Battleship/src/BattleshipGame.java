@@ -2,6 +2,8 @@
 
 import java.io.*;
 import Networking.*;
+import Gameplay.*;
+import menuPack.*;
 
 
 
@@ -17,6 +19,11 @@ public class BattleshipGame{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
+		
+		StartMenu start_menu = new StartMenu();
+		
+		start_menu.PrintMenu();
+		start_menu.Input();
 		
 		
 /* Temporary Driver for Josh's Stuff 
