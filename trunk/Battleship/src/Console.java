@@ -303,6 +303,7 @@ error and waits for an integer to be entered.
       }
    }
 
+   
 /**
 Reads a double value input on the input row (row 25).  If anything
 other than a double or an integer is entered, the method notifies the
