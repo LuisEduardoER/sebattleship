@@ -141,7 +141,7 @@ public abstract class Menu {
 	public void placeShip(Ship thisShip, String coordinate, int direction){
 		thisShip.placed = true;
 		int letterCoord = letterToIndex(coordinate.charAt(0));
-		int numberCoord = Integer.parseInt(coordinate.substring(1, 1));
+		int numberCoord = Integer.parseInt(coordinate.substring(1));
 		
 			if (direction == 1) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
@@ -165,13 +165,12 @@ public abstract class Menu {
 	public boolean validateShipPlacement(Ship thisShip, String coordinate,
 			int direction) {
 		int letterCoord = letterToIndex(coordinate.charAt(0));
-		int numberCoord = Integer.parseInt(coordinate.substring(1, 1));
-
-		if (thisShip.placed = true)
+		int numberCoord = Integer.parseInt(coordinate.substring(1));
+		if (thisShip.placed == true)
 			return false;
 		else {
 			if (myBoard.in_Grid(letterCoord, numberCoord)) {
-				if (direction == 1) {
+				if (direction == 1) {   //left to right
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord, numberCoord + i) == false
@@ -179,7 +178,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == 2) {
+				} else if (direction == 2) {    //top to bottom
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord + i, numberCoord) == false
@@ -187,7 +186,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == 3) {
+				} else if (direction == 3) {   //right to left
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord, numberCoord - i) == false
@@ -195,7 +194,7 @@ public abstract class Menu {
 							return false;
 						}
 					}
-				} else if (direction == 4) {
+				} else if (direction == 4) {   //bottom to top
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
 								.in_Grid(letterCoord - i, numberCoord) == false

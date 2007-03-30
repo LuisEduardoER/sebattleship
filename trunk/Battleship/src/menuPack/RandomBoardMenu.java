@@ -28,30 +28,32 @@ public class RandomBoardMenu extends Menu {
 	 * 
 	 * @see menuPack.Menu#printMenu()
 	 */
-	void PrintMenu() {
+	 public void PrintMenu() {
 		// DISPLAY BOARDS!!!!!
+		whichInput=0;
+		Ship temp = new Ship();
 		Random generator = new Random();
 		int randomIndex = generator.nextInt();
-
 		while (!myBoard.carrier.placed && !myBoard.battleship.placed
 				&& !myBoard.cruiser.placed && !myBoard.submarine.placed
 				&& !myBoard.patrolboat.placed) {
 
-			whichInput = generator.nextInt(5) + 1;
+			whichInput++;
 
 			whichShip = String.valueOf(whichInput);
-			Ship temp = new Ship();
+			
 			int direction=0;
 
 			boolean placed = false;
 			while (!placed) {
 				randomIndex = generator.nextInt(10);
 				coordinate = indexToLetter(randomIndex);
-				coordinate += String.valueOf(generator.nextInt());
-
+				coordinate += String.valueOf(generator.nextInt(10));
 				direction = generator.nextInt(4) + 1;
-
-				temp = new Ship();
+				
+				
+				
+				
 				switch (Integer.parseInt(whichShip)) {
 				case 1:
 					temp = new Carrier();
@@ -74,13 +76,14 @@ public class RandomBoardMenu extends Menu {
 
 				if (placed) {
 					System.out.println("Success");
+					placeShip(temp, coordinate, direction);
 				} else {
 					System.out
 							.println("Invalid coordinate, please enter another");
 				}
 			}
 
-			placeShip(temp, coordinate, direction);
+			
 		}
 	}
 
