@@ -21,7 +21,7 @@ public class BoardSetupMenu extends Menu {
 	 * @see menuPack.Menu#printMenu()
 	 */
 	
-	void PrintMenu() {
+	public void PrintMenu() {
 		System.out.println("1) Make your own board");
 		System.out.println("2) Generate a random board");
 		System.out.println("3) Cancel");		
