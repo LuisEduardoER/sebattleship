@@ -16,6 +16,7 @@ public class BattleshipGame{
 
 	private static BattleshipServer server;
 	private static BattleshipClient client;
+	private static BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 	
 	/**
 	 * @param args
@@ -23,7 +24,6 @@ public class BattleshipGame{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
-		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		StartMenu start_menu = new StartMenu();
 		
 	START1:{		// All definitions should go before the label,
@@ -34,6 +34,10 @@ public class BattleshipGame{
 						// with a "continue START1;" command.
 						// To exit the for loop (and thus the game)
 						// use the command "break START2;".
+			
+			DisplayTitleScreen();
+			WaitForEnter();
+
 			start_menu.PrintMenu();
 			if(!start_menu.Input(server, client))
 				break START1;
@@ -112,4 +116,21 @@ public class BattleshipGame{
 
 	}
 
+	public static void DisplayTitleScreen(){
+		System.out.println("              Battleship                ");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("         (Title Screen Goes Here)       ");
+	}
+	
+	public static void WaitForEnter(){
+		System.out.println("");
+		System.out.println("Press Enter to Continue... ");
+		try {
+			stdin.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
