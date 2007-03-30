@@ -26,59 +26,29 @@ public class BattleshipGame{
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		StartMenu start_menu = new StartMenu();
 		
+	START1:{		// All definitions should go before the label,
+	START2:			// All function calls and program flow should go in the label
+		for(;true;){	// This loops the actual running of the program.
+						// It is not intended that the program loop forever,
+						// this is simply done in order to allow for a restert
+						// with a "continue START1;" command.
+						// To exit the for loop (and thus the game)
+						// use the command "break START2;".
+			start_menu.PrintMenu();
+			if(!start_menu.Input(server, client))
+				break START1;
+
 		
-		start_menu.PrintMenu();
-		int choice = start_menu.Input();
-		String name=null;
-		String server_ip=null;	
-		int server_port=7777;
 		
-		switch(choice){
-		case 1:
-			System.out.println("Enter your name: ");
-			try {
-				name = stdin.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("Enter the server port: ");
-			try {
-				server_port = Integer.parseInt(stdin.readLine());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			server = new BattleshipServer(server_port, name);
-			break;
-		case 2:
-			System.out.println("Enter your name: ");
-			try {
-				name = stdin.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("Enter the server IP: ");
-			try {
-				server_ip = stdin.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			System.out.println("Enter the server port: ");
-			try {
-				server_port = Integer.parseInt(stdin.readLine());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			client = new BattleshipClient(server_ip, server_port, name);
-			break;
-		case 3:
-			
-			break;
-		}
+		
+		
+		
+		
+		
+		}}// end label START, end for -- Should ALWAYS be tied together
+		 // this should also be the end, if not near the end of the program
+		
+		System.out.println("Goodbye... ");
 		
 		
 		
