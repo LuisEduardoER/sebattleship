@@ -48,8 +48,21 @@ public abstract class Menu {
 			System.out.println("Invalid Command");
 			return false;
 		}
+		catch(NumberFormatException nfe){
+			System.out.println("Input Invalid");
+			return false;
+		}
 	}
-
+	protected String getString()throws IOException{
+			String input="";
+			InputStreamReader converter = new InputStreamReader(System.in);
+			BufferedReader in = new BufferedReader(converter);
+			
+			input = in.readLine();
+			
+			return input;
+		}
+	
 	// open up standard input
 	protected boolean getInput(int min, int max) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -141,64 +154,88 @@ public abstract class Menu {
 	public void placeShip(Ship thisShip, String coordinate, int direction){
 		thisShip.placed = true;
 		int letterCoord = letterToIndex(coordinate.charAt(0));
-		int numberCoord = Integer.parseInt(coordinate.substring(1));
+		int numberCoord = Integer.parseInt(coordinate.substring(1))-1;
+		
 		
 			if (direction == 1) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
-						thisShip.set_position(letterCoord, numberCoord + i);
+						thisShip.set_position(numberCoord+i, letterCoord);
 					}
 			} else if (direction == 2) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
-					thisShip.set_position(letterCoord + i, numberCoord);
+					thisShip.set_position(numberCoord, letterCoord+i);
 					}
 			} else if (direction == 3) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
-					thisShip.set_position(letterCoord, numberCoord - i);
+					thisShip.set_position(numberCoord-i, letterCoord);
 				}
 			} else if (direction == 4) {
 				for (int i = 0; i < thisShip.getSize(); i++) {
-					thisShip.set_position(letterCoord - i, numberCoord);
+					thisShip.set_position(numberCoord, letterCoord - i);
 				}
 			}
+			
+		if(thisShip.name == "Carrier"){
+			myBoard.carrier.placed=thisShip.placed;
+			myBoard.carrier.position=thisShip.position;
+			}
+			
+		else if(thisShip.name == "Battleship"){
+			myBoard.battleship.placed=thisShip.placed;
+			myBoard.battleship.position=thisShip.position;
+		}
+		else if(thisShip.name == "Cruiser"){
+			myBoard.cruiser.placed=thisShip.placed;
+			myBoard.cruiser.position=thisShip.position;
+		}
+		else if(thisShip.name == "Submarine"){
+			myBoard.submarine.placed=thisShip.placed;
+			myBoard.submarine.position=thisShip.position;
+		}
+		else if(thisShip.name == "Patrol Boat"){
+				myBoard.patrolboat.placed=thisShip.placed;
+				myBoard.patrolboat.position=thisShip.position;
+		}
+			
 		}
 
 	public boolean validateShipPlacement(Ship thisShip, String coordinate,
 			int direction) {
 		int letterCoord = letterToIndex(coordinate.charAt(0));
-		int numberCoord = Integer.parseInt(coordinate.substring(1));
+		int numberCoord = Integer.parseInt(coordinate.substring(1))-1;
 		if (thisShip.placed == true)
 			return false;
 		else {
-			if (myBoard.in_Grid(letterCoord, numberCoord)) {
+			if (myBoard.in_Grid(numberCoord, letterCoord)) {
 				if (direction == 1) {   //left to right
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
-								.in_Grid(letterCoord, numberCoord + i) == false
-								|| isOccupied(letterCoord, numberCoord)) {
+								.in_Grid(numberCoord+i, letterCoord) == false
+								|| isOccupied(numberCoord+i, letterCoord)) {
 							return false;
 						}
 					}
 				} else if (direction == 2) {    //top to bottom
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
-								.in_Grid(letterCoord + i, numberCoord) == false
-								|| isOccupied(letterCoord, numberCoord)) {
+								.in_Grid(numberCoord, letterCoord+i) == false
+								|| isOccupied(numberCoord, letterCoord+i)) {
 							return false;
 						}
 					}
 				} else if (direction == 3) {   //right to left
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
-								.in_Grid(letterCoord, numberCoord - i) == false
-								|| isOccupied(letterCoord, numberCoord)) {
+								.in_Grid(numberCoord-i, letterCoord ) == false
+								|| isOccupied(numberCoord-i, letterCoord )) {
 							return false;
 						}
 					}
 				} else if (direction == 4) {   //bottom to top
 					for (int i = 0; i < thisShip.getSize(); i++) {
 						if (myBoard
-								.in_Grid(letterCoord - i, numberCoord) == false
-								|| isOccupied(letterCoord, numberCoord)) {
+								.in_Grid(numberCoord, letterCoord-i) == false
+								|| isOccupied(numberCoord, letterCoord-i)) {
 							return false;
 						}
 					}
@@ -222,3 +259,6 @@ public abstract class Menu {
 		this.myBoard = myBoard;
 	}
 }
+
+		
+		
