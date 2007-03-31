@@ -202,7 +202,12 @@ public abstract class Menu {
 	public boolean validateShipPlacement(Ship thisShip, String coordinate,
 			int direction) {
 		int letterCoord = letterToIndex(coordinate.charAt(0));
-		int numberCoord = Integer.parseInt(coordinate.substring(1))-1;
+		int numberCoord;
+		try{
+		numberCoord = Integer.parseInt(coordinate.substring(1))-1;
+		}catch (NumberFormatException nfe){
+			return false;
+		}
 		if (thisShip.placed == true)
 			return false;
 		else {
