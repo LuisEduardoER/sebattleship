@@ -9,12 +9,12 @@ package Gameplay;
  */
 public class Ship {
 
-protected String name;
+public String name;
 protected int size;
 public boolean placed;
 protected boolean sunk;
 private int count_hits;
-protected int [][] position = new int [Grid.max_x][Grid.max_y];
+public int [][] position = new int [Grid.max_x][Grid.max_y];
 protected int [][] position_hit = new int [Grid.max_x][Grid.max_y];
 protected boolean sunk_this_turn;
 

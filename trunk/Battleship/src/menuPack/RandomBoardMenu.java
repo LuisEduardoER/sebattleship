@@ -34,9 +34,9 @@ public class RandomBoardMenu extends Menu {
 		Ship temp = new Ship();
 		Random generator = new Random();
 		int randomIndex = generator.nextInt();
-		while (!myBoard.carrier.placed && !myBoard.battleship.placed
-				&& !myBoard.cruiser.placed && !myBoard.submarine.placed
-				&& !myBoard.patrolboat.placed) {
+		while (!myBoard.carrier.placed || !myBoard.battleship.placed
+				|| !myBoard.cruiser.placed || !myBoard.submarine.placed
+				|| !myBoard.patrolboat.placed) {
 
 			whichInput++;
 
@@ -57,26 +57,32 @@ public class RandomBoardMenu extends Menu {
 				switch (Integer.parseInt(whichShip)) {
 				case 1:
 					temp = new Carrier();
+					temp.name="Carrier";
 					break;
 				case 2:
 					temp = new Battleship();
+					temp.name="Battleship";
 					break;
 				case 3:
 					temp = new Cruiser();
+					temp.name="Cruiser";
 					break;
 				case 4:
 					temp = new Submarine();
+					temp.name="Submarine";
 					break;
 				case 5:
 					temp = new PatrolBoat();
+					temp.name="Patrol Boat";
 					break;
-				}
-
+				} 
+				
 				placed = validateShipPlacement(temp, coordinate, direction);
 
 				if (placed) {
 					System.out.println("Success");
 					placeShip(temp, coordinate, direction);
+					
 				} else {
 					System.out
 							.println("Invalid coordinate, please enter another");

@@ -24,6 +24,19 @@ public class My_Board extends Board{
 	 * 
 	 */
 	public String Display(int line_index){
+		
+		display_line[0]= " |1 |2 |3 |4 |5 |6 |7 |8 |9 |10|";
+		display_line[1]= "A|  |  |  |  |  |  |  |  |  |  |";
+		display_line[2]= "B|  |  |  |  |  |  |  |  |  |  |";
+		display_line[3]= "C|  |  |  |  |  |  |  |  |  |  |";
+		display_line[4]= "D|  |  |  |  |  |  |  |  |  |  |";
+		display_line[5]= "E|  |  |  |  |  |  |  |  |  |  |";
+		display_line[6]= "F|  |  |  |  |  |  |  |  |  |  |";
+		display_line[7]= "G|  |  |  |  |  |  |  |  |  |  |";
+		display_line[8]= "H|  |  |  |  |  |  |  |  |  |  |";
+		display_line[9]= "I|  |  |  |  |  |  |  |  |  |  |";
+		display_line[10]="J|  |  |  |  |  |  |  |  |  |  |";
+		
 		if(line_index>0 && line_index<11){
 		dynamic_line= new StringBuffer(display_line[line_index]);
 		for(int i=0;i<max_x;i++){     
@@ -77,5 +90,15 @@ public class My_Board extends Board{
 		}
 	
 		
+			
+		}
+	/**
+	 * Displays the entire board at once.  Uses the Display() method to write line by line
+	 *
+	 */
+	public void Display_Board(){
+		for(int i=0;i<12;i++)
+			System.out.println(Display(i));
 	}
+
 }
