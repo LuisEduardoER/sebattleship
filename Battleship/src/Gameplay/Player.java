@@ -1,7 +1,9 @@
 
 package Gameplay;
+
 import Networking.*;
 import java.io.*;
+
 /**
  * @author Nathan & Quinn
  *
@@ -35,8 +37,7 @@ public class Player {
 	
 	/**
 	 *  Gets the input.  Doesn't handle the IOException.
-	 *   
-	 *    tested.  Seemed to work.
+	 *  
 	 */
 	public String Get_Input()throws IOException{
 		String input="";
@@ -52,8 +53,11 @@ public class Player {
 	 * My_Turn is the code that is ran when the 
 	 * game is in play and then calls His_Turn to 
 	 * continue the game play.
+	 * 
+	 * @return true if the turn was successful, false if there was a problem
+	 * 			sending the coordinates
 	 */
-	public void My_Turn() {
+	public boolean My_Turn(BattleshipServer server, BattleshipClient client) {
 		
 			System.out.println("Enter the position you want to Attack (i.e. A2");
 			try{
@@ -70,22 +74,20 @@ public class Player {
 				}
 		}
 		
-		/**
-		 * SEND ATTACK_COORD TO OPPONENT
-		 */
-		
-		Client snd_message= new Client("192.168.128.4",112);
 		try {
-			/**
+			/*
 			 * send coordinates with C in front to indicate they are coordinate
 			 */
-			snd_message.Send("C " + attack_coord); 
+			if(server!=null)
+				server.Send("C" + attack_coord); 
+			else if(client!=null)
+				client.Send("C" + attack_coord);
 		} catch (Exception e) {
-			System.out.println("Error sending coordinates");
-			//need to resovle this somehow.
+			System.err.println("Error with connection");
+			return false;
 		}		
 		
-		/**
+		/*
 		 * update hit_history
 		 */
 		hisBoard.hit_history[xcoor][ycoor]=1;   
@@ -103,43 +105,22 @@ public class Player {
 				victory=true;
 			}
 		}
-	
-		/**
-		 * Maybe call His_Turn to continue gameplay here, if victory equals false?
-		 */
-		// I think that the driver will handle all of this
-		// This function just needs to handle what to do when its my turn and then return
-		
-//		if(victory==false){
-//			His_Turn();
-//		}
-//		else{
-			//return to menu here, don't know syntax
-//		}
+		return true;
 }
 
-	/**
+	/*
 	 * His_Turn is the code ran for the opponents turn
 	 */
 	public void His_Turn(String opponent_coord){
-		
-		/**
-		 * WAIT FOR OPPONENT TO SEND ATTACK_COORD
-		 * create a client object to recieve coordinates
-		 */
-		
-		/**
-		 * store message in attack_coord
-		 */
-		
-		/**
+
+		/*
 		 * will get xcoor and ycoor
 		 * NOTE:  We don't need to validate, it should be already validate
 		 *        we only need this function to parse the xcoor and ycoor
 		 */
 		Validate_Input(opponent_coord);
 		
-		/**
+		/*
 		 * update hit_history
 		 */
 		myBoard.hit_history[xcoor][ycoor]=1;  
@@ -157,19 +138,6 @@ public class Player {
 				victory=false;
 			}
 		}
-		
-		/**
-		 * call My_Turn here to continue gameplay, if victory equals false
-		 */
-		// I think that the driver will handle all of this
-		// This function just needs to handle what to do when he's finished his turn and then return
-		
-//		if(victory==false){
-//			My_Turn();
-//		}
-//		else{
-			//return to menu here, don't know syntax
-//		}
 	}
 	
 	/**
@@ -180,7 +148,6 @@ public class Player {
 	 * 2. be in the correct format
 	 * 3. not have already been attacked
 	 * 
-	 * tested.  Seems to work.
 	 */
 	public boolean Validate_Input(String attack_coord){
 		attack_coord=attack_coord.trim();   //deletes any unecessary whitespace
@@ -220,7 +187,6 @@ public class Player {
 	 * Displays the opponent board and the myboard.
 	 * uses the myboard and opponentboard methods to display line-by-line.  
 	 * 
-	 * tested. works fine.
 	 */
 	public void Display_Boards(){
 		for(int i=0; i<12; i++){

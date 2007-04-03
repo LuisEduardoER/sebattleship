@@ -23,7 +23,8 @@ public class BattleshipGame{
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	
+
+		
 		StartMenu start_menu = new StartMenu();
 		BoardSetupMenu board_menu = new BoardSetupMenu();
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
