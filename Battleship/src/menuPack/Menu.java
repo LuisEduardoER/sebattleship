@@ -53,6 +53,7 @@ public abstract class Menu {
 			return false;
 		}
 	}
+	
 	protected String getString()throws IOException{
 			String input="";
 			InputStreamReader converter = new InputStreamReader(System.in);

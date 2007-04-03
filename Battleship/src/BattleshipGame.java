@@ -25,23 +25,51 @@ public class BattleshipGame{
 		// TODO Auto-generated method stub
 	
 		StartMenu start_menu = new StartMenu();
+		BoardSetupMenu board_menu = new BoardSetupMenu();
+		CustomBoardMenu custom_menu = new CustomBoardMenu();
+		RandomBoardMenu random_menu = new RandomBoardMenu();
+		Player player = new Player();
 		
+			// One Time Only Stuff Goes HERE...
+		DisplayTitleScreen();
+		WaitForEnter();
+
+		
+			// Stuff to be Repeated Until Exit Goes HERE...
 	START1:{		// All definitions should go before the label,
 	START2:			// All function calls and program flow should go in the label
 		for(;true;){	// This loops the actual running of the program.
 						// It is not intended that the program loop forever,
 						// this is simply done in order to allow for a restert
-						// with a "continue START1;" command.
+						// with a "continue START2;" command.
 						// To exit the for loop (and thus the game)
-						// use the command "break START2;".
+						// use the command "break START1;".
 			
-			DisplayTitleScreen();
-			WaitForEnter();
 
+			// Display the start menu.
+			// Block for input and handle the return
+			//  (all inputs handle themselves except for the quit
+			//   option which MUST? be handled here, in the top module)
 			start_menu.PrintMenu();
 			if(!start_menu.Input(server, client))
 				break START1;
-
+			// else, if start_menu.Input returned true, then connection has been made
+			//  proceed with the setup
+			
+			// Display the board setup menu.
+			// Block for input and handle the return
+			//  (all inputs handle themselves except for the quit
+			//   and cancel options which MUST? be handled here, in the top module)
+			//  If canclee then restart the eternal loop, which restarts at start menu
+			//  If quit, then kick out of the eternal loop
+			board_menu.PrintMenu();
+			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
+			switch (boardMenuHandle){
+			case 0:	break START1;
+			case 1:	continue START2;
+			default:
+			}
+			
 		
 		
 		

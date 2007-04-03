@@ -107,34 +107,37 @@ public class Player {
 		/**
 		 * Maybe call His_Turn to continue gameplay here, if victory equals false?
 		 */
-		if(victory==false){
-			His_Turn();
-		}
-		else{
+		// I think that the driver will handle all of this
+		// This function just needs to handle what to do when its my turn and then return
+		
+//		if(victory==false){
+//			His_Turn();
+//		}
+//		else{
 			//return to menu here, don't know syntax
-		}
+//		}
 }
 
 	/**
 	 * His_Turn is the code ran for the opponents turn
 	 */
-	public void His_Turn(){
+	public void His_Turn(String opponent_coord){
 		
 		/**
 		 * WAIT FOR OPPONENT TO SEND ATTACK_COORD
 		 * create a client object to recieve coordinates
 		 */
-		Client rcv_message = new Client("192.168.128.4"/*will need to be IP_address when finished*/,112);
 		
 		/**
 		 * store message in attack_coord
 		 */
-		attack_coord = rcv_message.Listen();  
 		
 		/**
 		 * will get xcoor and ycoor
+		 * NOTE:  We don't need to validate, it should be already validate
+		 *        we only need this function to parse the xcoor and ycoor
 		 */
-		Validate_Input(attack_coord);
+		Validate_Input(opponent_coord);
 		
 		/**
 		 * update hit_history
@@ -158,12 +161,15 @@ public class Player {
 		/**
 		 * call My_Turn here to continue gameplay, if victory equals false
 		 */
-		if(victory==false){
-			My_Turn();
-		}
-		else{
+		// I think that the driver will handle all of this
+		// This function just needs to handle what to do when he's finished his turn and then return
+		
+//		if(victory==false){
+//			My_Turn();
+//		}
+//		else{
 			//return to menu here, don't know syntax
-		}
+//		}
 	}
 	
 	/**
@@ -222,6 +228,12 @@ public class Player {
 		}
 	}
 
+	
+	public void DisplayMyBoard(){
+		for(int i=0; i<12; i++){
+			System.out.println(myBoard.Display(i));
+		}
+	}
 	/**
 	 * @return the myBoard
 	 */
@@ -232,6 +244,9 @@ public class Player {
 	/**
 	 * @param myBoard the myBoard to set
 	 */
+	// I don't think we'll ever need to set myBoard?
+	// The only board we'll be receiving as a whole board
+	//  will be the opponent board, right?
 	public void setMyBoard(My_Board myBoard) {
 		this.myBoard = myBoard;
 	}
