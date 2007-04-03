@@ -1,6 +1,7 @@
 package Networking;
 
 import java.io.IOException;
+import Gameplay.*;
 
 /**
  * 
@@ -11,19 +12,22 @@ import java.io.IOException;
  *
  */
 public class ThreadedReceiver extends Thread {
+	// These are references to objects in the higher level class
 	private BattleshipServer server = null;
 	private BattleshipClient client = null;
+	public Player player = null;
 	
 	
-	public ThreadedReceiver (BattleshipServer server){
+	public ThreadedReceiver (BattleshipServer server, Player player){
 		this.server = server;
-		
+		this.player = player;
 		this.start();
 		System.out.println("ThreadedReceiver Thread Started...");
 	}
 	
-	public ThreadedReceiver (BattleshipClient client){
+	public ThreadedReceiver (BattleshipClient client, Player player){
 		this.client = client;
+		this.player = player;
 		this.start();
 		System.out.println("ThreadedReceiver Thread Started...");
 	}
@@ -54,7 +58,8 @@ public class ThreadedReceiver extends Thread {
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function
 						// will probably need to save a reference of the 
-						// object tat contains the function
+						// object that contains the function
+						player.His_Turn(data.substring(1));
 						break;					
 					case 'S':		// System Data
 						// figure out what system messages might come and
@@ -99,7 +104,8 @@ public class ThreadedReceiver extends Thread {
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function
 						// will probably need to save a reference of the 
-						// object tat contains the function
+						// object that contains the function
+						player.His_Turn(data.substring(1));
 						break;					
 					case 'S':		// System Data
 						// figure out what system messages might come and
