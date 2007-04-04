@@ -16,6 +16,7 @@ import Gameplay.Player;
 import Gameplay.Ship;
 import Gameplay.Submarine;
 
+import Networking.*;
 
 
 /*
@@ -75,6 +76,8 @@ public class BoardSetupMenu extends Menu {
 				custom_board.PrintMenu();
 				done = custom_board.Input(player);
 			}
+				// When done... send board to opponent
+
 			break;
 		case 2:
 				// Ideally all this should be placed in a function for a function call

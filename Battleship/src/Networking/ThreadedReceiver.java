@@ -54,6 +54,7 @@ public class ThreadedReceiver extends Thread {
 						// call the string to board conversion function
 						// will probably need to save a reference of the
 						// object that contains the function
+						player.StringToOppBoard(data.substring(1));
 						break;						
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function
@@ -100,6 +101,7 @@ public class ThreadedReceiver extends Thread {
 						// call the string to board conversion function
 						// will probably need to save a reference of the
 						// object that contains the function
+						player.StringToOppBoard(data.substring(1));
 						break;						
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function

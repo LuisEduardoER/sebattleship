@@ -74,7 +74,8 @@ public class CustomBoardMenu extends Menu {
 			}
 			
 			int direction=0;
-
+					
+				// Get the ship location information
 			boolean placed = false;
 			while (!placed) {
 				System.out.println("Please enter the start coordinate:");
@@ -102,7 +103,7 @@ public class CustomBoardMenu extends Menu {
 						System.out.println("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
 				}
 			}
-
+				// Place the ship
 			player.placeShip(temp, coord, direction);
 			return false;
 	}

@@ -100,5 +100,10 @@ public class My_Board extends Board{
 		for(int i=0;i<12;i++)
 			System.out.println(Display(i));
 	}
+	
+	
+	public String ToString(){
+		return display_line[0]+display_line[1]+display_line[2]+display_line[3]+display_line[4]+display_line[5]+display_line[6]+display_line[7]+display_line[8]+display_line[9]+display_line[10];
+	}
 
 }
