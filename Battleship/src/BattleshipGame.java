@@ -48,7 +48,7 @@ public class BattleshipGame{
 			 */
 	START1:{		// All definitions should go before the label,
 	START2:			// All function calls and program flow should go in the label
-		for(;true;){	// This loops the actual running of the program.
+		while(true){	// This loops the actual running of the program.
 						// It is not intended that the program loop forever,
 						// this is simply done in order to allow for a restert
 						// with a "continue START2;" command.
