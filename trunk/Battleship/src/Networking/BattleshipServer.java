@@ -47,6 +47,7 @@ public class BattleshipServer extends Server{
 		}
 		while((clientName = this.Listen()) == null);
 		System.out.println("We have Connection!");
+		System.out.println();
 	}
 	
 	

@@ -71,7 +71,7 @@ public class ThreadedReceiver extends Thread {
 							System.out.println(server.GetClientName() + ": " + data.substring(1));	
 					}
 		        } catch (IOException e) {
-		        	System.out.println( "Server Disconnection Detected... Press any key to continue.");
+		        	System.err.println( "Server Disconnection Detected...");
 		
 		        	try {
 						client.in.read();
