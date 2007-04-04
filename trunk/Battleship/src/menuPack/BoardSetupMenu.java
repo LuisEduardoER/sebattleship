@@ -6,8 +6,15 @@ package menuPack;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
+import Gameplay.Battleship;
+import Gameplay.Carrier;
+import Gameplay.Cruiser;
+import Gameplay.PatrolBoat;
 import Gameplay.Player;
+import Gameplay.Ship;
+import Gameplay.Submarine;
 
 
 
@@ -61,11 +68,83 @@ public class BoardSetupMenu extends Menu {
 		// NEED TO DO
 		switch(choice){
 		case 1:
+			boolean done = false;
+			while(!done){
 				// Display the board custom board menu
-			custom_board.PrintMenu();
+				player.DisplayMyBoard();
+				custom_board.PrintMenu();
+				done = custom_board.Input(player);
+			}
 			break;
 		case 2:
+				// Ideally all this should be placed in a function for a function call
+			
+			String whichShip;
+			String coordinate;
+			
 				// Display the random board and the random board menu 
+			// DISPLAY BOARDS!!!!!
+			int whichInput=0;
+			Ship temp = new Ship();
+			Random generator = new Random();
+			int randomIndex = generator.nextInt();
+			while (!player.myBoard.carrier.placed || !player.myBoard.battleship.placed
+					|| !player.myBoard.cruiser.placed || !player.myBoard.submarine.placed
+					|| !player.myBoard.patrolboat.placed) {
+
+				whichInput++;
+
+				whichShip = String.valueOf(whichInput);
+				
+				int direction=0;
+
+				boolean placed = false;
+				while (!placed) {
+					randomIndex = generator.nextInt(10);
+					coordinate = player.indexToLetter(randomIndex);
+					coordinate += String.valueOf(generator.nextInt(10));
+					direction = generator.nextInt(4) + 1;
+					
+					
+					
+					
+					switch (Integer.parseInt(whichShip)) {
+					case 1:
+						temp = new Carrier();
+						temp.name="Carrier";
+						break;
+					case 2:
+						temp = new Battleship();
+						temp.name="Battleship";
+						break;
+					case 3:
+						temp = new Cruiser();
+						temp.name="Cruiser";
+						break;
+					case 4:
+						temp = new Submarine();
+						temp.name="Submarine";
+						break;
+					case 5:
+						temp = new PatrolBoat();
+						temp.name="Patrol Boat";
+						break;
+					} 
+					
+					placed = player.validateShipPlacement(temp, coordinate, direction);
+
+					if (placed) {
+						System.out.println("Success");
+						player.placeShip(temp, coordinate, direction);
+						
+					} else {
+						System.out
+								.println("Invalid coordinate, please enter another");
+					}
+				}
+
+				
+			}
 			break;
 		case 3:
 				// Return to restart from the top

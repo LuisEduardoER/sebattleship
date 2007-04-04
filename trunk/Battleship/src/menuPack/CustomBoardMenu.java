@@ -9,6 +9,7 @@ import Gameplay.Battleship;
 import Gameplay.Carrier;
 import Gameplay.Cruiser;
 import Gameplay.PatrolBoat;
+import Gameplay.Player;
 import Gameplay.Ship;
 import Gameplay.Submarine;
 
@@ -28,25 +29,50 @@ public class CustomBoardMenu extends Menu {
 	 */
 	public void  PrintMenu() {
 		
-		while (!myBoard.carrier.placed
-				|| !myBoard.battleship.placed
-				|| !myBoard.cruiser.placed
-				|| !myBoard.submarine.placed
-				|| !myBoard.patrolboat.placed) {
-			myBoard.Display_Board();
-			System.out.println("1) Place Carrier");
-			System.out.println("2) Place Battleship");
-			System.out.println("3) Place Cruiser");
-			System.out.println("4) Place Submarine");
-			System.out.println("5) Place Patrol Boat");
-			System.out.println("6) Quit");
+			System.out.println("1) Place/Adjust Carrier");
+			System.out.println("2) Place/Adjust Battleship");
+			System.out.println("3) Place/Adjust Cruiser");
+			System.out.println("4) Place/Adjust Submarine");
+			System.out.println("5) Place/Adjust Patrol Boat");
+			System.out.println("6) Done");
 			System.out.println();
 			System.out.println("\nuser> ");
+	}
+	
+	public boolean Input(Player player){
 
-			for (getInput(); !check(1, 6);)
-				getInput();
+			while(!getInput(1,6)){
+				System.out.println("Invalid Input: " + choice);
+				System.out.print("user> ");
+			}
+		
 			whichShip = choice;
 			Ship temp = new Ship();
+			switch (whichShip) {
+			case 1:
+				temp = new Carrier();
+				temp.name="Carrier";
+				break;
+			case 2:
+				temp = new Battleship();
+				temp.name="Battleship";
+				break;
+			case 3:
+				temp = new Cruiser();
+				temp.name="Cruiser";
+				break;
+			case 4:
+				temp = new Submarine();
+				temp.name="Submarine";
+				break;
+			case 5:
+				temp = new PatrolBoat();
+				temp.name="Patrol Boat";
+				break;
+			case 6:
+				return true;
+			}
+			
 			int direction=0;
 
 			boolean placed = false;
@@ -63,45 +89,22 @@ public class CustomBoardMenu extends Menu {
 				direction = choice;
 				System.out.println();
 
-				temp = new Ship();
-				switch (whichShip) {
-				case 1:
-					temp = new Carrier();
-					temp.name="Carrier";
-					break;
-				case 2:
-					temp = new Battleship();
-					temp.name="Battleship";
-					break;
-				case 3:
-					temp = new Cruiser();
-					temp.name="Cruiser";
-					break;
-				case 4:
-					temp = new Submarine();
-					temp.name="Submarine";
-					break;
-				case 5:
-					temp = new PatrolBoat();
-					temp.name="Patrol Boat";
-					break;
-				}
 
-				placed = validateShipPlacement(temp, coord, direction);
+				placed = player.validateShipPlacement(temp, coord, direction);
 
 				if (placed) {
 					System.out.println("Success");
 				} else {
 					System.out
 							.println("Invalid placement");
-					myBoard.Display_Board();
+					player.myBoard.Display_Board();
 					if(coord.length()>2)
 						System.out.println("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
 				}
 			}
 
-			placeShip(temp, coord, direction);
-		}
+			player.placeShip(temp, coord, direction);
+			return false;
 	}
 
 	
