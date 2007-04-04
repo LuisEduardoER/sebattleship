@@ -62,7 +62,21 @@ public class Opponent_Board extends Board{
 		default: return "";
 				
 		}
-	
-		
 	}
+	
+	public void StringToOppBoard(String str){
+		display_line[0] = str.substring(0, 32);
+		display_line[1] = str.substring(32, 64);
+		display_line[2] = str.substring(64, 96);
+		display_line[3] = str.substring(96, 128);
+		display_line[4] = str.substring(128, 160);
+		display_line[5] = str.substring(160, 192);
+		display_line[6] = str.substring(192, 224);
+		display_line[7] = str.substring(224, 256);
+		display_line[8] = str.substring(256, 288);
+		display_line[9] = str.substring(288, 320);
+		display_line[10] = str.substring(320);
+	}
+	
+	
 }

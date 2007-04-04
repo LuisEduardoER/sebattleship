@@ -36,6 +36,8 @@ public class BattleshipGame{
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		Player player = new Player();
 		
+
+		
 			/*
 			 * One Time Only Stuff Goes HERE...
 			 */ 
@@ -91,10 +93,13 @@ public class BattleshipGame{
 				}	
 				try {
 						System.out.println("Your IP: " + InetAddress.getLocalHost().getHostAddress() + " Port: " + server_port);
-					} catch (UnknownHostException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					// set this player as the host
+				player.host=true;
+					// Start the server connection
 				server = new BattleshipServer(server_port, name);
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(server, player);
@@ -121,20 +126,19 @@ public class BattleshipGame{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				player.host=false;
 				client = new BattleshipClient(server_ip, server_port, name);
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(client, player);
 				break;
 			case 3:
-				server = null;
-				client = null;
-				listener = null;
-				talker = null;
 				break START1;
 			}
 
 			// else, if start_menu.Input returned true, then connection has been made
 			//  proceed with the setup
+			
+			
 			
 			// Display the board setup menu.
 			// Block for input and handle the return
@@ -146,8 +150,31 @@ public class BattleshipGame{
 			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuHandle){
 			case 0:	break START1;
-			case 1:	continue START2;
+			case 1:
+					// reset the members
+					// we should make sure not to have multiple listeners
+					// or have both a server and a client (ie. they create a server,
+					// then cancel and decide to join a game instead).
+				server = null;
+				client = null;
+				listener = null;
+				talker = null;
+				continue START2;
 			default:
+				if(server!=null)
+					try {
+						server.Send(player.MyBoardToString());
+					} catch (IOException e) {
+						System.err.println("Error Sending Board to Opponent");
+						e.printStackTrace();
+					}
+				else if(client!=null)
+					try {
+						client.Send(player.MyBoardToString());
+					} catch (IOException e) {
+						System.err.println("Error Sending Board to Opponent");
+						e.printStackTrace();
+					}
 			}
 			
 			

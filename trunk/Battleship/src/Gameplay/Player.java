@@ -10,11 +10,7 @@ import java.io.*;
  */
 public class Player {
 	
-	public String name;
-	//needs to be initialized in setup menus
-	private long IP_address; 
-	//needs to be initialized in setup menus
-	public boolean connected;
+	public boolean host=false;
 	public boolean isTurn;
 	private boolean victory;
 	public My_Board myBoard = new My_Board();
@@ -27,12 +23,10 @@ public class Player {
 	 * Player class constructor
 	 */
 	public Player(){
-		name="unknown";
 		xcoor=0;
 		ycoor=0;
 		attack_coord="";
 		isTurn=false;
-		connected=false;
 	}
 	
 	/**
@@ -214,12 +208,24 @@ public class Player {
 	// I don't think we'll ever need to set myBoard?
 	// The only board we'll be receiving as a whole board
 	//  will be the opponent board, right?
-	public void setMyBoard(My_Board myBoard) {
-		this.myBoard = myBoard;
+	public void setOppBoard(Opponent_Board hisBoard) {
+		this.hisBoard = hisBoard;
+		
 	}
 	
 	
+	public String MyBoardToString(){
+		return myBoard.ToString();
+	}
 	
+	
+	public void StringToOppBoard(String str){
+		hisBoard.StringToOppBoard(str);
+			// Once we've received their board, it is our turn,
+			//  if we're the host.
+		if(this.host)
+			this.isTurn=true;
+	}
 	
 	
 	
@@ -253,6 +259,7 @@ public class Player {
 			return -1;
 	}
 	
+	
 	public String indexToLetter(int index) {
 		if (Character.toLowerCase(index) == 0)
 			return "a";
@@ -277,6 +284,7 @@ public class Player {
 		else
 			return null;
 	}
+	
 	
 	public boolean isOccupied(int x, int y){
 		if(myBoard.carrier.get_position(x, y))
