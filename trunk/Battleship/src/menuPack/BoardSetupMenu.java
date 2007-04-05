@@ -44,8 +44,6 @@ public class BoardSetupMenu extends Menu {
 		System.out.println("4) Quit");
 		System.out.println();
 		System.out.print("user> ");
-			
-		System.out.println();
 	}
 
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
