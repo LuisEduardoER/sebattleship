@@ -252,51 +252,55 @@ public class Player {
 	
 
 	public int letterToIndex(char letter) {
+		int base = 1;
+		
 		if (Character.toLowerCase(letter) == 'a')
-			return 0;
+			return base;
 		else if (Character.toLowerCase(letter) == 'b')
-			return 1;
+			return base + 1;
 		else if (Character.toLowerCase(letter) == 'c')
-			return 2;
+			return base + 2;
 		else if (Character.toLowerCase(letter) == 'd')
-			return 3;
+			return base + 3;
 		else if (Character.toLowerCase(letter) == 'e')
-			return 4;
+			return base + 4;
 		else if (Character.toLowerCase(letter) == 'f')
-			return 5;
+			return base + 5;
 		else if (Character.toLowerCase(letter) == 'g')
-			return 6;
+			return base + 6;
 		else if (Character.toLowerCase(letter) == 'h')
-			return 7;
+			return base + 7;
 		else if (Character.toLowerCase(letter) == 'i')
-			return 8;
+			return base + 8;
 		else if (Character.toLowerCase(letter) == 'j')
-			return 9;
+			return base + 9;
 		else
 			return -1;
 	}
 	
 	
 	public String indexToLetter(int index) {
-		if (Character.toLowerCase(index) == 0)
+		int base = 1;
+		
+		if (Character.toLowerCase(index) == base)
 			return "a";
-		else if (Character.toLowerCase(index) == 1)
+		else if (Character.toLowerCase(index) == base + 1)
 			return "b";
-		else if (Character.toLowerCase(index) == 2)
+		else if (Character.toLowerCase(index) == base + 2)
 			return "c";
-		else if (Character.toLowerCase(index) == 3)
+		else if (Character.toLowerCase(index) == base + 3)
 			return "d";
-		else if (Character.toLowerCase(index) == 4)
+		else if (Character.toLowerCase(index) == base + 4)
 			return "e";
-		else if (Character.toLowerCase(index) == 5)
+		else if (Character.toLowerCase(index) == base + 5)
 			return "f";
-		else if (Character.toLowerCase(index) == 6)
+		else if (Character.toLowerCase(index) == base + 6)
 			return "g";
-		else if (Character.toLowerCase(index) == 7)
+		else if (Character.toLowerCase(index) == base + 7)
 			return "h";
-		else if (Character.toLowerCase(index) == 8)
+		else if (Character.toLowerCase(index) == base + 8)
 			return "i";
-		else if (Character.toLowerCase(index) == 9)
+		else if (Character.toLowerCase(index) == base + 9)
 			return "j";
 		else
 			return null;
@@ -416,23 +420,5 @@ public class Player {
 		}
 		return true;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 

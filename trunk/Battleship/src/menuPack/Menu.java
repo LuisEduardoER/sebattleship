@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import Gameplay.Player;
-import Gameplay.Board;
-import Gameplay.My_Board;
-import Gameplay.Ship;
 
 /**
  * @author Steve
@@ -20,7 +17,7 @@ public abstract class Menu {
 
 	protected int choice;
 
-	abstract void PrintMenu();
+	abstract int PrintMenu(Player player);
 
 	boolean check(int min, int max) {
 		if (choice < min)
@@ -30,7 +27,10 @@ public abstract class Menu {
 		return true;
 	}
 
-	// open up standard input
+	
+	//Think of this as depracated, i won't maintain it.
+	//I don't know if anyone uses it, though, so it can stay
+	//Use the getInput with the int ranges below
 	protected boolean getInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -45,47 +45,50 @@ public abstract class Menu {
 		} catch (IOException ioe) {
 			System.out.println("Invalid Command");
 			return false;
-		}
-		catch(NumberFormatException nfe){
+		} catch (NumberFormatException nfe) {
 			System.out.println("Input Invalid");
 			return false;
 		}
 	}
+
+
 	
-	protected String getString()throws IOException{
-			String input="";
-			InputStreamReader converter = new InputStreamReader(System.in);
-			BufferedReader in = new BufferedReader(converter);
-			
-			input = in.readLine();
-			
-			return input;
-		}
 	
+	protected String getString() throws IOException {
+		String input = "";
+		InputStreamReader converter = new InputStreamReader(System.in);
+		BufferedReader in = new BufferedReader(converter);
+
+		input = in.readLine();
+
+		return input;
+	}
+
 	// open up standard input
-	protected boolean getInput(int min, int max) {
+	protected int getInput(int min, int max) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		choice = 0;
+		choice = min - 1;
 
 		// read the username from the command-line; need to use try/catch with
 		// the
 		// readLine() method
-		try {
-			choice = Integer.parseInt(br.readLine());
-			for (; !check(min, max);){
-				System.out.println("Not a Valid Choice");
-				choice = Integer.parseInt(br.readLine());			
+		while (!check(min, max)) {
+			try {
+				choice = Integer.parseInt(br.readLine());
+				for (; !check(min, max);) {
+					System.out.println("Not a Valid Choice - " + max
+							+ " to quit");
+					System.out.print("user>");
+					choice = Integer.parseInt(br.readLine());
+				}
+
+				return choice;
+			} catch (IOException ioe) {
+				System.out.println("Invalid Command");
+				return max; // This will quit the program on an exception (hopefully)
 			}
-
-			return true;
-		} catch (IOException ioe) {
-			System.out.println("Invalid Command");
-			return false;
 		}
+		return choice;
 	}
-
 }
-
-		
-		

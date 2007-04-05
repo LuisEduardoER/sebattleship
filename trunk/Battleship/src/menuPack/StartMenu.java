@@ -3,15 +3,7 @@
  */
 package menuPack;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.*;
-
 import Gameplay.Player;
-import Networking.BattleshipClient;
-import Networking.BattleshipServer;
-import Networking.ThreadedReceiver;
 
 /**
  * @author Steve
@@ -19,11 +11,27 @@ import Networking.ThreadedReceiver;
  */
 public class StartMenu extends Menu {
 
-	public void PrintMenu() {
+	public int PrintMenu(Player player) {
 		System.out.println("1) Host Game");
 		System.out.println("2) Join Game");
 		System.out.println("3) Quit");
 		System.out.print("user> ");
+		getInput(1, 3);
+		System.out.println();
+		
+		/*
+		return choice;
+		*/
+		
+		//This should probably get called from the network session...
+		  //I'm not sure though, but it will stay here until changed
+		BoardSetupMenu boardSetupMenu = new BoardSetupMenu();
+		boardSetupMenu.PrintMenu(player);
+		
+		//it won't compile without this until it's uncommented above
+			//and the calling function knows what to do with it
+		return choice;
+		}
 	}
 	
 
@@ -37,15 +45,4 @@ public class StartMenu extends Menu {
 	 * 		   returns false if the menu option was not handled by function.
 	 * 				Quit should be the only menu option not handled in function.
 	 */
-	public int Input(){
-		// block until the user gives appropriate input
-		while(!getInput(1,3)) {
-			System.out.println("Invalid Input: " + choice);
-			System.out.print("user> ");
-		}
-		return choice;
-	}
 
-	//I'm assuming i then need to know how to return choice to some other
-	//function... I wonder which one it is!
-}
