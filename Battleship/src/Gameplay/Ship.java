@@ -54,6 +54,17 @@ protected void update_sunk(){
 		sunk_this_turn=false;
 }
 
+public void Reset(){
+	sunk=false;
+	placed = false;
+	for(int i=0;i<Grid.max_x; i++){
+		for(int j=0; j<Grid.max_y; j++){
+			position[i][j]=0;
+			position_hit[i][j]=0;
+		}
+	}
+}
+
 /* UNFINISHED
  * Allows the program to set the position array of the ship.  
  * It takes in the x and y coordinates the program wants the ship to be positioned.

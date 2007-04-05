@@ -124,6 +124,13 @@ public boolean check_all_sunk(){
 		return false;	
 }
 
+public void resetAllShips(){
+	carrier.Reset();
+	battleship.Reset();
+	cruiser.Reset();
+	submarine.Reset();
+	patrolboat.Reset();
+}
 
 /*
  * Must be defined by subclasses.  Displays the board.
