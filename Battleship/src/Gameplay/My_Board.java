@@ -103,7 +103,7 @@ public class My_Board extends Board{
 	
 	
 	public String ToString(){
-		return display_line[0]+display_line[1]+display_line[2]+display_line[3]+display_line[4]+display_line[5]+display_line[6]+display_line[7]+display_line[8]+display_line[9]+display_line[10];
+		return Display(0)+Display(1)+Display(2)+Display(3)+Display(4)+Display(5)+Display(6)+Display(7)+Display(8)+Display(9)+Display(10);
 	}
 
 }

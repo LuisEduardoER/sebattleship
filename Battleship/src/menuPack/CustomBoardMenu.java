@@ -35,6 +35,7 @@ public class CustomBoardMenu extends Menu {
 			System.out.println("4) Place/Adjust Submarine");
 			System.out.println("5) Place/Adjust Patrol Boat");
 			System.out.println("6) Done");
+			System.out.println("7) Cancel");
 			System.out.println();
 			System.out.println("\nuser> ");
 	}
