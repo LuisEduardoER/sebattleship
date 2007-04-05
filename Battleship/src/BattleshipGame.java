@@ -28,7 +28,7 @@ public class BattleshipGame{
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
 		
 		StartMenu start_menu = new StartMenu();
 		BoardSetupMenu board_menu = new BoardSetupMenu();
@@ -36,8 +36,9 @@ public class BattleshipGame{
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		Player player = new Player();
 		
-
 		
+	
+
 			/*
 			 * One Time Only Stuff Goes HERE...
 			 */ 
@@ -197,7 +198,7 @@ public class BattleshipGame{
 		
 		
 		
-		
+	
 		
 		}}// end label START, end for -- Should ALWAYS be tied together
 		 // this should also be the end, if not near the end of the program
@@ -268,15 +269,27 @@ public class BattleshipGame{
 
 	public static void DisplayTitleScreen(){
 		System.out.println();
-		System.out.println("              Battleship                ");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("         (Title Screen Goes Here)       ");
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+		System.out.println("      ___                 |           ___                                ");
+		System.out.println("     ||  \\     ____    /-----\\    § ||  |                                 ");
+		System.out.println("     ||   \\ //      |  =======      ||  |      ______                     ");
+		System.out.println("     || O  |//_/|   |  ======= §_§_ ||  |     /      \\         #        ")        ;
+		System.out.println("     ||   <   `||   |   /| |  /O_O\\ ||  |    |  []    |              #     ");
+		System.out.println("     ||   \\  /      |  / | |    ||  ||  |    | -------        #         ");
+		System.out.println("     ||  0  ||  []  |_/__|_|    ||  ||  |__   \\ |______       #  #        ");
+		System.out.println("     ||_____||______|      \\    ||  ||_____|_  -------   __ / #            ");
+		System.out.println("      /  o  o   o   o   o   \\  ||||  |  o  o |          |  |/             ");
+		System.out.println(" ____/_______________________\\_||||__|_______|__________|__|_______ ");
+		System.out.println("     ___                                                           /       ");
+		System.out.println("    /  _\\             _   _           _            ___            |          ");
+		System.out.println("   | /__             | |_| |         | |          | o \\          |             ");
+		System.out.println("    \\_  |            | __  |         | |          |  _|         |                ");
+		System.out.println("    __| |            | | | |         | |          | |          |                 ");
+		System.out.println("    \\__/             |_| |_|         |_|          |_|         |                ");
+		System.out.println("     _________________________________________________________|       ");
+		System.out.println("                                                                      ");
+		System.out.println("                                                                      ");
+		
+		
 	}
 	
 	public static void WaitForEnter(){
