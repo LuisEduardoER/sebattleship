@@ -194,6 +194,7 @@ public class BattleshipGame{
 				if(player.isTurn){
 					talker.Stall();
 					player.My_Turn(server, client);
+					player.Display_Boards();
 					talker.Continue();
 				}
 			}
