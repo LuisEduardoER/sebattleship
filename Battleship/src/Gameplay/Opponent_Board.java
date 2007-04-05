@@ -104,6 +104,13 @@ public class Opponent_Board extends Board{
 				}
 				
 			}
+			display_line[i].replace('B', ' ');
+			display_line[i].replace('C', ' ');
+			display_line[i].replace('A', ' ');
+			display_line[i].replace('P', ' ');
+			display_line[i].replace('S', ' ');
+			
+			
 		}
 		
 		
