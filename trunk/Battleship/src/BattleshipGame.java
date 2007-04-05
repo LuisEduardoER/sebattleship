@@ -150,6 +150,7 @@ public class BattleshipGame{
 			board_menu.PrintMenu();
 			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuHandle){
+			case 2:  //TODO: Jump to board_menu to allow user to alter their random map if they would like
 			case 0:	break START1;
 			case 1:
 					// reset the members

@@ -100,7 +100,7 @@ public class BoardSetupMenu extends Menu {
 				while (!placed) {
 					randomIndex = generator.nextInt(10);
 					coordinate = player.indexToLetter(randomIndex);
-					coordinate += String.valueOf(generator.nextInt(10));
+					coordinate += String.valueOf(generator.nextInt(10)+1);
 					direction = generator.nextInt(4) + 1;
 					
 					
@@ -143,7 +143,8 @@ public class BoardSetupMenu extends Menu {
 
 				
 			}
-			break;
+			player.DisplayMyBoard();
+			return 1;
 		case 3:
 				// Return to restart from the top
 			return 1;	// Let the calling function handle the restarting

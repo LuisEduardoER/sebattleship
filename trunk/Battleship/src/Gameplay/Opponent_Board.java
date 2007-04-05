@@ -64,6 +64,9 @@ public class Opponent_Board extends Board{
 		}
 	}
 	
+	/*
+	 * The incoming string turns into members.  Deletes the characters where the ships are
+	 */
 	public void StringToOppBoard(String str){
 		display_line[0] = str.substring(0, 32);
 		display_line[1] = str.substring(32, 64);
@@ -76,39 +79,33 @@ public class Opponent_Board extends Board{
 		display_line[8] = str.substring(256, 288);
 		display_line[9] = str.substring(288, 320);
 		display_line[10] = str.substring(320);
-	}
-	
-	//there could be a better name for this
-	/*
-	 * Converts the current display_lines into data for the members (i.e. Ship positions)
-	 */
-	public void StringToMembers(){
 		
 		for(int i=1;i<=10;i++){          //go through the display lines to look for ships.  Won't look at the coordinate characters.
 			for(int j=2;j<(max_x*3);j++){
 				
 				if(display_line[i].charAt(j)=='B'){
-					battleship.position[i-1][i/3-2]=1;
+					battleship.position[(j-2)/3][i-1]=1;
 				}
 				if(display_line[i].charAt(j)=='C'){
-					cruiser.position[i-1][i/3-2]=1;
+					cruiser.position[(j-2)/3][i-1]=1;
 				}
 				if(display_line[i].charAt(j)=='P'){
-					patrolboat.position[i-1][i/3-2]=1;
+					patrolboat.position[(j-2)/3][i-1]=1;
 				}
 				if(display_line[i].charAt(j)=='A'){
-					carrier.position[i-1][i/3-2]=1;
+					carrier.position[(j-2)/3][i-1]=1;
 				}
 				if(display_line[i].charAt(j)=='S'){
-					submarine.position[i-1][i/3-2]=1;
+					submarine.position[(j-2)/3][i-1]=1;
 				}
 				
 			}
-			display_line[i].replace('B', ' ');
-			display_line[i].replace('C', ' ');
-			display_line[i].replace('A', ' ');
-			display_line[i].replace('P', ' ');
-			display_line[i].replace('S', ' ');
+			//get all instances of the letters on the display_lines
+			display_line[i]=display_line[i].substring(0,2)+display_line[i].substring(2).replace('B', ' ');
+			display_line[i]=display_line[i].substring(0,2)+display_line[i].substring(2).replace('C', ' ');
+			display_line[i]=display_line[i].substring(0,2)+display_line[i].substring(2).replace('A', ' ');
+			display_line[i]=display_line[i].substring(0,2)+display_line[i].substring(2).replace('S', ' ');
+			display_line[i]=display_line[i].substring(0,2)+display_line[i].substring(2).replace('P', ' ');
 			
 			
 		}
@@ -116,4 +113,6 @@ public class Opponent_Board extends Board{
 		
 	}
 	
-}
+	}
+	
+	

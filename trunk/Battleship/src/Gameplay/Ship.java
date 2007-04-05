@@ -35,8 +35,8 @@ public Ship(){
 protected void update_sunk(){
 	if(!sunk){
 		count_hits=0;
-		for(int i=0; i<=Grid.max_x; i++){
-			for(int k =0; k<=Grid.max_y; k++){
+		for(int i=0; i<Grid.max_x; i++){
+			for(int k =0; k<Grid.max_y; k++){
 				if(position_hit[i][k]!=0)
 					count_hits++;
 			}
