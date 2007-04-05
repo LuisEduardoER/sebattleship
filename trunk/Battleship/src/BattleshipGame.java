@@ -164,14 +164,14 @@ public class BattleshipGame{
 			default:
 				if(server!=null)
 					try {
-						server.Send(player.MyBoardToString());
+						server.Send("B"+player.MyBoardToString());
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
 					}
 				else if(client!=null)
 					try {
-						client.Send(player.MyBoardToString());
+						client.Send("B"+player.MyBoardToString());
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -192,7 +192,9 @@ public class BattleshipGame{
 				//  Need to exit when the game is over...
 			while(true){
 				if(player.isTurn){
+					talker.Stall();
 					player.My_Turn(server, client);
+					talker.Continue();
 				}
 			}
 		

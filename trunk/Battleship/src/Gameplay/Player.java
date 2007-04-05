@@ -99,6 +99,10 @@ public class Player {
 				victory=true;
 			}
 		}
+		
+			// It's not my turn anymore
+		this.isTurn=false;
+		
 		return true;
 }
 
@@ -132,6 +136,8 @@ public class Player {
 				victory=false;
 			}
 		}
+		// now it's my turn again
+		this.isTurn=true;
 	}
 	
 	/**
@@ -210,7 +216,8 @@ public class Player {
 	//  will be the opponent board, right?
 	public void setOppBoard(Opponent_Board hisBoard) {
 		this.hisBoard = hisBoard;
-		
+		if(host)
+			this.isTurn=true;		
 	}
 	
 	
