@@ -47,9 +47,6 @@ public class BoardSetupMenu extends Menu {
 			
 		System.out.println();
 	}
-	
-	//	I'm assuming i then need to know how to return choice to some other
-		//function... I wonder which one it is!
 
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
 		// block until the user gives appropriate input
@@ -151,11 +148,11 @@ public class BoardSetupMenu extends Menu {
 			break;
 		case 3:
 				// Return to restart from the top
-			return 1;
+			return 1;	// Let the calling function handle the restarting
 		case 4:
 				// Return to quit the game
 			return 0;	// Let the calling function handle the quitting
 		}
-		return 2;
+		return 2;		// Indicates the input handling occured in the menu class
 	}
 }
