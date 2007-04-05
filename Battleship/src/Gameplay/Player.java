@@ -52,8 +52,10 @@ public class Player {
 	 * 			sending the coordinates
 	 */
 	public boolean My_Turn(BattleshipServer server, BattleshipClient client) {
-		
-			System.out.println("Enter the position you want to Attack (i.e. A2");
+			
+			
+			
+			System.out.println("Enter the position you want to Attack (i.e. A2) ");
 			try{
 			attack_coord=Get_Input();
 			}catch(IOException ioe){
@@ -86,6 +88,7 @@ public class Player {
 		 */
 		hisBoard.hit_history[xcoor][ycoor]=1;   
 		
+		
 		if(hisBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
 		else
@@ -102,7 +105,9 @@ public class Player {
 		
 			// It's not my turn anymore
 		this.isTurn=false;
-		
+		System.out.println();
+		Display_Boards();     //so player can see where they were just attacked
+		System.out.println("                Waiting for Opponent's Move....");
 		return true;
 }
 
@@ -122,7 +127,10 @@ public class Player {
 		 * update hit_history
 		 */
 		myBoard.hit_history[xcoor][ycoor]=1;  
+		System.out.println();
+		System.out.println();
 		
+		System.out.println("Opponent attacked " + opponent_coord+"...");
 		if(myBoard.hit_or_miss(xcoor, ycoor))
 			System.out.println("Hit!");
 		else
@@ -151,13 +159,16 @@ public class Player {
 	 */
 	public boolean Validate_Input(String attack_coord){
 		attack_coord=attack_coord.trim();   //deletes any unecessary whitespace
-		if(attack_coord.length()>2)    //format incorrect
+		if(attack_coord.length()>3) {   //format incorrect
+			System.out.println("Input string too long to be proper coordinate");
 			return false;
-		attack_coord.toUpperCase();    //normalize any case differences
+		}
+		
 		
 		// Convert the string inputs into integers
 		String x_as_string = attack_coord.substring(1);
-		String y_as_string = attack_coord.substring(0,1);
+		ycoor = letterToIndex(attack_coord.charAt(0));
+		
 		
 		try{
 			xcoor=Integer.parseInt(x_as_string);
@@ -167,19 +178,18 @@ public class Player {
 	         return false;
 		}
 
-		try{
-			char y_ASCII=y_as_string.charAt(0);
-			ycoor= (int) y_ASCII - 65;
-		}catch(NumberFormatException e) {
-			System.out.println("Incorrect Format.  Enter with letter and then number i.e. B3");
+		
+		
+
+		if(!hisBoard.in_Grid(xcoor, ycoor)){
+			System.out.println("The Coordinate input is not within (A-J) or (1-10)");
 			return false;
 		}
-
-		if(!hisBoard.in_Grid(xcoor, ycoor))
-			return false;
-		if(hisBoard.already_attacked(xcoor,ycoor))
-			return false;
+		if(hisBoard.already_attacked(xcoor,ycoor)){
+			System.out.println("Coordinate has already been attacked");
 		
+			return false;
+		}
 		return true;
 	}
 	

@@ -55,11 +55,13 @@ public class ThreadedReceiver extends Thread {
 						// will probably need to save a reference of the
 						// object that contains the function
 						player.StringToOppBoard(data.substring(1));
+						
 						break;						
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function
 						// will probably need to save a reference of the 
 						// object that contains the function
+						
 						player.His_Turn(data.substring(1));
 						break;					
 					case 'S':		// System Data

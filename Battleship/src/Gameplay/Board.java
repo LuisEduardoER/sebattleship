@@ -47,16 +47,31 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 	if(!in_Grid(xcoor, ycoor))
 		return false;
 	
-	if(battleship.position[xcoor][ycoor]>=1)
+	if(battleship.position[xcoor][ycoor]>=1){
+		battleship.position_hit[xcoor][ycoor]=1;
+		battleship.update_sunk();
 		return true;
-	if(carrier.position[xcoor][ycoor]>=1)
+	}
+	if(carrier.position[xcoor][ycoor]>=1){
+		carrier.position_hit[xcoor][ycoor]=1;
+		carrier.update_sunk();
 		return true;
-	if(submarine.position[xcoor][ycoor]>=1)
+	}
+	if(submarine.position[xcoor][ycoor]>=1){
+		submarine.position_hit[xcoor][ycoor]=1;
+		submarine.update_sunk();
 		return true;
-	if(cruiser.position[xcoor][ycoor]>=1)
+	}
+	if(cruiser.position[xcoor][ycoor]>=1){
+		cruiser.position_hit[xcoor][ycoor]=1;
+		cruiser.update_sunk();
 		return true;
-	if(patrolboat.position[xcoor][ycoor]>=1)
+	}
+	if(patrolboat.position[xcoor][ycoor]>=1){
+		patrolboat.position_hit[xcoor][ycoor]=1;
+		patrolboat.update_sunk();
 		return true;
+	}
 	else 
 		return false;
 }
@@ -93,7 +108,7 @@ public String check_sunk(){
 	if(patrolboat.sunk_this_turn)
 		return PatrolBoat.name;
 	else
-		return null;
+		return "nothing";
 	
 }
 
