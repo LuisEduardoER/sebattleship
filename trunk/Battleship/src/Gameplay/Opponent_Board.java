@@ -78,5 +78,35 @@ public class Opponent_Board extends Board{
 		display_line[10] = str.substring(320);
 	}
 	
+	//there could be a better name for this
+	/*
+	 * Converts the current display_lines into data for the members (i.e. Ship positions)
+	 */
+	public void StringToMembers(){
+		
+		for(int i=1;i<=10;i++){          //go through the display lines to look for ships.  Won't look at the coordinate characters.
+			for(int j=2;j<(max_x*3);j++){
+				
+				if(display_line[i].charAt(j)=='B'){
+					battleship.position[i-1][i/3-2]=1;
+				}
+				if(display_line[i].charAt(j)=='C'){
+					cruiser.position[i-1][i/3-2]=1;
+				}
+				if(display_line[i].charAt(j)=='P'){
+					patrolboat.position[i-1][i/3-2]=1;
+				}
+				if(display_line[i].charAt(j)=='A'){
+					carrier.position[i-1][i/3-2]=1;
+				}
+				if(display_line[i].charAt(j)=='S'){
+					submarine.position[i-1][i/3-2]=1;
+				}
+				
+			}
+		}
+		
+		
+	}
 	
 }
