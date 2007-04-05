@@ -193,8 +193,8 @@ public class BattleshipGame{
 			while(true){
 				if(player.isTurn){
 					talker.Stall();
-					player.My_Turn(server, client);
 					player.Display_Boards();
+					player.My_Turn(server, client);
 					talker.Continue();
 				}
 			}
