@@ -36,7 +36,22 @@ public class BattleshipGame{
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		Player player = new Player();
 		
-		
+/*	
+		boolean quit=false;
+		try {
+	//		while(!quit){
+			int data = stdin.read();
+	//		System.out.println("stdin is now ready...");
+	//		stdin.read();
+			System.out.println(": "+data);
+	//		if(data == 0)
+	//			quit=true;
+	//		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+*/		
 	
 
 			/*
@@ -150,7 +165,6 @@ public class BattleshipGame{
 			board_menu.PrintMenu();
 			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuHandle){
-			case 2:  //TODO: Jump to board_menu to allow user to alter their random map if they would like
 			case 0:	break START1;
 			case 1:
 					// reset the members
@@ -166,6 +180,7 @@ public class BattleshipGame{
 				if(server!=null)
 					try {
 						server.Send("B"+player.MyBoardToString());
+						System.out.println("  Board Sent	");
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -173,6 +188,7 @@ public class BattleshipGame{
 				else if(client!=null)
 					try {
 						client.Send("B"+player.MyBoardToString());
+						System.out.println("  Board Sent");
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -181,22 +197,13 @@ public class BattleshipGame{
 			
 			
 			// By this point the boards have been set up and the game is ready to be played.
-				// Start the transmitter now to handle all the chatting.
-			if(server!=null)
-				talker = new ThreadedXmitter(server);
-			else if(client!=null)
-				talker = new ThreadedXmitter(client);
-			else
-				System.err.println("Error Starting the talker.");
-			
+
 				// Loop forever.  When its my turn, take my turn.
 				//  Need to exit when the game is over...
 			while(true){
 				if(player.isTurn){
-					talker.Stall();
 					player.Display_Boards();
 					player.My_Turn(server, client);
-					talker.Continue();
 				}
 			}
 		
