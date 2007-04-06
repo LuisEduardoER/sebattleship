@@ -35,23 +35,6 @@ public class BattleshipGame{
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		Player player = new Player();
-		
-/*	
-		boolean quit=false;
-		try {
-	//		while(!quit){
-			int data = stdin.read();
-	//		System.out.println("stdin is now ready...");
-	//		stdin.read();
-			System.out.println(": "+data);
-	//		if(data == 0)
-	//			quit=true;
-	//		}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-*/		
 	
 
 			/*
@@ -180,7 +163,6 @@ public class BattleshipGame{
 				if(server!=null)
 					try {
 						server.Send("B"+player.MyBoardToString());
-						System.out.println("  Board Sent	");
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -188,7 +170,6 @@ public class BattleshipGame{
 				else if(client!=null)
 					try {
 						client.Send("B"+player.MyBoardToString());
-						System.out.println("  Board Sent");
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
