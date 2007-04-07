@@ -19,7 +19,6 @@ public class BattleshipGame{
 	// only one or the other should ever exist at a time
 	private static BattleshipServer server=null;
 	private static BattleshipClient client=null;
-	private static ThreadedXmitter talker=null;
 	private static ThreadedReceiver listener=null;
 	private static BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -70,7 +69,7 @@ public class BattleshipGame{
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 			String name=null;
 			String server_ip=null;	
-			int server_port=0;
+			int server_port=7777;
 			
 			// NEED TO DO:  Implement error checking on all inputs
 			// NEED TO DO
@@ -85,15 +84,16 @@ public class BattleshipGame{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("Enter the server port: ");
+//				System.out.println("Enter the server port: ");
+//				try {
+//					server_port = Integer.parseInt(stdin.readLine());
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}	
 				try {
-					server_port = Integer.parseInt(stdin.readLine());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-				try {
-						System.out.println("Your IP: " + InetAddress.getLocalHost().getHostAddress() + " Port: " + server_port);
+					System.out.println("Your IP: " + InetAddress.getLocalHost().getHostAddress() + " Port: " + server_port);
+					System.out.println();
 				} catch (UnknownHostException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -120,13 +120,13 @@ public class BattleshipGame{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}	
-				System.out.println("Enter the server port: ");
-				try {
-					server_port = Integer.parseInt(stdin.readLine());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				System.out.println("Enter the server port: ");
+//				try {
+//					server_port = Integer.parseInt(stdin.readLine());
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				player.host=false;
 				client = new BattleshipClient(server_ip, server_port, name);
 				// Start the listener now so that we can receiver the opponent's board
@@ -150,7 +150,6 @@ public class BattleshipGame{
 			board_menu.PrintMenu();
 			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuHandle){
-			case 2:  //TODO: Jump to board_menu to allow user to alter their random map if they would like
 			case 0:	break START1;
 			case 1:
 					// reset the members
@@ -160,12 +159,14 @@ public class BattleshipGame{
 				server = null;
 				client = null;
 				listener = null;
-				talker = null;
 				continue START2;
 			default:
 				if(server!=null)
 					try {
 						server.Send("B"+player.MyBoardToString());
+						player.board_sent=true;			// Indicate the board has been sent
+						System.out.println("Waiting for opponent to finish ship placement");
+						System.out.println();
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -173,6 +174,9 @@ public class BattleshipGame{
 				else if(client!=null)
 					try {
 						client.Send("B"+player.MyBoardToString());
+						player.board_sent=true;			// Indicate the board has been sent
+						System.out.println("Waiting for opponent to finish ship placement");
+						System.out.println();
 					} catch (IOException e) {
 						System.err.println("Error Sending Board to Opponent");
 						e.printStackTrace();
@@ -181,22 +185,18 @@ public class BattleshipGame{
 			
 			
 			// By this point the boards have been set up and the game is ready to be played.
-				// Start the transmitter now to handle all the chatting.
-			if(server!=null)
-				talker = new ThreadedXmitter(server);
-			else if(client!=null)
-				talker = new ThreadedXmitter(client);
-			else
-				System.err.println("Error Starting the talker.");
-			
+
 				// Loop forever.  When its my turn, take my turn.
 				//  Need to exit when the game is over...
 			while(true){
-				if(player.isTurn){
-					talker.Stall();
+				// block for the player to send his board	
+				if(player.board_received){
 					player.Display_Boards();
+					player.board_received=false;		// clear the flag so we never do this again
+				}
+				if(player.isTurn){
 					player.My_Turn(server, client);
-					talker.Continue();
+					player.Display_Boards();
 				}
 			}
 		
@@ -208,66 +208,6 @@ public class BattleshipGame{
 		 // this should also be the end, if not near the end of the program
 		
 		System.out.println("Goodbye... ");
-		
-		
-		
-/* Temporary Driver for Josh's Stuff 
- * -- DELETE ME
- */
-
-		
-/*
-		BattleshipServer server = null;
-		BattleshipClient client = null;
-		
-		if(args[0].equalsIgnoreCase("s")){
-			System.out.println("Starting Server");
-			server= new BattleshipServer(7780, "Server");
-		}
-	//	Thread serverT = new Thread(server,"Server Thread");
-		if(args[0].equalsIgnoreCase("c"))
-		{
-			System.out.println("Starting Client");
-			client = new BattleshipClient("127.0.0.1", 7780, "Client");
-		}
-		System.out.println("Do I Make it here?");
-	
-		
-
-		ThreadedReceiver listen = null;
-		ThreadedXmitter send = null;
-		
-			if(args[0].equalsIgnoreCase("s")){
-
-				// create a receiving thread
-				listen = new ThreadedReceiver(server);
-				// create a transmitting thread
-				send = new ThreadedXmitter(server);
-			}
-			else if(args[0].equalsIgnoreCase("c")){
-				
-				listen = new ThreadedReceiver(client);
-				send = new ThreadedXmitter(client);
-			}
-
-		while (true);
-		
-    //	System.out.println("Quitting...");
-		// NEED:
-		//	- Top Level Module in a top-level class to be threaded and handle listening
-		//    - ability to send messages at same time
-		
-		
-	//	server.Host();
-	//	client.Join();
-	
-		
-*/
-		
-/*
- * End Temporary Driver
- */
-		
 
 	}
 
