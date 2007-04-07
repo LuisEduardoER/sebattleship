@@ -25,21 +25,22 @@ public class RandomBoardMenu extends Menu {
 	
 	 public void PrintMenu() {
 			
-			System.out.println("1) Adjust Aircraft Carrier");
-			System.out.println("2) Adjust Battleship");
-			System.out.println("3) Adjust Cruiser");
-			System.out.println("4) Adjust Submarine");
-			System.out.println("5) Adjust Patrol Boat");
-			System.out.println("6) Done");
-			System.out.println("7) Cancel");
+			System.out.println("1) Place/Adjust Aircraft Carrier");
+			System.out.println("2) Place/Adjust Battleship");
+			System.out.println("3) Place/Adjust Cruiser");
+			System.out.println("4) Place/Adjust Submarine");
+			System.out.println("5) Place/Adjust Patrol Boat");
+			System.out.println("6) Place/Reset the Board");
+			System.out.println("7) Random Again");
+			System.out.println("8) Done");
 			System.out.println();
 			System.out.println("\nuser> ");
 	}
 
 	public boolean Input(Player player){
 
-		while(!getInput(1,6)){
-			System.out.println("Invalid Input: " + choice);
+		while(!getInput(1,8)){
+			//System.out.println("Invalid Input: " + choice);  error message sent out in GetInput function
 			System.out.print("user> ");
 		}
 	
@@ -67,14 +68,29 @@ public class RandomBoardMenu extends Menu {
 			temp.name="Patrol Boat";
 			break;
 		case 6:
+			player.myBoard.resetAllShips();
+			break;
+		case 7:
+			player.myBoard.resetAllShips();
+			player.PlaceRandomBoard();
+			break;
+		case 8:
+			if(player.myBoard.carrier.placed && player.myBoard.battleship.placed && player.myBoard.cruiser.placed
+					&& player.myBoard.submarine.placed && player.myBoard.patrolboat.placed){
 			return true;
+			} else {
+				System.out.println("You must place all ships before you can continue.");
+				System.out.println();
+				break;
+			}
+			
 		}
 		
 		int direction=0;
 				
 			// Get the ship location information
 		boolean placed = false;
-		while (!placed) {
+		while (!placed && choice<6) {
 			System.out.println("Please enter the start coordinate:");
 			System.out.println("user> ");
 			GetCoord();
@@ -93,6 +109,8 @@ public class RandomBoardMenu extends Menu {
 			if (placed) {
 				System.out.println("Success");
 				System.out.println();
+//				 Place the ship
+				player.placeShip(temp, coord, direction);
 			} else {
 				System.out.println("Invalid placement");
 				System.out.println();
@@ -101,8 +119,7 @@ public class RandomBoardMenu extends Menu {
 					System.out.println("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
 			}
 		}
-			// Place the ship
-		player.placeShip(temp, coord, direction);
+			
 		return false;
 	}
 		

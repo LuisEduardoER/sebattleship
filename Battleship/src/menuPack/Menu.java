@@ -74,15 +74,20 @@ public abstract class Menu {
 		try {
 			choice = Integer.parseInt(br.readLine());
 			for (; !check(min, max);){
-				System.out.println("Not a Valid Choice");
-				choice = Integer.parseInt(br.readLine());			
+				System.out.println("Not a Valid Choice");   
+				choice = Integer.parseInt(br.readLine());
+				return false;
 			}
 
 			return true;
 		} catch (IOException ioe) {
 			System.out.println("Invalid Command");
 			return false;
+		}  catch (NumberFormatException nfe ){
+			System.out.println("Invalid Command");
+			return false;
 		}
+		
 	}
 
 }

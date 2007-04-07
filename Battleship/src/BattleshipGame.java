@@ -197,18 +197,33 @@ public class BattleshipGame{
 				if(player.isTurn){
 					player.My_Turn(server, client);
 					player.Display_Boards();
+					if(player.victory || player.opponent_victory)
+						break START1;   //if victory, exit giant loop
+						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 			}
 		
 		
 		
 	
-		
+			
 		}}// end label START, end for -- Should ALWAYS be tied together
 		 // this should also be the end, if not near the end of the program
-		
+	/*	
+		String response="n";
+		System.out.println("Would you like to play again? (y/n)");
+		try {
+			response = stdin.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(response.charAt(0)=='y' || response.charAt(0)=='Y')
+			//GO BACK TO BOARD SETUP.  INCOMPLETE.****************************
+			 * */
+			 
 		System.out.println("Goodbye... ");
-
+		
 	}
 
 	public static void DisplayTitleScreen(){

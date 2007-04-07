@@ -73,4 +73,20 @@ public boolean get_position(int xcoor, int ycoor){
 public int getSize() {
 	return size;
 }
+
+/**
+ * Resets the position vector of the ship.  Used for Board Setup.
+ *
+ */
+public void Reset(){
+	sunk=false;
+	placed = false;
+	for(int i=0;i<Grid.max_x; i++){
+		for(int j=0; j<Grid.max_y; j++){
+			position[i][j]=0;
+			position_hit[i][j]=0;
+		}
+	}
+}
+
 }

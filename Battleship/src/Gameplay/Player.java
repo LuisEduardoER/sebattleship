@@ -15,7 +15,8 @@ public class Player {
 	public boolean isTurn;
 	public boolean board_sent = false;
 	public boolean board_received = false;
-	private boolean victory;
+	public boolean victory=false;
+	public boolean opponent_victory=false;
 	public My_Board myBoard = new My_Board();
 	public Opponent_Board hisBoard = new Opponent_Board();
 	private String attack_coord;
@@ -109,8 +110,8 @@ public class Player {
 			// It's not my turn anymore
 		this.isTurn=false;
 		System.out.println();
-		Display_Boards();     //so player can see where they were just attacked
-		System.out.println("                Waiting for Opponent's Move....");
+		//Display_Boards();     //so player can see where they were just attacked
+		//System.out.println("                Waiting for Opponent's Move....");
 		System.out.println();
 		return true;
 }
@@ -145,7 +146,7 @@ public class Player {
 			System.out.println("He sunk your " + sunk);  //not sure of syntax on this
 			if(hisBoard.check_all_sunk()){
 				System.out.println("You LOSE!!!!!!");
-				victory=false;
+				opponent_victory=true;
 			}
 		}
 		// now it's my turn again
