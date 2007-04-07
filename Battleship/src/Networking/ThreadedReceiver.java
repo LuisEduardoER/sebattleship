@@ -43,7 +43,6 @@ public class ThreadedReceiver extends Thread {
 						try {
 							this.sleep(500);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -55,7 +54,6 @@ public class ThreadedReceiver extends Thread {
 						// will probably need to save a reference of the
 						// object that contains the function
 						player.StringToOppBoard(data.substring(1));
-						
 						break;						
 					case 'C':		// Coordinate Data
 						// call the string to coordinate converstion function
@@ -75,9 +73,8 @@ public class ThreadedReceiver extends Thread {
 					}
 		        } catch (IOException e) {
 		        	System.err.println( "Server Disconnection Detected...");
-		
 		        	try {
-						client.in.read();
+						server.in.read();
 					} catch (IOException e1) {
 					}
 		        	return;
@@ -92,7 +89,6 @@ public class ThreadedReceiver extends Thread {
 						try {
 							this.sleep(500);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -122,13 +118,11 @@ public class ThreadedReceiver extends Thread {
 					}
 		        } catch (IOException e) {
 		        	System.out.println( "Server Disconnection Detected... Press any key to continue.");
-		
 		        	try {
 						client.in.read();
 					} catch (IOException e1) {
 					}
 		        	return;
-			//		System.out.println( "IO: "+e.getMessage() );
 		        }
 			}
 		}

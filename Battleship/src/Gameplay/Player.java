@@ -3,6 +3,7 @@ package Gameplay;
 
 import Networking.*;
 import java.io.*;
+import java.util.Random;
 
 /**
  * @author Nathan & Quinn
@@ -12,6 +13,8 @@ public class Player {
 	
 	public boolean host=false;
 	public boolean isTurn;
+	public boolean board_sent = false;
+	public boolean board_received = false;
 	private boolean victory;
 	public My_Board myBoard = new My_Board();
 	public Opponent_Board hisBoard = new Opponent_Board();
@@ -108,6 +111,7 @@ public class Player {
 		System.out.println();
 		Display_Boards();     //so player can see where they were just attacked
 		System.out.println("                Waiting for Opponent's Move....");
+		System.out.println();
 		return true;
 }
 
@@ -209,6 +213,7 @@ public class Player {
 		for(int i=0; i<12; i++){
 			System.out.println(myBoard.Display(i));
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -242,6 +247,7 @@ public class Player {
 			//  if we're the host.
 		if(this.host)
 			this.isTurn=true;
+		this.board_received=true;
 	}
 	
 	
@@ -417,7 +423,72 @@ public class Player {
 		return true;
 	}
 
-	
+	public void PlaceRandomBoard(){
+
+		String whichShip;
+		String coordinate;
+		
+			// Display the random board and the random board menu 
+		// DISPLAY BOARDS!!!!!
+		int whichInput=0;
+		Ship temp = new Ship();
+		Random generator = new Random();
+		int randomIndex = generator.nextInt();
+		while (!this.myBoard.carrier.placed || !this.myBoard.battleship.placed
+				|| !this.myBoard.cruiser.placed || !this.myBoard.submarine.placed
+				|| !this.myBoard.patrolboat.placed) {
+
+			whichInput++;
+
+			whichShip = String.valueOf(whichInput);
+			
+			int direction=0;
+
+			boolean placed = false;
+			while (!placed) {
+				randomIndex = generator.nextInt(10);
+				coordinate = this.indexToLetter(randomIndex);
+				coordinate += String.valueOf(generator.nextInt(10)+1);
+				direction = generator.nextInt(4) + 1;
+				
+				
+				switch (Integer.parseInt(whichShip)) {
+				case 1:
+					temp = new Carrier();
+					temp.name="Carrier";
+					break;
+				case 2:
+					temp = new Battleship();
+					temp.name="Battleship";
+					break;
+				case 3:
+					temp = new Cruiser();
+					temp.name="Cruiser";
+					break;
+				case 4:
+					temp = new Submarine();
+					temp.name="Submarine";
+					break;
+				case 5:
+					temp = new PatrolBoat();
+					temp.name="Patrol Boat";
+					break;
+				} 
+				
+				placed = this.validateShipPlacement(temp, coordinate, direction);
+
+				if (placed) {
+					System.out.println("Success");
+					this.placeShip(temp, coordinate, direction);
+					
+				} else {
+					System.out
+							.println("Invalid coordinate, please enter another");
+				}
+			}
+		}
+		
+	}
 	
 	
 	

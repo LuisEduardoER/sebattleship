@@ -29,7 +29,7 @@ public class CustomBoardMenu extends Menu {
 	 */
 	public void  PrintMenu() {
 		
-			System.out.println("1) Place/Adjust Carrier");
+			System.out.println("1) Place/Adjust Aircraft Carrier");
 			System.out.println("2) Place/Adjust Battleship");
 			System.out.println("3) Place/Adjust Cruiser");
 			System.out.println("4) Place/Adjust Submarine");
