@@ -35,6 +35,8 @@ public class BattleshipGame{
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		Player player = new Player();
+		
+		
 	
 
 			/*
@@ -61,7 +63,8 @@ public class BattleshipGame{
 			// Block for input and handle the return
 			//  (all inputs handle themselves except for the quit
 			//   option which MUST? be handled here, in the top module)
-			//int choice = start_menu.();
+			start_menu.PrintMenu();
+			int choice = start_menu.Input();
 			
 			// Must handle all messages in here
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -73,7 +76,7 @@ public class BattleshipGame{
 			// NEED TO DO
 			// NEED TO DO
 			// NEED TO DO
-			switch(start_menu.PrintMenu(player)){   //get input
+			switch(choice){
 			case 1:
 				System.out.println("Enter your name: ");
 				try {
@@ -144,9 +147,10 @@ public class BattleshipGame{
 			//   and cancel options which MUST? be handled here, in the top module)
 			//  If canclee then restart the eternal loop, which restarts at start menu
 			//  If quit, then kick out of the eternal loop
-			
-			
-			switch (board_menu.PrintMenu(player)){
+			board_menu.PrintMenu();
+			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
+			switch (boardMenuHandle){
+			case 2:  //TODO: Jump to board_menu to allow user to alter their random map if they would like
 			case 0:	break START1;
 			case 1:
 					// reset the members
@@ -177,13 +181,22 @@ public class BattleshipGame{
 			
 			
 			// By this point the boards have been set up and the game is ready to be played.
-
+				// Start the transmitter now to handle all the chatting.
+			if(server!=null)
+				talker = new ThreadedXmitter(server);
+			else if(client!=null)
+				talker = new ThreadedXmitter(client);
+			else
+				System.err.println("Error Starting the talker.");
+			
 				// Loop forever.  When its my turn, take my turn.
 				//  Need to exit when the game is over...
 			while(true){
 				if(player.isTurn){
+					talker.Stall();
 					player.Display_Boards();
 					player.My_Turn(server, client);
+					talker.Continue();
 				}
 			}
 		
