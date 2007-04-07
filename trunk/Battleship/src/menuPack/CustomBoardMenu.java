@@ -34,16 +34,16 @@ public class CustomBoardMenu extends Menu {
 			System.out.println("3) Place/Adjust Cruiser");
 			System.out.println("4) Place/Adjust Submarine");
 			System.out.println("5) Place/Adjust Patrol Boat");
-			System.out.println("6) Done");
-			System.out.println("7) Cancel");
+			System.out.println("6) Reset the Board");
+			System.out.println("7) Done");
 			System.out.println();
 			System.out.println("\nuser> ");
 	}
 	
 	public boolean Input(Player player){
 
-			while(!getInput(1,6)){
-				System.out.println("Invalid Input: " + choice);
+			while(!getInput(1,7)){
+				//System.out.println("Invalid Input: " + choice);   error message alraedy sent in getinput function
 				System.out.print("user> ");
 			}
 		
@@ -71,14 +71,25 @@ public class CustomBoardMenu extends Menu {
 				temp.name="Patrol Boat";
 				break;
 			case 6:
+				player.myBoard.resetAllShips();
+				break;
+			case 7:
+				if(player.myBoard.carrier.placed && player.myBoard.battleship.placed && player.myBoard.cruiser.placed
+						&& player.myBoard.submarine.placed && player.myBoard.patrolboat.placed){
 				return true;
+				} else {
+					System.out.println("You must place all ships before you can continue.");
+					System.out.println();
+					break;
+				}
+				
 			}
 			
 			int direction=0;
 					
 				// Get the ship location information
 			boolean placed = false;
-			while (!placed) {
+			while (!placed && choice<6) {
 				System.out.println("Please enter the start coordinate:");
 				System.out.println("user> ");
 				GetCoord();
@@ -96,6 +107,7 @@ public class CustomBoardMenu extends Menu {
 
 				if (placed) {
 					System.out.println("Success");
+					player.placeShip(temp, coord, direction); // Place the ship
 				} else {
 					System.out
 							.println("Invalid placement");
@@ -104,8 +116,8 @@ public class CustomBoardMenu extends Menu {
 						System.out.println("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
 				}
 			}
-				// Place the ship
-			player.placeShip(temp, coord, direction);
+				
+			
 			return false;
 	}
 
