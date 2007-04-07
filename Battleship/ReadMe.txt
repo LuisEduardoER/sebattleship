@@ -62,13 +62,9 @@ How to run Battleship:
 
 		ie. cd "C:\Workspace\Battleship\bin"
 
-	      or, if continuing straight from the compile, then
-
-		    cd bin
-
 	- From the bin folder, type the following command:
 
-		java -cp . BattleshipGame
+		javac -cp . BattleshipGame
 
 	This will launch Battleship in your console.
 
