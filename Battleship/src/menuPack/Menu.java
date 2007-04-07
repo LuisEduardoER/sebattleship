@@ -31,7 +31,7 @@ public abstract class Menu {
 	//Think of this as depracated, i won't maintain it.
 	//I don't know if anyone uses it, though, so it can stay
 	//Use the getInput with the int ranges below
-	protected boolean getInput() {
+	public boolean getInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		choice = 0;

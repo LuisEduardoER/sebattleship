@@ -19,18 +19,24 @@ public class StartMenu extends Menu {
 		getInput(1, 3);
 		System.out.println();
 		
-		/*
+		
 		return choice;
-		*/
+		
 		
 		//This should probably get called from the network session...
 		  //I'm not sure though, but it will stay here until changed
-		BoardSetupMenu boardSetupMenu = new BoardSetupMenu();
-		boardSetupMenu.PrintMenu(player);
 		
-		//it won't compile without this until it's uncommented above
-			//and the calling function knows what to do with it
-		return choice;
+		//April 6, 7:30 PM Nate
+		// Let's not do this here.  Let's let it return the choice to the driver function.  Then the
+		// driver class will call the boardsetupmenu.  Otherwise
+		// a lot of the network input is put in this class.  It seems best if they are separate. 
+		//  I hope that's alright.
+		
+		//BoardSetupMenu boardSetupMenu = new BoardSetupMenu();
+		//boardSetupMenu.PrintMenu(player);
+		
+		
+		
 		}
 	}
 	

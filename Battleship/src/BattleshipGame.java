@@ -61,8 +61,7 @@ public class BattleshipGame{
 			// Block for input and handle the return
 			//  (all inputs handle themselves except for the quit
 			//   option which MUST? be handled here, in the top module)
-			start_menu.PrintMenu();
-			int choice = start_menu.Input();
+			//int choice = start_menu.();
 			
 			// Must handle all messages in here
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -74,7 +73,7 @@ public class BattleshipGame{
 			// NEED TO DO
 			// NEED TO DO
 			// NEED TO DO
-			switch(choice){
+			switch(start_menu.PrintMenu(player)){   //get input
 			case 1:
 				System.out.println("Enter your name: ");
 				try {
@@ -145,9 +144,9 @@ public class BattleshipGame{
 			//   and cancel options which MUST? be handled here, in the top module)
 			//  If canclee then restart the eternal loop, which restarts at start menu
 			//  If quit, then kick out of the eternal loop
-			board_menu.PrintMenu();
-			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
-			switch (boardMenuHandle){
+			
+			
+			switch (board_menu.PrintMenu(player)){
 			case 0:	break START1;
 			case 1:
 					// reset the members
