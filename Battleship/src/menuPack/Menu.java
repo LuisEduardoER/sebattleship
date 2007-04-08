@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Utilities.Console;
+
 import Gameplay.Player;
 import Gameplay.Board;
 import Gameplay.My_Board;
@@ -17,7 +19,7 @@ import Gameplay.Ship;
  * 
  */
 public abstract class Menu {
-
+	public Console display = new Console();
 	protected int choice;
 
 	abstract void PrintMenu();
@@ -43,11 +45,13 @@ public abstract class Menu {
 			choice = Integer.parseInt(br.readLine());
 			return true;
 		} catch (IOException ioe) {
-			System.out.println("Invalid Command");
+			display.scroll("Invalid Command");
+			display.printScreen();
 			return false;
 		}
 		catch(NumberFormatException nfe){
-			System.out.println("Input Invalid");
+			display.scroll("Input Invalid");
+			display.printScreen();
 			return false;
 		}
 	}
@@ -74,17 +78,20 @@ public abstract class Menu {
 		try {
 			choice = Integer.parseInt(br.readLine());
 			for (; !check(min, max);){
-				System.out.println("Not a Valid Choice");   
+				display.scroll("Not a Valid Choice");  
+				display.printScreen();
 				choice = Integer.parseInt(br.readLine());
 				return false;
 			}
 
 			return true;
 		} catch (IOException ioe) {
-			System.out.println("Invalid Command");
+			display.scroll("Invalid Command");
+			display.printScreen();
 			return false;
 		}  catch (NumberFormatException nfe ){
-			System.out.println("Invalid Command");
+			display.scroll("Invalid Command");
+			display.printScreen();
 			return false;
 		}
 		

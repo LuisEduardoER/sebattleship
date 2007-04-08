@@ -12,18 +12,21 @@ import Gameplay.Player;
 import Networking.BattleshipClient;
 import Networking.BattleshipServer;
 import Networking.ThreadedReceiver;
-
+import Utilities.Console;
 /**
  * @author Steve
  *
  */
 public class StartMenu extends Menu {
-
+	public Console display = new Console();
 	public void PrintMenu() {
-		System.out.println("1) Host Game");
-		System.out.println("2) Join Game");
-		System.out.println("3) Quit");
-		System.out.print("user> ");
+		display.clearScreen();
+		display.putStaticLine("");
+		display.putStaticLine("1) Host Game");
+		display.putStaticLine("2) Join Game");
+		display.putStaticLine("3) Quit");
+		display.printScreen();
+		display.printPrompt("user> ");
 	}
 	
 
@@ -39,9 +42,11 @@ public class StartMenu extends Menu {
 	 */
 	public int Input(){
 		// block until the user gives appropriate input
-		while(!getInput(1,3)) {
-			System.out.println("Invalid Input: " + choice);
-			System.out.print("user> ");
+		for(getInput();!check(1,3);) {
+			display.scroll("Invalid Input: " + choice);
+			display.printScreen();
+			display.printPrompt("user> ");
+			getInput();
 		}
 		return choice;
 	}

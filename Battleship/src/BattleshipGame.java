@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import Networking.*;
+import Utilities.Console;
 import Gameplay.*;
 import menuPack.*;
 
@@ -21,14 +22,14 @@ public class BattleshipGame{
 	private static BattleshipClient client=null;
 	private static ThreadedReceiver listener=null;
 	private static BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-	
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		
+		Console display = new Console();
 		StartMenu start_menu = new StartMenu();
 		BoardSetupMenu board_menu = new BoardSetupMenu();
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
@@ -41,8 +42,9 @@ public class BattleshipGame{
 			/*
 			 * One Time Only Stuff Goes HERE...
 			 */ 
-		DisplayTitleScreen();
-		WaitForEnter();
+		display.clearScreen();
+		DisplayTitleScreen(display);
+		WaitForEnter(display);
 
 		
 			/*
@@ -70,20 +72,19 @@ public class BattleshipGame{
 			String name=null;
 			String server_ip=null;	
 			int server_port=7777;
-			
+			display.clearScreen();
+			display.putStaticLine("");
 			// NEED TO DO:  Implement error checking on all inputs
 			// NEED TO DO
 			// NEED TO DO
 			// NEED TO DO
 			switch(choice){
 			case 1:
-				System.out.println("Enter your name: ");
-				try {
-					name = stdin.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				display.putStaticLine("Enter your name: ");
+				display.printScreen();
+				name = display.readLine("user> ");
+				display.putStaticLine("");
+				display.putStaticLine("  Your Name: "+name);
 //				System.out.println("Enter the server port: ");
 //				try {
 //					server_port = Integer.parseInt(stdin.readLine());
@@ -92,8 +93,9 @@ public class BattleshipGame{
 //					e.printStackTrace();
 //				}	
 				try {
-					System.out.println("Your IP: " + InetAddress.getLocalHost().getHostAddress() + " Port: " + server_port);
-					System.out.println();
+					display.putStaticLine("");
+					display.putStaticLine("  Your IP: " + InetAddress.getLocalHost().getHostAddress() + " Port: " + server_port);
+					display.printScreen();
 				} catch (UnknownHostException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -106,20 +108,16 @@ public class BattleshipGame{
 				listener = new ThreadedReceiver(server, player);
 				break;
 			case 2:
-				System.out.println("Enter your name: ");
-				try {
-					name = stdin.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println("Enter the server IP: ");
-				try {
-					server_ip = stdin.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
+				display.putStaticLine("Enter your name: ");
+				display.printScreen();
+				name = display.readLine("user> ");
+				display.putStaticLine("");
+				display.putStaticLine("  Your Name: "+name);
+				
+				display.putStaticLine("");
+				display.putStaticLine("Enter the server IP: ");
+				display.printScreen();
+				server_ip = display.readLine("user> ");
 //				System.out.println("Enter the server port: ");
 //				try {
 //					server_port = Integer.parseInt(stdin.readLine());
@@ -226,39 +224,33 @@ public class BattleshipGame{
 		
 	}
 
-	public static void DisplayTitleScreen(){
-		System.out.println();
-		System.out.println("      ___                 |           ___                                ");
-		System.out.println("     ||  \\     ____    /-----\\    § ||  |                              ");
-		System.out.println("     ||   \\ //      |  =======      ||  |      ______                     ");
-		System.out.println("     || O  |//_/|   |  ======= §_§_ ||  |     /      \\         #        ")        ;
-		System.out.println("     ||   <   `||   |   /| |  /O_O\\ ||  |    |  []    |              #  ");
-		System.out.println("     ||   \\  /      |  / | |    ||  ||  |    | -------        #         ");
-		System.out.println("     ||  0  ||  []  |_/__|_|    ||  ||  |__   \\ |______       #  #        ");
-		System.out.println("     ||_____||______|      \\    ||  ||_____|_  -------   __ / #         ");
-		System.out.println("      /  o  o   o   o   o   \\  ||||  |  o  o |          |  |/         ");
-		System.out.println(" ____/_______________________\\_||||__|_______|__________|__|_______ ");
-		System.out.println("     ___                                                           /    ");
-		System.out.println("    /  _\\             _   _           _            ___            |    ");
-		System.out.println("   | /__             | |_| |         | |          | o \\          |    ");
-		System.out.println("    \\_  |            | __  |         | |          |  _|         |   ");
-		System.out.println("    __| |            | | | |         | |          | |          |    ");
-		System.out.println("    \\__/             |_| |_|         |_|          |_|         |  ");
-		System.out.println("     _________________________________________________________|       ");
-		System.out.println("                                                                      ");
-		System.out.println("                                                                      ");
-		
-		
+	public static void DisplayTitleScreen(Console display){
+		display.gotoXY(0, 0);
+		display.putStaticLine("");
+		display.putStaticLine("      ___                 |           ___                                ");
+		display.putStaticLine("     ||  \\     ____    /-----\\    § ||  |                              ");
+		display.putStaticLine("     ||   \\ //      |  =======      ||  |      ______                     ");
+		display.putStaticLine("     || O  |//_/|   |  ======= §_§_ ||  |     /      \\         #        ")        ;
+		display.putStaticLine("     ||   <   `||   |   /| |  /O_O\\ ||  |    |  []    |              #  ");
+		display.putStaticLine("     ||   \\  /      |  / | |    ||  ||  |    | -------        #         ");
+		display.putStaticLine("     ||  0  ||  []  |_/__|_|    ||  ||  |__   \\ |______       #  #        ");
+		display.putStaticLine("     ||_____||______|      \\    ||  ||_____|_  -------   __ / #         ");
+		display.putStaticLine("      /  o  o   o   o   o   \\  ||||  |  o  o |          |  |/         ");
+		display.putStaticLine(" ____/_______________________\\_||||__|_______|__________|__|_______ ");
+		display.putStaticLine("     ___                                                           /    ");
+		display.putStaticLine("    /  _\\             _   _           _            ___            |    ");
+		display.putStaticLine("   | /__             | |_| |         | |          | o \\          |    ");
+		display.putStaticLine("    \\_  |            | __  |         | |          |  _|         |   ");
+		display.putStaticLine("    __| |            | | | |         | |          | |          |    ");
+		display.putStaticLine("    \\__/             |_| |_|         |_|          |_|         |  ");
+		display.putStaticLine("     _________________________________________________________|       ");
+		display.printScreen();
 	}
 	
-	public static void WaitForEnter(){
-		System.out.println("");
-		System.out.println("Press Enter to Continue... ");
-		try {
-			stdin.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void WaitForEnter(Console display){
+		display.putStaticLine("");
+		display.putStaticLine("Press Enter to Continue... ");
+		display.printScreen();
+		display.readLine();
 	}
 }
