@@ -116,11 +116,12 @@ the results on the monitor.
 	{
 		String line = "";
 		for (int row = 0; row < ROWS; row++) {
+			line = "";
 			for (int col=0; col<COLS; col++) {
 				line += screen[row][col];
 			}
+			System.out.println(line);
 		}
-		System.out.println(line);
 	}
 
 /**
