@@ -7,7 +7,8 @@ package Gameplay;
  */
 public abstract class Board extends Grid{
 public int [][] hit_history = new int [Grid.max_x][Grid.max_y];
-protected String [] display_line = new String [12];
+protected String [] display_line = new String [13];
+public int shipsleft;
 /**
  
  */
@@ -16,8 +17,10 @@ public Battleship battleship = new Battleship();
 public Cruiser cruiser = new Cruiser();
 public Submarine submarine = new Submarine();
 public PatrolBoat patrolboat = new PatrolBoat();
+
 	
 public Board(){
+	shipsleft=5;
 	for(int i=0;i<max_x;i++){
 		for(int k=0;k<max_y;k++){
 			hit_history[i][k]=0;
@@ -34,6 +37,8 @@ public Board(){
 	display_line[8]= "H|  |  |  |  |  |  |  |  |  |  |";
 	display_line[9]= "I|  |  |  |  |  |  |  |  |  |  |";
 	display_line[10]="J|  |  |  |  |  |  |  |  |  |  |";
+	
+	display_line[12]="ships left: 5                   ";
 }
 /**
  *  returns true if coordinates input match the coordinates of any ships. */
@@ -97,16 +102,21 @@ public boolean already_attacked(int xcoor, int ycoor){
  * in which case no ships were sunk this turn.
  */
 public String check_sunk(){
-	if(battleship.sunk_this_turn)
-		return Battleship.name;
-	if(carrier.sunk_this_turn)
-		return Carrier.name;
-	if(submarine.sunk_this_turn)
-		return Submarine.name;
-	if(cruiser.sunk_this_turn)
-		return Cruiser.name;
-	if(patrolboat.sunk_this_turn)
-		return PatrolBoat.name;
+	if(battleship.sunk_this_turn){
+		shipsleft--;
+		return Battleship.name; }
+	if(carrier.sunk_this_turn){
+		shipsleft--;
+		return Carrier.name;}
+	if(submarine.sunk_this_turn){
+		shipsleft--;
+		return Submarine.name;}
+	if(cruiser.sunk_this_turn){
+		shipsleft--;
+		return Cruiser.name;}
+	if(patrolboat.sunk_this_turn){
+		shipsleft--;
+		return PatrolBoat.name;}
 	else
 		return "nothing";
 	

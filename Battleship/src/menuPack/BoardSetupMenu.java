@@ -49,9 +49,9 @@ public class BoardSetupMenu extends Menu {
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
 		// block until the user gives appropriate input
 		while (!getInput(1, 4)) {
-			System.out.println("Invalid Input: " + choice);
+			//System.out.println("Invalid Input: " + choice); message sent in getinput
 			System.out.print("user> ");
-			getInput();
+			//getInput();
 		}
 		
 		// Must handle all messages in here

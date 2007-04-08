@@ -57,8 +57,6 @@ public class Player {
 	 */
 	public boolean My_Turn(BattleshipServer server, BattleshipClient client) {
 			
-			
-			
 			System.out.println("Enter the position you want to Attack (i.e. A2) ");
 			try{
 			attack_coord=Get_Input();
@@ -110,8 +108,8 @@ public class Player {
 			// It's not my turn anymore
 		this.isTurn=false;
 		System.out.println();
-		//Display_Boards();     //so player can see where they were just attacked
-		//System.out.println("                Waiting for Opponent's Move....");
+		Display_Boards();     //so player can see where they were just attacked
+		System.out.println("                Waiting for Opponent's Move....");
 		System.out.println();
 		return true;
 }
@@ -149,6 +147,7 @@ public class Player {
 				opponent_victory=true;
 			}
 		}
+		Display_Boards();
 		// now it's my turn again
 		this.isTurn=true;
 	}
@@ -204,7 +203,7 @@ public class Player {
 	 * 
 	 */
 	public void Display_Boards(){
-		for(int i=0; i<12; i++){
+		for(int i=0; i<13; i++){
 			System.out.println(myBoard.Display(i)+"       "+hisBoard.Display(i));
 		}
 	}
