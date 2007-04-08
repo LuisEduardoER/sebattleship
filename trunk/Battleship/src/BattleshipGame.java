@@ -196,7 +196,7 @@ public class BattleshipGame{
 				}
 				if(player.isTurn){
 					player.My_Turn(server, client);
-					player.Display_Boards();
+					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
 					if(player.victory || player.opponent_victory)
 						break START1;   //if victory, exit giant loop
 						                //victory messages are taken care of in My_Turn and His_Turn

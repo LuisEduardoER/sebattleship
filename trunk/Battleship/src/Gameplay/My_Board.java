@@ -12,7 +12,7 @@ public class My_Board extends Board{
 	
 	public My_Board(){
 		super();
-		display_line[11]="           my board             ";
+		display_line[11]="           My Board             ";
 	}
 	/*
 	 * Receives the line it needs to return.
@@ -37,8 +37,8 @@ public class My_Board extends Board{
 		display_line[9]= "I|  |  |  |  |  |  |  |  |  |  |";
 		display_line[10]="J|  |  |  |  |  |  |  |  |  |  |";
 		
-		if(line_index>0 && line_index<11){
 		dynamic_line= new StringBuffer(display_line[line_index]);
+		if(line_index>0 && line_index<11){
 		for(int i=0;i<max_x;i++){     
 			if(battleship.position[i][line_index-1]>0){
 				dynamic_line.deleteCharAt(2+3*i);
@@ -71,6 +71,7 @@ public class My_Board extends Board{
 		}
 		display_line[line_index] = dynamic_line.toString();  //save the modified string
 		}
+		
 		//return the string
 		switch(line_index) {
 		case 0: return display_line[0];  
@@ -85,6 +86,11 @@ public class My_Board extends Board{
 		case 9: return display_line[9];  
 		case 10: return display_line[10];  
 		case 11: return display_line[11]; 
+		case 12: 
+			dynamic_line.deleteCharAt(12);
+			dynamic_line.insert(12, shipsleft);
+			display_line[12]=dynamic_line.toString();
+			return display_line[12];
 		default: return "";
 				
 		}
