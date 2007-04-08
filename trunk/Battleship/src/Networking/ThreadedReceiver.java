@@ -1,6 +1,8 @@
 package Networking;
 
 import java.io.IOException;
+
+import Utilities.Console;
 import Gameplay.*;
 
 /**
@@ -16,20 +18,18 @@ public class ThreadedReceiver extends Thread {
 	private BattleshipServer server = null;
 	private BattleshipClient client = null;
 	public Player player = null;
-	
+	public Console display = new Console();
 	
 	public ThreadedReceiver (BattleshipServer server, Player player){
 		this.server = server;
 		this.player = player;
 		this.start();
-		System.out.println("ThreadedReceiver Thread Started...");
 	}
 	
 	public ThreadedReceiver (BattleshipClient client, Player player){
 		this.client = client;
 		this.player = player;
 		this.start();
-		System.out.println("ThreadedReceiver Thread Started...");
 	}
 	
 	public void run(){
@@ -69,14 +69,20 @@ public class ThreadedReceiver extends Thread {
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
 							// Display message
-							System.out.println(server.GetClientName() + ": " + data.substring(1));	
+						display.scroll(server.GetClientName() + ": " + data.substring(1));
+						display.printScreen();
 					}
 		        } catch (IOException e) {
-		        	System.err.println( "Server Disconnection Detected...");
-		        	try {
-						server.in.read();
-					} catch (IOException e1) {
-					}
+		        	display.clearScreen();
+		        	display.putStaticLine("Server Disconnection Detected...");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("      You Win!!!");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("Press Enter to continue");
+		        	display.printScreen();
+		        	display.readLine();
 		        	return;
 			//		System.out.println( "IO: "+e.getMessage() );
 		        }
@@ -114,14 +120,20 @@ public class ThreadedReceiver extends Thread {
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
 							// Display message
-							System.out.println(client.GetServerName() + ": " + data.substring(1));
+						display.putStaticLine(client.GetServerName() + ": " + data.substring(1));
+						display.printScreen();
 					}
 		        } catch (IOException e) {
-		        	System.out.println( "Server Disconnection Detected... Press any key to continue.");
-		        	try {
-						client.in.read();
-					} catch (IOException e1) {
-					}
+		        	display.clearScreen();
+		        	display.putStaticLine("Server Disconnection Detected...");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("      You Win!!!");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("");
+		        	display.putStaticLine("Press Enter to continue");
+		        	display.printScreen();
+		        	display.readLine();
 		        	return;
 		        }
 			}

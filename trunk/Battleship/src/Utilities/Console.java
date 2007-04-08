@@ -1,3 +1,4 @@
+package Utilities;
 /*
     Console.java
 
@@ -57,9 +58,9 @@ for example to produce menus or text-based graphics.
 */
 public class Console {
 
-	public static final int ROWS = 24; // -1 for the prompt placement at the bottom
+	public static final int ROWS = 28; // -1 for the prompt placement at the bottom
 	public static final int COLS = 80;
-	public static final int CHATSIZE = 8;
+	public static final int CHATSIZE = 7;
 
 	private static char[][] screen;
 	private static char[][] blankscreen;
@@ -200,6 +201,23 @@ method to set the cursor, or use the putStringAt() method.
 		putStringAt(s,cursorRow, cursorCol);
 	}
 
+	/**
+	 * Displays the first 80 characters of s on the next available line
+	 * @param s
+	 */
+	public void putStaticLine(String s){	
+			// Start on this row, at col 0
+		cursorCol=0;
+		for(int i=0; i<80; i++){
+			if(i<s.length())
+				this.putChar(s.charAt(i));
+			else
+				this.putChar(' ');			
+		}
+		// putChar at the 79th column takes car of incrementing the row
+		if(cursorRow >ROWS-CHATSIZE)
+			cursorRow=ROWS-CHATSIZE;
+	}
 	
 	public void scroll(String s){
 		int x,y;

@@ -3,6 +3,8 @@ package Networking;
 
 import java.io.IOException;
 
+import Utilities.Console;
+
 /**
  * BattleshipServer extends Server.
  * Adds ability to store names for the server
@@ -23,6 +25,9 @@ public class BattleshipServer extends Server{
 	 */
 	private String clientName = null;
 	
+	
+	public Console display = new Console();
+	
 	/**
 	 * BattleshipServer Constructor
 	 * Creates server and blocks for connection.
@@ -36,8 +41,9 @@ public class BattleshipServer extends Server{
 		super(port);
 		serverName=name;
 			// Wait for a connection
-		System.out.println("Waiting for a connection...");
-		System.out.println();
+		display.putStaticLine(" ");
+		display.putStaticLine("Waiting for a connection...");
+		display.printScreen();
 		super.Connect();
 			// Send server name and block to receive client name
 		try {
@@ -46,8 +52,11 @@ public class BattleshipServer extends Server{
 			e.printStackTrace();
 		}
 		while((clientName = this.Listen()) == null);
-		System.out.println("We have Connection!");
-		System.out.println();
+		display.putStaticLine(" ");
+		display.putStaticLine(clientName + " has joined your game!");
+		display.putStaticLine("Pres Enter to continue... ");
+		display.printScreen();
+		display.readLine();
 	}
 	
 	

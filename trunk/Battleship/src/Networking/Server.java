@@ -103,7 +103,7 @@ public class Server{
     	try{
         	data = in.readUTF();  		
         } catch (IOException e) {
-			System.out.println( "IO: "+e.getMessage() );
+			System.err.println( "IO: "+e.getMessage() );
         }
         return data;
     } // end Listen

@@ -3,6 +3,8 @@ package Networking;
 
 import java.io.IOException;
 
+import Utilities.Console;
+
 /**
  * BattleshipClient extends Client.
  * Adds ability to store names for the server
@@ -24,6 +26,8 @@ public class BattleshipClient extends Client {
 	private String clientName = null;
 	
 	
+	public Console display = new Console();
+	
 	/**
 	 * BattleshipClient Constructor
 	 * Creates a connection to the designated server.
@@ -43,8 +47,11 @@ public class BattleshipClient extends Client {
 			e.printStackTrace();
 		}
 		while((serverName = this.Listen()) == null);
-		System.out.println("We have Connection!");
-		System.out.println();
+		display.putStaticLine(" ");
+		display.putStaticLine("You have joined " + serverName + "'s game!");
+		display.putStaticLine("Press Enter to continue... ");
+		display.printScreen();
+		display.readLine();
 	}
 	
 	/**

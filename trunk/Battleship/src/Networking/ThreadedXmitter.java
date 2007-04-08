@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Utilities.Console;
 
 /**
  * @author Josh
@@ -12,19 +13,18 @@ import java.io.InputStreamReader;
 public class ThreadedXmitter extends Thread {
 	private BattleshipServer server = null;
 	private BattleshipClient client = null;
+	private Console display = new Console();
 	private boolean wait = false;
 	
 	public ThreadedXmitter (BattleshipServer server){
 		this.server = server;
 		
 		this.start();
-		System.out.println("ThreadedXmitter Thread Started...");
 	}
 	
 	public ThreadedXmitter (BattleshipClient client){
 		this.client = client;
 		this.start();
-		System.out.println("ThreadedXmitter Thread Started...");
 	}
 	
 	public void Stall(){
