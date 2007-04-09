@@ -22,7 +22,7 @@ public abstract class Menu {
 	public Console display = new Console();
 	protected int choice;
 
-	abstract void PrintMenu();
+	abstract String[] PrintMenu();
 
 	boolean check(int min, int max) {
 		if (choice < min)

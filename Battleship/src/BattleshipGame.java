@@ -58,13 +58,26 @@ public class BattleshipGame{
 						// with a "continue START2;" command.
 						// To exit the for loop (and thus the game)
 						// use the command "break START1;".
-			
+				// reset the members
+				// we should make sure not to have multiple listeners
+				// or have both a server and a client (ie. they create a server,
+				// then cancel and decide to join a game instead).
+			server = null;
+			client = null;
+			listener = null;
 
 			// Display the start menu.
 			// Block for input and handle the return
 			//  (all inputs handle themselves except for the quit
 			//   option which MUST? be handled here, in the top module)
-			start_menu.PrintMenu();
+			String strtmenu[] = start_menu.PrintMenu();
+			display.clearScreen();
+			display.putStaticLine("");
+			for(int i =0; i<strtmenu.length; i++)
+				display.putStaticLine(strtmenu[i]);
+			display.printScreen();
+			display.printPrompt("user> ");
+			
 			int choice = start_menu.Input();
 			
 			// Must handle all messages in here
@@ -145,19 +158,18 @@ public class BattleshipGame{
 			//   and cancel options which MUST? be handled here, in the top module)
 			//  If canclee then restart the eternal loop, which restarts at start menu
 			//  If quit, then kick out of the eternal loop
-			board_menu.PrintMenu();
+			String brdmenu[]=board_menu.PrintMenu();
+			display.clearScreen();
+			display.putStaticLine("");
+			for(int i =0; i<brdmenu.length; i++)
+				display.putStaticLine(brdmenu[i]);
+			display.printScreen();
+			display.printPrompt("user> ");
+			
 			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuChoice){
 			case 0:	break START1;
-			case 1:
-					// reset the members
-					// we should make sure not to have multiple listeners
-					// or have both a server and a client (ie. they create a server,
-					// then cancel and decide to join a game instead).
-				server = null;
-				client = null;
-				listener = null;
-				continue START2;
+			case 1:	continue START2;
 			default:
 				if(server!=null)
 					try {

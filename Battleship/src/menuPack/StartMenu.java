@@ -19,14 +19,14 @@ import Utilities.Console;
  */
 public class StartMenu extends Menu {
 	public Console display = new Console();
-	public void PrintMenu() {
-		display.clearScreen();
-		display.putStaticLine("");
-		display.putStaticLine("1) Host Game");
-		display.putStaticLine("2) Join Game");
-		display.putStaticLine("3) Quit");
-		display.printScreen();
-		display.printPrompt("user> ");
+	public String[] PrintMenu() {
+		String menu[]=new String[3];
+		
+		menu[0]="1) Host Game";
+		menu[1]="2) Join Game";
+		menu[2]="3) Quit";
+		
+		return menu;
 	}
 	
 
