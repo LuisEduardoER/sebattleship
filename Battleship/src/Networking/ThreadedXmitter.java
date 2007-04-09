@@ -62,7 +62,8 @@ public class ThreadedXmitter extends Thread {
 						String temp = "M";
 						temp = temp.concat(data);
 						server.Send(temp);
-						System.out.println(server.GetServerName() + ": " + data);
+						display.scroll(server.GetServerName() + ": " + data);
+						display.printScreen();
 					}
 	    		}
 	        } catch (IOException e) {
@@ -90,7 +91,8 @@ public class ThreadedXmitter extends Thread {
 						String temp = "M";	// affix the message type indicator
 						temp = temp.concat(data);
 						client.Send(temp);
-						System.out.println(client.GetClientName() + ": " + data);
+						display.scroll(client.GetClientName() + ": " + data);
+						display.printScreen();
 					}// end if
 	    		}// end while
 	    	} catch (IOException e) {

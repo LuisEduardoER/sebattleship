@@ -1,5 +1,6 @@
 package Gameplay;
 
+import Utilities.Console;
 import Gameplay.Board;
 
 
@@ -9,7 +10,7 @@ import Gameplay.Board;
  */
 public class My_Board extends Board{
 	private StringBuffer dynamic_line;
-	
+	public Console display = new Console();
 	public My_Board(){
 		super();
 		display_line[11]="           My Board             ";
@@ -104,7 +105,8 @@ public class My_Board extends Board{
 	 */
 	public void Display_Board(){
 		for(int i=0;i<12;i++)
-			System.out.println(Display(i));
+			display.putStaticLine(Display(i));
+		display.printScreen();
 	}
 	
 	

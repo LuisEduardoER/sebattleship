@@ -59,7 +59,7 @@ for example to produce menus or text-based graphics.
 public class Console {
 
 	public static final int ROWS = 28; // -1 for the prompt placement at the bottom
-	public static final int COLS = 80;
+	public static final int COLS = 79;	// allow a buffer of one so the prompt doesn't auto return
 	public static final int CHATSIZE = 7;
 
 	private static char[][] screen;
@@ -114,6 +114,10 @@ the results on the monitor.
 */
 	public void printScreen ()
 	{
+			// Allow some buffer space, just in case
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		String line = "";
 		for (int row = 0; row < ROWS; row++) {
 			line = "";
@@ -209,7 +213,7 @@ method to set the cursor, or use the putStringAt() method.
 	public void putStaticLine(String s){	
 			// Start on this row, at col 0
 		cursorCol=0;
-		for(int i=0; i<80; i++){
+		for(int i=0; i<COLS; i++){
 			if(i<s.length())
 				this.putChar(s.charAt(i));
 			else
