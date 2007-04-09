@@ -38,24 +38,24 @@ public class BoardSetupMenu extends Menu {
 	 * @see menuPack.Menu#printMenu()
 	 */
 	
-	public void PrintMenu() {
-		display.clearScreen();
-		display.putStaticLine("");
-		display.putStaticLine("1) Make your own board");
-		display.putStaticLine("2) Generate a random board");
-		display.putStaticLine("3) Cancel");		
-		display.putStaticLine("4) Quit");
-		display.putStaticLine("");
-		display.printScreen();
-		display.printPrompt("user> ");
+	public String[] PrintMenu() {
+		String menu[]=new String[4];
+
+		menu[0]="1) Make your own board";
+		menu[1]="2) Generate a random board";
+		menu[2]="3) Cancel";		
+		menu[3]="4) Quit";
+		
+		return menu;
 	}
 
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
 		// block until the user gives appropriate input
-		while (!getInput(1, 4)) {
-			//System.out.println("Invalid Input: " + choice); message sent in getinput
+		for(getInput();!check(1,4);) {
+			display.scroll("Invalid Input: " + choice);
+			display.printScreen();
 			display.printPrompt("user> ");
-			//getInput();
+			getInput();
 		}
 		
 		// Must handle all messages in here
@@ -74,8 +74,23 @@ public class BoardSetupMenu extends Menu {
 				// Display the board custom board menu
 				display.clearScreen();
 				
-				player.DisplayMyBoard();
-				custom_board.PrintMenu();
+				String brd[]=player.DisplayMyBoard();
+				String cstmbrd[]=custom_board.PrintMenu();
+				display.putStaticLine(brd[0]);
+				display.putStaticLine(brd[1]);
+				display.putStaticLine(brd[2]);
+				display.putStaticLine(brd[3]+ "   " + cstmbrd[0]);
+				display.putStaticLine(brd[4]+ "   " + cstmbrd[1]);
+				display.putStaticLine(brd[5]+ "   " + cstmbrd[2]);
+				display.putStaticLine(brd[6]+ "   " + cstmbrd[3]);
+				display.putStaticLine(brd[7]+ "   " + cstmbrd[4]);
+				display.putStaticLine(brd[8]+ "   " + cstmbrd[5]);
+				display.putStaticLine(brd[9]+ "   " + cstmbrd[6]);
+				display.putStaticLine(brd[10]);
+				display.putStaticLine(brd[11]);
+				
+				display.printScreen();
+				display.printPrompt("user> ");
 				done = custom_board.Input(player);
 			}
 				// When done... send board to opponent
@@ -86,8 +101,25 @@ public class BoardSetupMenu extends Menu {
 			while(!done){
 				display.clearScreen();
 				// Display the board custom board menu
-				player.DisplayMyBoard();
-				random_board.PrintMenu();
+				String brd[]=player.DisplayMyBoard();
+				String rndmbrd[]=random_board.PrintMenu();
+				
+				display.putStaticLine(brd[0]);
+				display.putStaticLine(brd[1]);
+				display.putStaticLine(brd[2]+ "   " + rndmbrd[0]);
+				display.putStaticLine(brd[3]+ "   " + rndmbrd[1]);
+				display.putStaticLine(brd[4]+ "   " + rndmbrd[2]);
+				display.putStaticLine(brd[5]+ "   " + rndmbrd[3]);
+				display.putStaticLine(brd[6]+ "   " + rndmbrd[4]);
+				display.putStaticLine(brd[7]+ "   " + rndmbrd[5]);
+				display.putStaticLine(brd[8]+ "   " + rndmbrd[6]);
+				display.putStaticLine(brd[9]+ "   " + rndmbrd[7]);
+				display.putStaticLine(brd[10]);
+				display.putStaticLine(brd[11]);
+				
+				display.printScreen();
+				display.printPrompt("user> ");
+				
 				done = random_board.Input(player);
 			}	
 			break;

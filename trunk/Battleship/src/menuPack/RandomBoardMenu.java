@@ -23,19 +23,17 @@ public class RandomBoardMenu extends Menu {
 	String coord;
 
 	
-	 public void PrintMenu() {
-			
-		 	display.putStaticLine("");
-		 	display.putStaticLine("1) Place/Adjust Aircraft Carrier");
-		 	display.putStaticLine("2) Place/Adjust Battleship");
-		 	display.putStaticLine("3) Place/Adjust Cruiser");
-		 	display.putStaticLine("4) Place/Adjust Submarine");
-		 	display.putStaticLine("5) Place/Adjust Patrol Boat");
-		 	display.putStaticLine("6) Place/Reset the Board");
-		 	display.putStaticLine("7) Random Again");
-		 	display.putStaticLine("8) Done");
-		 	display.printScreen();
-			display.printPrompt("\nuser> ");
+	 public String[] PrintMenu() {
+			String menu[] = new String[8];
+		 	menu[0]="1) Place/Adjust Aircraft Carrier";
+		 	menu[1]="2) Place/Adjust Battleship";
+		 	menu[2]="3) Place/Adjust Cruiser";
+		 	menu[3]="4) Place/Adjust Submarine";
+		 	menu[4]="5) Place/Adjust Patrol Boat";
+		 	menu[5]="6) Place/Reset the Board";
+		 	menu[6]="7) Random Again";
+		 	menu[7]="8) Done";
+		 	return menu;
 	}
 
 	public boolean Input(Player player){

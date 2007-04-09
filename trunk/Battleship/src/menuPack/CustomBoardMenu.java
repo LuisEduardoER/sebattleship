@@ -29,18 +29,18 @@ public class CustomBoardMenu extends Menu {
 	 * 
 	 * @see menuPack.Menu#printMenu()
 	 */
-	public void  PrintMenu() {
+	public String[] PrintMenu() {
+		String menu[]=new String[7];
 		
-			display.putStaticLine("1) Place/Adjust Aircraft Carrier");
-			display.putStaticLine("2) Place/Adjust Battleship");
-			display.putStaticLine("3) Place/Adjust Cruiser");
-			display.putStaticLine("4) Place/Adjust Submarine");
-			display.putStaticLine("5) Place/Adjust Patrol Boat");
-			display.putStaticLine("6) Reset the Board");
-			display.putStaticLine("7) Done");
-			display.putStaticLine("");
-			display.printScreen();
-			display.printPrompt("user> ");
+			menu[0]="1) Place/Adjust Aircraft Carrier";
+			menu[1]="2) Place/Adjust Battleship";
+			menu[2]="3) Place/Adjust Cruiser";
+			menu[3]="4) Place/Adjust Submarine";
+			menu[4]="5) Place/Adjust Patrol Boat";
+			menu[5]="6) Reset the Board";
+			menu[6]="7) Done";
+
+		return menu;
 	}
 	
 	public boolean Input(Player player){

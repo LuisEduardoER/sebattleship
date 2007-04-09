@@ -97,9 +97,9 @@ public class Player {
 		
 		
 		if(hisBoard.hit_or_miss(xcoor, ycoor))
-			display.putStaticLine("Hit!");
+			display.putStaticLine(attack_coord + ": Hit!");
 		else
-			display.putStaticLine("Miss");
+			display.putStaticLine(attack_coord + ": Miss");
 		String sunk=hisBoard.check_sunk();
 		if(sunk!="nothing"){
 			display.putStaticLine("");
@@ -216,10 +216,12 @@ public class Player {
 	}
 
 	
-	public void DisplayMyBoard(){
+	public String[] DisplayMyBoard(){
+		String board[]=new String[12];
 		for(int i=0; i<12; i++){
-			display.putStaticLine(myBoard.Display(i));
+			board[i]=myBoard.Display(i);
 		}
+		return board;
 	}
 	
 	/**

@@ -58,7 +58,7 @@ for example to produce menus or text-based graphics.
 */
 public class Console {
 
-	public static final int ROWS = 28; // -1 for the prompt placement at the bottom
+	public static final int ROWS = 29; // -1 for the prompt placement at the bottom
 	public static final int COLS = 79;	// allow a buffer of one so the prompt doesn't auto return
 	public static final int CHATSIZE = 7;
 
@@ -90,7 +90,7 @@ See also: gotoXY
 */
 	public void initScreen()
 	{
-		for (int row=0; row<ROWS; row++)
+		for (int row=0; row<=ROWS-CHATSIZE; row++)
 			for (int col=0; col<COLS; col++)
 				blankscreen[row][col] = screen[row][col] = ' ';
 		cursorRow = 0;
@@ -219,7 +219,8 @@ method to set the cursor, or use the putStringAt() method.
 			else
 				this.putChar(' ');			
 		}
-		// putChar at the 79th column takes car of incrementing the row
+		// putChar at the 79th column takes care of incrementing the row
+		
 		if(cursorRow >ROWS-CHATSIZE)
 			cursorRow=ROWS-CHATSIZE;
 	}
@@ -232,12 +233,9 @@ method to set the cursor, or use the putStringAt() method.
 		for(x=ROWS-CHATSIZE+1; x<ROWS; x++){
 			// run y from 0 to COLS-1
 			for(y=0; y<COLS; y++){
-	//			System.out.print(screen[x][y]);
 				this.putCharAt(screen[x][y], x-1,y);
 				this.putCharAt(' ', x, y);
 			}
-	//		temp = screen[ROWS-x+1].toString();
-	//		putStringAt(temp,ROWS-x,0);
 		}
 		this.putStringAt(s,ROWS-1,0);
 		
