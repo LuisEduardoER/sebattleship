@@ -40,7 +40,7 @@ public class GameMenu extends Menu {
 	public boolean Input(Player player, BattleshipServer server, BattleshipClient client, boolean myturn){
 
 		for(getInput();!check(1,3);) {
-			display.scroll("Invalid Input: " + choice);
+			//display.scroll("Invalid Input: " + choice);  redundant error message.  -nate
 			display.printScreen();
 			display.printPrompt("user> ");
 			getInput();
