@@ -63,10 +63,31 @@ public class BattleshipGame{
 				// we should make sure not to have multiple listeners
 				// or have both a server and a client (ie. they create a server,
 				// then cancel and decide to join a game instead).
+			if(server!=null){
+				if(server.serverSocket!=null)
+					try {
+						server.serverSocket.close();
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+				if(server.clientSocket!=null)
+					try {
+						server.clientSocket.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			}
+			if(client!=null){
+				if(client.clientSocket!=null)
+					try {
+						client.clientSocket.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			}
 			server = null;
 			client = null;
 			listener = null;
-			
 			
 			// Display the start menu.
 			// Block for input and handle the return
@@ -171,7 +192,20 @@ public class BattleshipGame{
 			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuChoice){
 			case 0:	break START1;
-			case 1:	continue START2;
+			case 1:
+				if(server!=null)
+					try {
+						server.Send("S");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				if(client!=null)
+					try {
+						client.Send("S");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				continue START2;
 			default:
 				if(server!=null)
 					try {
@@ -208,9 +242,9 @@ public class BattleshipGame{
 				// block for the player to send his board	
 			while(!player.board_received);
 				// Once we've got it, display it and go on to the game process
-	//		display.clearScreen();
-	//		player.Display_Boards();
-	//		display.printScreen();
+			display.clearScreen();
+			player.Display_Boards();
+			display.printScreen();
 			player.board_received=false;		// clear the flag so we never do this again
 		
 				// Loop forever.  When its my turn, take my turn.
@@ -236,9 +270,6 @@ public class BattleshipGame{
 						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
-					display.clearScreen();
-					player.Display_Boards();
-					display.putStaticLine("");
 					String gmmenu[] = game_menu.PrintMenu(false);
 					for(int i=0; i<gmmenu.length; i++)
 						display.putStaticLine(gmmenu[i]);
@@ -246,8 +277,21 @@ public class BattleshipGame{
 					display.printPrompt("user> ");
 					
 						// block for input
-					if(!game_menu.Input(player, server, client, false))
+					if(!game_menu.Input(player, server, client, false)){
+						if(server!=null)
+							try {
+								server.Send("S");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						if(client!=null)
+							try {
+								client.Send("S");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						continue START2;	// If they chose to quit
+					}
 					
 					display.clearScreen();	// Clear the screen
 				}

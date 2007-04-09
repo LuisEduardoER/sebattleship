@@ -20,7 +20,7 @@ public class Server{
 	/**
 	 * Server socket created on instantiation
 	 */
-	private ServerSocket serverSocket = null;
+	public ServerSocket serverSocket = null;
 	
 	/**
 	 * Client socket created on connection
