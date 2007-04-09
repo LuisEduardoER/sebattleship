@@ -17,6 +17,7 @@ import Gameplay.Ship;
 import Gameplay.Submarine;
 
 import Networking.*;
+import Utilities.Console;
 
 
 /*
@@ -31,26 +32,29 @@ import Gameplay.Board;
  *
  */
 public class BoardSetupMenu extends Menu {
-
+	public Console display = new Console();
 	
 	/* (non-Javadoc)
 	 * @see menuPack.Menu#printMenu()
 	 */
 	
 	public void PrintMenu() {
-		System.out.println("1) Make your own board");
-		System.out.println("2) Generate a random board");
-		System.out.println("3) Cancel");		
-		System.out.println("4) Quit");
-		System.out.println();
-		System.out.print("user> ");
+		display.clearScreen();
+		display.putStaticLine("");
+		display.putStaticLine("1) Make your own board");
+		display.putStaticLine("2) Generate a random board");
+		display.putStaticLine("3) Cancel");		
+		display.putStaticLine("4) Quit");
+		display.putStaticLine("");
+		display.printScreen();
+		display.printPrompt("user> ");
 	}
 
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
 		// block until the user gives appropriate input
 		while (!getInput(1, 4)) {
 			//System.out.println("Invalid Input: " + choice); message sent in getinput
-			System.out.print("user> ");
+			display.printPrompt("user> ");
 			//getInput();
 		}
 		
@@ -68,6 +72,8 @@ public class BoardSetupMenu extends Menu {
 		case 1:
 			while(!done){
 				// Display the board custom board menu
+				display.clearScreen();
+				
 				player.DisplayMyBoard();
 				custom_board.PrintMenu();
 				done = custom_board.Input(player);
@@ -78,6 +84,7 @@ public class BoardSetupMenu extends Menu {
 		case 2:
 			player.PlaceRandomBoard();
 			while(!done){
+				display.clearScreen();
 				// Display the board custom board menu
 				player.DisplayMyBoard();
 				random_board.PrintMenu();

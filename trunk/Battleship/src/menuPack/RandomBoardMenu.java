@@ -18,30 +18,33 @@ import Gameplay.Player;
  * 
  */
 public class RandomBoardMenu extends Menu {
-
+	
 	int whichShip;
 	String coord;
 
 	
 	 public void PrintMenu() {
 			
-			System.out.println("1) Place/Adjust Aircraft Carrier");
-			System.out.println("2) Place/Adjust Battleship");
-			System.out.println("3) Place/Adjust Cruiser");
-			System.out.println("4) Place/Adjust Submarine");
-			System.out.println("5) Place/Adjust Patrol Boat");
-			System.out.println("6) Place/Reset the Board");
-			System.out.println("7) Random Again");
-			System.out.println("8) Done");
-			System.out.println();
-			System.out.println("\nuser> ");
+		 	display.putStaticLine("");
+		 	display.putStaticLine("1) Place/Adjust Aircraft Carrier");
+		 	display.putStaticLine("2) Place/Adjust Battleship");
+		 	display.putStaticLine("3) Place/Adjust Cruiser");
+		 	display.putStaticLine("4) Place/Adjust Submarine");
+		 	display.putStaticLine("5) Place/Adjust Patrol Boat");
+		 	display.putStaticLine("6) Place/Reset the Board");
+		 	display.putStaticLine("7) Random Again");
+		 	display.putStaticLine("8) Done");
+		 	display.printScreen();
+			display.printPrompt("\nuser> ");
 	}
 
 	public boolean Input(Player player){
 
-		while(!getInput(1,8)){
-			//System.out.println("Invalid Input: " + choice);  error message sent out in GetInput function
-			System.out.print("user> ");
+		for(getInput();!check(1,8);) {
+			display.scroll("Invalid Input: " + choice);
+			display.printScreen();
+			display.printPrompt("user> ");
+			getInput();
 		}
 	
 		whichShip = choice;
@@ -79,8 +82,8 @@ public class RandomBoardMenu extends Menu {
 					&& player.myBoard.submarine.placed && player.myBoard.patrolboat.placed){
 			return true;
 			} else {
-				System.out.println("You must place all ships before you can continue.");
-				System.out.println();
+				display.scroll("You must place all ships before you can continue.");
+				display.printScreen();
 				break;
 			}
 			
@@ -91,32 +94,34 @@ public class RandomBoardMenu extends Menu {
 			// Get the ship location information
 		boolean placed = false;
 		while (!placed && choice<6) {
-			System.out.println("Please enter the start coordinate:");
-			System.out.println("user> ");
+			display.putStaticLine("");
+			display.putStaticLine("Please enter the start coordinate:");
+			display.printScreen();
+			display.printPrompt("user> ");
 			GetCoord();
-			System.out.println();
-
-			System.out.println("Please enter the direction");
-			System.out.println("1) Right   2) Down   3) Left   4) Up");
-			System.out.println("user> ");
+			display.putStaticLine("");
+			display.putStaticLine("Please enter the direction");
+			display.putStaticLine("1) Right   2) Down   3) Left   4) Up");
+			display.printScreen();
+			display.printPrompt("user> ");
 			getInput();
 			direction = choice;
-			System.out.println();
 
 
 			placed = player.validateShipPlacement(temp, coord, direction);
 
 			if (placed) {
-				System.out.println("Success");
-				System.out.println();
+	//			System.out.println("Success");
 //				 Place the ship
 				player.placeShip(temp, coord, direction);
 			} else {
-				System.out.println("Invalid placement");
-				System.out.println();
+				display.scroll("Invalid placement");
+				display.printScreen();
 				player.myBoard.Display_Board();
-				if(coord.length()>2)
-					System.out.println("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
+				if(coord.length()>2){
+					display.scroll("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
+					display.printScreen();
+				}
 			}
 		}
 			

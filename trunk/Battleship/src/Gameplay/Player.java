@@ -2,6 +2,8 @@
 package Gameplay;
 
 import Networking.*;
+import Utilities.Console;
+
 import java.io.*;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ import java.util.Random;
  *
  */
 public class Player {
-	
+	public Console display = new Console();
 	public boolean host=false;
 	public boolean isTurn;
 	public boolean board_sent = false;
@@ -56,15 +58,18 @@ public class Player {
 	 * 			sending the coordinates
 	 */
 	public boolean My_Turn(BattleshipServer server, BattleshipClient client) {
-			
-			System.out.println("Enter the position you want to Attack (i.e. A2) ");
+			display.putStaticLine("");	
+			display.putStaticLine("Enter the position you want to Attack (i.e. A2) ");
+			display.printScreen();
+			display.printPrompt("user> ");
 			try{
 			attack_coord=Get_Input();
 			}catch(IOException ioe){
 				attack_coord="INVALID COMMAND";
 			}
 		while(!Validate_Input(attack_coord)){
-			System.out.println("Enter the position you want to Attack (i.e. A2");
+	//		display.putStaticLine("");	
+	//		display.putStaticLine("Enter the position you want to Attack (i.e. A2) ");
 			try{
 				attack_coord=Get_Input();
 				}catch(IOException ioe){
@@ -92,25 +97,21 @@ public class Player {
 		
 		
 		if(hisBoard.hit_or_miss(xcoor, ycoor))
-			System.out.println("Hit!");
+			display.putStaticLine("Hit!");
 		else
-			System.out.println("Miss");
-		
+			display.putStaticLine("Miss");
 		String sunk=hisBoard.check_sunk();
 		if(sunk!="nothing"){
-			System.out.println("You sunk his " + sunk);  //not sure of syntax on this
+			display.putStaticLine("");
+			display.putStaticLine("You sunk his " + sunk);  //not sure of syntax on this
 			if(hisBoard.check_all_sunk()){
-				System.out.println("You WIN!!!!!!");
+				display.putStaticLine("You WIN!!!!!!");
 				victory=true;
 			}
 		}
-		
+
 			// It's not my turn anymore
 		this.isTurn=false;
-		System.out.println();
-		Display_Boards();     //so player can see where they were just attacked
-		System.out.println("                Waiting for Opponent's Move....");
-		System.out.println();
 		return true;
 }
 
@@ -130,24 +131,27 @@ public class Player {
 		 * update hit_history
 		 */
 		myBoard.hit_history[xcoor][ycoor]=1;  
-		System.out.println();
-		System.out.println();
-		
-		System.out.println("Opponent attacked " + opponent_coord+"...");
+		display.clearScreen();
+		this.Display_Boards();
+		display.putStaticLine("");
+		display.putStaticLine("Opponent attacked " + opponent_coord+"...");
 		if(myBoard.hit_or_miss(xcoor, ycoor))
-			System.out.println("Hit!");
+			display.putStaticLine("Hit!");
 		else
-			System.out.println("Miss");
+			display.putStaticLine("Miss");
 		
 		String sunk=myBoard.check_sunk();
 		if(sunk!="nothing"){
-			System.out.println("He sunk your " + sunk);  //not sure of syntax on this
+			display.putStaticLine("He sunk your " + sunk);  //not sure of syntax on this
 			if(hisBoard.check_all_sunk()){
-				System.out.println("You LOSE!!!!!!");
+				display.putStaticLine("You LOSE!!!!!!");
 				opponent_victory=true;
 			}
 		}
-		Display_Boards();
+		display.putStaticLine("");
+		display.putStaticLine("Press Enter to continue with you turn...");
+		display.printScreen();
+		display.readLine();
 		// now it's my turn again
 		this.isTurn=true;
 	}
@@ -164,7 +168,8 @@ public class Player {
 	public boolean Validate_Input(String attack_coord){
 		attack_coord=attack_coord.trim();   //deletes any unecessary whitespace
 		if(attack_coord.length()>3) {   //format incorrect
-			System.out.println("Input string too long to be proper coordinate");
+			display.scroll("Input string too long to be proper coordinate");
+			display.printScreen();
 			return false;
 		}
 		
@@ -178,7 +183,8 @@ public class Player {
 			xcoor=Integer.parseInt(x_as_string);
 			xcoor--;                            //to match the xcoor with the array position
 		} catch (NumberFormatException nfe) {
-	         System.out.println("Incorrect Format.  Enter with letter and then number i.e. B3");
+	         display.scroll("Incorrect Format.  Enter with letter and then number i.e. B3");
+	         display.printScreen();
 	         return false;
 		}
 
@@ -186,12 +192,13 @@ public class Player {
 		
 
 		if(!hisBoard.in_Grid(xcoor, ycoor)){
-			System.out.println("The Coordinate input is not within (A-J) or (1-10)");
+			display.scroll("The Coordinate input is not within (A-J) or (1-10)");
+			display.printScreen();
 			return false;
 		}
 		if(hisBoard.already_attacked(xcoor,ycoor)){
-			System.out.println("Coordinate has already been attacked");
-		
+			display.scroll("Coordinate has already been attacked");
+			display.printScreen();		
 			return false;
 		}
 		return true;
@@ -204,16 +211,15 @@ public class Player {
 	 */
 	public void Display_Boards(){
 		for(int i=0; i<13; i++){
-			System.out.println(myBoard.Display(i)+"       "+hisBoard.Display(i));
+			display.putStaticLine(myBoard.Display(i)+"       "+hisBoard.Display(i));
 		}
 	}
 
 	
 	public void DisplayMyBoard(){
 		for(int i=0; i<12; i++){
-			System.out.println(myBoard.Display(i));
+			display.putStaticLine(myBoard.Display(i));
 		}
-		System.out.println();
 	}
 	
 	/**
@@ -478,12 +484,11 @@ public class Player {
 				placed = this.validateShipPlacement(temp, coordinate, direction);
 
 				if (placed) {
-					System.out.println("Success");
+	//				System.out.println("Success");
 					this.placeShip(temp, coordinate, direction);
 					
 				} else {
-					System.out
-							.println("Invalid coordinate, please enter another");
+	//				display.scroll("Invalid coordinate, please enter another");
 				}
 			}
 		}

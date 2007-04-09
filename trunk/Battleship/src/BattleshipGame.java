@@ -146,8 +146,8 @@ public class BattleshipGame{
 			//  If canclee then restart the eternal loop, which restarts at start menu
 			//  If quit, then kick out of the eternal loop
 			board_menu.PrintMenu();
-			int boardMenuHandle = board_menu.Input(player, custom_menu, random_menu);
-			switch (boardMenuHandle){
+			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu);
+			switch (boardMenuChoice){
 			case 0:	break START1;
 			case 1:
 					// reset the members
@@ -163,20 +163,27 @@ public class BattleshipGame{
 					try {
 						server.Send("B"+player.MyBoardToString());
 						player.board_sent=true;			// Indicate the board has been sent
-						System.out.println("Waiting for opponent to finish ship placement");
-						System.out.println();
+						display.clearScreen();
+						display.putStaticLine("");
+						display.putStaticLine("Waiting for opponent to finish ship placement");
+						display.printScreen();
 					} catch (IOException e) {
-						System.err.println("Error Sending Board to Opponent");
+						display.scroll("Error Sending Board to Opponent");
+						display.printScreen();
 						e.printStackTrace();
 					}
 				else if(client!=null)
 					try {
 						client.Send("B"+player.MyBoardToString());
 						player.board_sent=true;			// Indicate the board has been sent
-						System.out.println("Waiting for opponent to finish ship placement");
+						display.clearScreen();
+						display.putStaticLine("");
+						display.putStaticLine("Waiting for opponent to finish ship placement");
+						display.printScreen();
 						System.out.println();
 					} catch (IOException e) {
-						System.err.println("Error Sending Board to Opponent");
+						display.scroll("Error Sending Board to Opponent");
+						display.printScreen();
 						e.printStackTrace();
 					}
 			}
@@ -189,14 +196,21 @@ public class BattleshipGame{
 			while(true){
 				// block for the player to send his board	
 				if(player.board_received){
+					display.clearScreen();
 					player.Display_Boards();
+					display.printScreen();
 					player.board_received=false;		// clear the flag so we never do this again
 				}
 				if(player.isTurn){
+					display.clearScreen();
+					player.Display_Boards();
 					player.My_Turn(server, client);
+					display.putStaticLine("");
+					display.putStaticLine("                Waiting for Opponent's Move....");
+					display.printScreen();
 					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
 					if(player.victory || player.opponent_victory)
-						break START1;   //if victory, exit giant loop
+						continue START2;   //if victory, exit giant loop
 						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 			}
@@ -220,12 +234,11 @@ public class BattleshipGame{
 			//GO BACK TO BOARD SETUP.  INCOMPLETE.****************************
 			 * */
 			 
-		System.out.println("Goodbye... ");
+		display.putStaticLine("Goodbye... ");
 		
 	}
 
 	public static void DisplayTitleScreen(Console display){
-		display.gotoXY(0, 0);
 		display.putStaticLine("");
 		display.putStaticLine("      ___                 |           ___                                ");
 		display.putStaticLine("     ||  \\     ____    /-----\\    § ||  |                              ");
@@ -244,7 +257,6 @@ public class BattleshipGame{
 		display.putStaticLine("    __| |            | | | |         | |          | |          |    ");
 		display.putStaticLine("    \\__/             |_| |_|         |_|          |_|         |  ");
 		display.putStaticLine("     _________________________________________________________|       ");
-		display.printScreen();
 	}
 	
 	public static void WaitForEnter(Console display){
