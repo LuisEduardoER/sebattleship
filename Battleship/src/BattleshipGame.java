@@ -66,7 +66,8 @@ public class BattleshipGame{
 			server = null;
 			client = null;
 			listener = null;
-
+			
+			
 			// Display the start menu.
 			// Block for input and handle the return
 			//  (all inputs handle themselves except for the quit
@@ -147,7 +148,7 @@ public class BattleshipGame{
 			case 3:
 				break START1;
 			}
-
+			
 			// else, if start_menu.Input returned true, then connection has been made
 			//  proceed with the setup
 			
@@ -235,6 +236,9 @@ public class BattleshipGame{
 						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
+					display.clearScreen();
+					player.Display_Boards();
+					display.putStaticLine("");
 					String gmmenu[] = game_menu.PrintMenu(false);
 					for(int i=0; i<gmmenu.length; i++)
 						display.putStaticLine(gmmenu[i]);

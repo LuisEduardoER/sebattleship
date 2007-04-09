@@ -68,6 +68,7 @@ public class Player {
 				attack_coord="INVALID COMMAND";
 			}
 		while(!Validate_Input(attack_coord)){
+			display.printPrompt("user> ");
 	//		display.putStaticLine("");	
 	//		display.putStaticLine("Enter the position you want to Attack (i.e. A2) ");
 			try{

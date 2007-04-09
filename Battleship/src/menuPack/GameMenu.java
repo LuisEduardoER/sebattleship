@@ -14,7 +14,6 @@ import Networking.BattleshipServer;
 
 public class GameMenu extends Menu {
 
-	@Override
 	public String[] PrintMenu(){
 		return null;
 	}
