@@ -65,7 +65,17 @@ public class ThreadedReceiver extends Thread {
 					case 'S':		// System Data
 						// figure out what system messages might come and
 						// determine how to handle them here
-						break;	
+						display.clearScreen();
+						display.putStaticLine("Network Disconnection Detected...");
+						display.putStaticLine("");
+						display.putStaticLine("");
+						display.putStaticLine("      You Win!!!");
+						display.putStaticLine("");
+						display.putStaticLine("");
+						display.putStaticLine("Press Enter to continue");
+						display.printScreen();
+						display.readLine();		
+						return;	
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
 							// Display message
@@ -73,18 +83,7 @@ public class ThreadedReceiver extends Thread {
 						display.printScreen();
 						display.printPrompt("user> ");
 					}
-		        } catch (IOException e) {
-		        	display.clearScreen();
-		        	display.putStaticLine("Server Disconnection Detected...");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("      You Win!!!");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("Press Enter to continue");
-		        	display.printScreen();
-		        	display.readLine();
-		        	return;
+		        } catch (IOException e) {        	
 			//		System.out.println( "IO: "+e.getMessage() );
 		        }
 			}
@@ -117,7 +116,17 @@ public class ThreadedReceiver extends Thread {
 					case 'S':		// System Data
 						// figure out what system messages might come and
 						// determine how to handle them here
-						break;	
+			        	display.clearScreen();
+			        	display.putStaticLine("Server Disconnection Detected...");
+			        	display.putStaticLine("");
+			        	display.putStaticLine("");
+			        	display.putStaticLine("      You Win!!!");
+			        	display.putStaticLine("");
+			        	display.putStaticLine("");
+			        	display.putStaticLine("Press 3, then Enter to continue");
+			        	display.printScreen();
+			        	display.printPrompt("user> ");
+			        	return;
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
 							// Display message
@@ -126,17 +135,6 @@ public class ThreadedReceiver extends Thread {
 						display.printPrompt("user> ");
 					}
 		        } catch (IOException e) {
-		        	display.clearScreen();
-		        	display.putStaticLine("Server Disconnection Detected...");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("      You Win!!!");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("");
-		        	display.putStaticLine("Press Enter to continue");
-		        	display.printScreen();
-		        	display.readLine();
-		        	return;
 		        }
 			}
 		}
