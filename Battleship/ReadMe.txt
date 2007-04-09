@@ -64,7 +64,7 @@ How to run Battleship:
 
 	- From the bin folder, type the following command:
 
-		javac -cp . BattleshipGame
+		java -cp . BattleshipGame
 
 	This will launch Battleship in your console.
 

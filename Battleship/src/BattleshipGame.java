@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 
 import Networking.*;
 import Utilities.Console;
+import Utilities.Sound;
 import Gameplay.*;
 import menuPack.*;
 
@@ -38,7 +39,7 @@ public class BattleshipGame{
 		Player player = new Player();
 		
 		
-	
+		
 
 			/*
 			 * One Time Only Stuff Goes HERE...
@@ -245,6 +246,7 @@ public class BattleshipGame{
 			display.clearScreen();
 			player.Display_Boards();
 			display.printScreen();
+			Sound.playSound("res/braveheart.wav");
 			player.board_received=false;		// clear the flag so we never do this again
 		
 				// Loop forever.  When its my turn, take my turn.
@@ -261,23 +263,7 @@ public class BattleshipGame{
 					display.printPrompt("user> ");
 					
 					// Block for input
-					if(!game_menu.Input(player, server, client, true))
-						continue START2;	// If they chose to quit
-					
-					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
-					if(player.victory || player.opponent_victory)
-						continue START2;   //if victory, exit giant loop
-						                //victory messages are taken care of in My_Turn and His_Turn
-				}
-				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
-					String gmmenu[] = game_menu.PrintMenu(false);
-					for(int i=0; i<gmmenu.length; i++)
-						display.putStaticLine(gmmenu[i]);
-					display.printScreen();
-					display.printPrompt("user> ");
-					
-						// block for input
-					if(!game_menu.Input(player, server, client, false)){
+					if(!game_menu.Input(player, server, client, true)){
 						if(server!=null)
 							try {
 								server.Send("S");
@@ -293,7 +279,37 @@ public class BattleshipGame{
 						continue START2;	// If they chose to quit
 					}
 					
+					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
+					if(player.victory || player.opponent_victory)
+						continue START2;   //if victory, exit giant loop
+						                //victory messages are taken care of in My_Turn and His_Turn
+				}
+				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
+					String gmmenu[] = game_menu.PrintMenu(false);
+					for(int i=0; i<gmmenu.length; i++)
+						display.putStaticLine(gmmenu[i]);
+					display.printScreen();
+					display.printPrompt("user> ");
+					
+						// block for input
+					if(!game_menu.Input(player, server, client, false)){
+						Sound.playSound("res/power_down.wav");
+						if(server!=null)
+							try {
+								server.Send("S");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						if(client!=null)
+							try {
+								client.Send("S");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						continue START2;	// If they chose to quit
+					}
 					display.clearScreen();	// Clear the screen
+					player.Display_Boards();
 				}
 			}
 		

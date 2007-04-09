@@ -83,8 +83,6 @@ public class GameMenu extends Menu {
 		case 3:		// Return false to quit
 			return false;	
 		}
-
-		
 		return true;
 	}
 
