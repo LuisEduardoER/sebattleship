@@ -149,9 +149,9 @@ public class Player {
 			}
 		}
 		display.putStaticLine("");
-		display.putStaticLine("Press Enter to continue with you turn...");
+		display.putStaticLine("Press 2, then Enter to continue with you turn...");
 		display.printScreen();
-		display.readLine();
+		display.printPrompt("user> ");
 		// now it's my turn again
 		this.isTurn=true;
 	}
