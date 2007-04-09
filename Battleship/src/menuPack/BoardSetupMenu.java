@@ -52,7 +52,7 @@ public class BoardSetupMenu extends Menu {
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
 		// block until the user gives appropriate input
 		for(getInput();!check(1,4);) {
-			display.scroll("Invalid Input: " + choice);
+			//display.scroll("Invalid Input: " + choice);  redundant error message
 			display.printScreen();
 			display.printPrompt("user> ");
 			getInput();

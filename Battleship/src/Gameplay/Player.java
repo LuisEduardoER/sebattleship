@@ -173,8 +173,11 @@ public class Player {
 			display.printScreen();
 			return false;
 		}
-		
-		
+		if(attack_coord.length()<=1){
+			display.scroll("Input string too short to be proper coordinate");
+			display.printScreen();
+			return false;
+		}
 		// Convert the string inputs into integers
 		String x_as_string = attack_coord.substring(1);
 		ycoor = letterToIndex(attack_coord.charAt(0));

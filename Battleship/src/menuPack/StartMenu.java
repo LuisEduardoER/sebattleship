@@ -43,7 +43,7 @@ public class StartMenu extends Menu {
 	public int Input(){
 		// block until the user gives appropriate input
 		for(getInput();!check(1,3);) {
-			display.scroll("Invalid Input: " + choice);
+			//display.scroll("Invalid Input: " + choice);
 			display.printScreen();
 			display.printPrompt("user> ");
 			getInput();

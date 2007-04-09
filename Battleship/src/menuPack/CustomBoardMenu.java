@@ -46,7 +46,7 @@ public class CustomBoardMenu extends Menu {
 	public boolean Input(Player player){
 
 		for(getInput();!check(1,7);) {
-			display.scroll("Invalid Input: " + choice);
+			//display.scroll("Invalid Input: " + choice);
 			display.printScreen();
 			display.printPrompt("user> ");
 			getInput();
