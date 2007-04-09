@@ -71,6 +71,7 @@ public class ThreadedReceiver extends Thread {
 							// Display message
 						display.scroll(server.GetClientName() + ": " + data.substring(1));
 						display.printScreen();
+						display.printPrompt("user> ");
 					}
 		        } catch (IOException e) {
 		        	display.clearScreen();
@@ -120,8 +121,9 @@ public class ThreadedReceiver extends Thread {
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
 							// Display message
-						display.putStaticLine(client.GetServerName() + ": " + data.substring(1));
+						display.scroll(client.GetServerName() + ": " + data.substring(1));
 						display.printScreen();
+						display.printPrompt("user> ");
 					}
 		        } catch (IOException e) {
 		        	display.clearScreen();

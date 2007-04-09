@@ -34,6 +34,7 @@ public class BattleshipGame{
 		BoardSetupMenu board_menu = new BoardSetupMenu();
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
 		RandomBoardMenu random_menu = new RandomBoardMenu();
+		GameMenu game_menu = new GameMenu();
 		Player player = new Player();
 		
 		
@@ -116,7 +117,7 @@ public class BattleshipGame{
 					// set this player as the host
 				player.host=true;
 					// Start the server connection
-				server = new BattleshipServer(server_port, name);
+				server = new BattleshipServer(server_port, name, display);
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(server, player);
 				break;
@@ -201,29 +202,50 @@ public class BattleshipGame{
 			}
 			
 			
-			// By this point the boards have been set up and the game is ready to be played.
-
+			// By this point the board has been set up and the game is ready to be played.
+	
+				// block for the player to send his board	
+			while(!player.board_received);
+				// Once we've got it, display it and go on to the game process
+	//		display.clearScreen();
+	//		player.Display_Boards();
+	//		display.printScreen();
+			player.board_received=false;		// clear the flag so we never do this again
+		
 				// Loop forever.  When its my turn, take my turn.
 				//  Need to exit when the game is over...
 			while(true){
-				// block for the player to send his board	
-				if(player.board_received){
+				while(player.isTurn){	// keep getting inputs as long is it's my turn
 					display.clearScreen();
 					player.Display_Boards();
-					display.printScreen();
-					player.board_received=false;		// clear the flag so we never do this again
-				}
-				if(player.isTurn){
-					display.clearScreen();
-					player.Display_Boards();
-					player.My_Turn(server, client);
 					display.putStaticLine("");
-					display.putStaticLine("                Waiting for Opponent's Move....");
+					String gmmenu[] = game_menu.PrintMenu(true);
+					for(int i=0; i<gmmenu.length; i++)
+						display.putStaticLine(gmmenu[i]);
 					display.printScreen();
+					display.printPrompt("user> ");
+					
+					// Block for input
+					if(!game_menu.Input(player, server, client, true))
+						continue START2;	// If they chose to quit
+					
 					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
 					if(player.victory || player.opponent_victory)
 						continue START2;   //if victory, exit giant loop
 						                //victory messages are taken care of in My_Turn and His_Turn
+				}
+				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
+					String gmmenu[] = game_menu.PrintMenu(false);
+					for(int i=0; i<gmmenu.length; i++)
+						display.putStaticLine(gmmenu[i]);
+					display.printScreen();
+					display.printPrompt("user> ");
+					
+						// block for input
+					if(!game_menu.Input(player, server, client, false))
+						continue START2;	// If they chose to quit
+					
+					display.clearScreen();	// Clear the screen
 				}
 			}
 		

@@ -25,8 +25,7 @@ public class BattleshipServer extends Server{
 	 */
 	private String clientName = null;
 	
-	
-	public Console display = new Console();
+
 	
 	/**
 	 * BattleshipServer Constructor
@@ -37,7 +36,7 @@ public class BattleshipServer extends Server{
 	 * @param port	Port number to use for communication on this server
 	 * @param name	Desired name to use as reference to this server
 	 */
-	public BattleshipServer(int port, String name) {
+	public BattleshipServer(int port, String name, Console display) {
 		super(port);
 		serverName=name;
 			// Wait for a connection
