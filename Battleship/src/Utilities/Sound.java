@@ -13,6 +13,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioFormat;
 import java.net.MalformedURLException;
 
+/**
+ * Utility class to play sound files.  Received from SeungJin Lim.
+ * 
+ * 
+ * @author SeunqJin Lim
+ *
+ */
 public class Sound {
 
 	File soundFile;
