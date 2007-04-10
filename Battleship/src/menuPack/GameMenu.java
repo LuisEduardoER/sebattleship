@@ -12,12 +12,32 @@ import Gameplay.Submarine;
 import Networking.BattleshipClient;
 import Networking.BattleshipServer;
 
+/**
+ * A menu class containing the options to be displayed while in the game.
+ * There are 3 options: Send Message, Take Turn, and Resign Game.  
+ * Depending on whose turn it is, variations of the menu are displayed.
+ * This class also handles the inputs and menu choice selection.
+ * 
+ * @author Josh
+ *
+ */
 public class GameMenu extends Menu {
 
+	/**
+	 * Overridden PrintMenu() function.  Not used in this menu.
+	 */
 	public String[] PrintMenu(){
 		return null;
 	}
 	
+	/**
+	 * Returns a String array containing the lines of menu options.
+	 * Chooses which menu to return based on whose turn it is.
+	 * 
+	 * @param myturn	true if it is the players turn, otherwise false
+	 * @return	String array containing the menu, with each item being it's
+	 * 			own String.
+	 */
 	public String[] PrintMenu(boolean myturn) {
 		String myturnmenu[] = new String[3];
 		String histurnmenu[] = new String[2];
@@ -37,6 +57,18 @@ public class GameMenu extends Menu {
 	
 	
 	
+	/**
+	 * Function to get menu selection and handle the appropriate actions.  Handles
+	 * all menu selections except for that of "Resign Game", which must be handled
+	 * by the higher level caller.
+	 * 
+	 * @param player	A reference to the game player, for accessing boards and functions
+	 * @param server	A reference to the server, if this is the servers'
+	 * @param client	A reference to the client, if this is the clients'
+	 * @param myturn	Contains true if it is the player's turn, otherwise false
+	 * @return	True if the menu choice was handled by the Input() function.  False if
+	 * 			outside handling needs to be performed
+	 */
 	public boolean Input(Player player, BattleshipServer server, BattleshipClient client, boolean myturn){
 
 		for(getInput();!check(1,3);) {
