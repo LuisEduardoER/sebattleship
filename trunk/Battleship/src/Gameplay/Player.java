@@ -173,7 +173,6 @@ public class Player {
 		this.isTurn=true;
 	}
 	
-	
 	/**
 	 * Returns true if the coordinate entered is a legal move.  
 	 * 
