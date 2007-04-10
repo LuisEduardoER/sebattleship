@@ -58,13 +58,45 @@ for example to produce menus or text-based graphics.
 */
 public class Console {
 
+	/**
+	 * Contains the number of rows the console will manage.  This should be 
+	 * 1 less than the total screen resolution to allow a row at the bottom
+	 * for the prompt.
+	 */
 	public static final int ROWS = 29; // -1 for the prompt placement at the bottom
+
+	/**
+	 * Contians the number of columns the console will manage.  This should be
+	 * 1 less than the total screen width to prevent the console from auto returning
+	 * after a character has been printed on the 79th column.  Thus, the 79th column
+	 * is always left blank.
+	 */
 	public static final int COLS = 79;	// allow a buffer of one so the prompt doesn't auto return
+	
+	/**
+	 * Contains the number of rows to reserver at the bottom of the console for the 
+	 * chat box.
+	 */
 	public static final int CHATSIZE = 7;
 
+	/**
+	 * Contains the character array that represents the screen.
+	 */
 	private static char[][] screen;
+	
+	/**
+	 * Contains a blank screen for printing a clean screen.
+	 */
 	private static char[][] blankscreen;
+	
+	/**
+	 * Holds the current row of the cursor.
+	 */
 	private static int cursorRow = 0;
+	
+	/**
+	 * Holds the current column of the cursor.
+	 */
 	private static int cursorCol = 0;
 
 /**
@@ -139,6 +171,9 @@ the monitor.
 	}
 
 	
+	/**
+	 * Prints a clean screen without clearing the internally stored screen.
+	 */
 	public void printClean(){
 		for(int i=0; i<25; i++)
 			System.out.println();
@@ -208,7 +243,8 @@ method to set the cursor, or use the putStringAt() method.
 
 	/**
 	 * Displays the first 80 characters of s on the next available line
-	 * @param s
+	 * 
+	 * @param s	a string containing the text to print on the next line
 	 */
 	public void putStaticLine(String s){	
 			// Start on this row, at col 0
@@ -225,6 +261,13 @@ method to set the cursor, or use the putStringAt() method.
 			cursorRow=ROWS-CHATSIZE;
 	}
 	
+	
+	/**
+	 * Prints a string on the bottom of the chat box at the bottom.  All
+	 * lines above it are automatically scrolled up.
+	 * 
+	 * @param s	a string containing the text to add to the scrolling chat box.
+	 */
 	public void scroll(String s){
 		int x,y;
 		String temp;
