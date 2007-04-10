@@ -313,25 +313,25 @@ public class Player {
 	
 	
 	public String indexToLetter(int index) {
-		if (Character.toLowerCase(index) == 0)
+		if (index == 0)
 			return "a";
-		else if (Character.toLowerCase(index) == 1)
+		else if (index == 1)
 			return "b";
-		else if (Character.toLowerCase(index) == 2)
+		else if (index == 2)
 			return "c";
-		else if (Character.toLowerCase(index) == 3)
+		else if (index == 3)
 			return "d";
-		else if (Character.toLowerCase(index) == 4)
+		else if (index == 4)
 			return "e";
-		else if (Character.toLowerCase(index) == 5)
+		else if (index == 5)
 			return "f";
-		else if (Character.toLowerCase(index) == 6)
+		else if (index == 6)
 			return "g";
-		else if (Character.toLowerCase(index) == 7)
+		else if (index == 7)
 			return "h";
-		else if (Character.toLowerCase(index) == 8)
+		else if (index == 8)
 			return "i";
-		else if (Character.toLowerCase(index) == 9)
+		else if (index == 9)
 			return "j";
 		else
 			return null;
