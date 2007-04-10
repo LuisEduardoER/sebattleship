@@ -166,7 +166,7 @@ public class Player {
 		if(this.messaging)
 			display.putStaticLine("Press Enter to continue with you turn...");
 		else
-			display.putStaticLine("Press 3, then Enter to continue with your turn...");
+			display.putStaticLine("Press 2, then Enter to continue with your turn...");
 		display.printScreen();
 		display.printPrompt("user> ");
 		// now it's my turn again

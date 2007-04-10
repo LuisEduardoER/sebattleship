@@ -36,7 +36,7 @@ public class BattleshipGame{
 		CustomBoardMenu custom_menu = new CustomBoardMenu();
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		GameMenu game_menu = new GameMenu();
-		Player player = new Player();
+
 		
 		
 		
@@ -89,6 +89,7 @@ public class BattleshipGame{
 			server = null;
 			client = null;
 			listener = null;
+			Player player = new Player();
 			
 			// Display the start menu.
 			// Block for input and handle the return
