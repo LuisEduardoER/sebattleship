@@ -72,9 +72,9 @@ public class ThreadedReceiver extends Thread {
 						display.putStaticLine("      You Win!!!");
 						display.putStaticLine("");
 						display.putStaticLine("");
-						display.putStaticLine("Press Enter to continue");
+						display.putStaticLine("Press 3, then Enter to continue");
 						display.printScreen();
-						display.readLine();		
+						display.printPrompt("user> ");	
 						return;	
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!

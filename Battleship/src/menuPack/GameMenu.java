@@ -24,10 +24,10 @@ public class GameMenu extends Menu {
 		
 		myturnmenu[0]= "1) Send Message";
 		myturnmenu[1]= "2) Take Turn";
-		myturnmenu[2]= "3) Quit Game";
+		myturnmenu[2]= "3) Resign Game";
 		
 		histurnmenu[0]= "1) Send Message";
-		histurnmenu[1]= "3) Quit Game";
+		histurnmenu[1]= "3) Resign Game";
 		
 		if(myturn)
 			return myturnmenu;
@@ -49,6 +49,7 @@ public class GameMenu extends Menu {
 		
 		switch(choice){
 		case 1:		// Get a message and send it
+			player.messaging=true;
 			display.clearScreen();
 			player.Display_Boards();
 			display.putStaticLine("");
@@ -70,6 +71,7 @@ public class GameMenu extends Menu {
 			if(client!=null)
 				display.scroll(client.GetClientName() + ": " + message);
 			display.printScreen();
+			player.messaging=false;
 			break;
 		case 2:		// Call My_Turn to let them take their turn, if it is their turn, else nothing
 			if(myturn){

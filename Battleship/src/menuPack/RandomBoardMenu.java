@@ -92,6 +92,23 @@ public class RandomBoardMenu extends Menu {
 			// Get the ship location information
 		boolean placed = false;
 		while (!placed && choice<6) {
+			display.clearScreen();
+			String brd[]=player.DisplayMyBoard();
+			String rndmbrd[]=this.PrintMenu();
+			
+			display.putStaticLine(brd[0]);
+			display.putStaticLine(brd[1]);
+			display.putStaticLine(brd[2]+ "   " + rndmbrd[0]);
+			display.putStaticLine(brd[3]+ "   " + rndmbrd[1]);
+			display.putStaticLine(brd[4]+ "   " + rndmbrd[2]);
+			display.putStaticLine(brd[5]+ "   " + rndmbrd[3]);
+			display.putStaticLine(brd[6]+ "   " + rndmbrd[4]);
+			display.putStaticLine(brd[7]+ "   " + rndmbrd[5]);
+			display.putStaticLine(brd[8]+ "   " + rndmbrd[6]);
+			display.putStaticLine(brd[9]+ "   " + rndmbrd[7]);
+			display.putStaticLine(brd[10]);
+			display.putStaticLine(brd[11]);
+			
 			display.putStaticLine("");
 			display.putStaticLine("Please enter the start coordinate:");
 			display.printScreen();
@@ -109,13 +126,11 @@ public class RandomBoardMenu extends Menu {
 			placed = player.validateShipPlacement(temp, coord, direction);
 
 			if (placed) {
-	//			System.out.println("Success");
 //				 Place the ship
 				player.placeShip(temp, coord, direction);
 			} else {
 				display.scroll("Invalid placement");
 				display.printScreen();
-				player.myBoard.Display_Board();
 				if(coord.length()>2){
 					display.scroll("Format input invalid.  Enter coordinate with letter then number (i.e. B2)");
 					display.printScreen();
