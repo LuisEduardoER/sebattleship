@@ -92,35 +92,52 @@ public class Player {
 			System.err.println("Error with connection");
 			return false;
 		}		
+		/*
+		 * We now have a valid guess and have sent it to the opponent.  Update the Display
+		 */
+		
+		boolean hit=false;
 		
 		/*
 		 * update hit_history
 		 */
 		hisBoard.hit_history[xcoor][ycoor]=1;     
-		display.clearScreen();
-		this.Display_Boards();
-		display.putStaticLine("");
+			// Check for sunk ships and update the board accordingly.
+
 		
 		if(hisBoard.hit_or_miss(xcoor, ycoor)){
-			display.putStaticLine(attack_coord + ": Hit!");
+			hit=true;
 			Sound.playSound("res/explosion.wav");
 		}
 		else{
-			display.putStaticLine(attack_coord + ": Miss");
 			Sound.playSound("res/Missile_Incoming_FlyBy.wav");
 		}
+		
 		String sunk=hisBoard.check_sunk();
 		if(sunk!="nothing"){
-			display.putStaticLine("");
-			display.putStaticLine("You sunk his " + sunk);  //not sure of syntax on this
 			Sound.playSound("res/bubbles.wav");
 			if(hisBoard.check_all_sunk()){
-				display.putStaticLine("You WIN!!!!!!");
 				victory=true;
 			}
 		}
-
+			// Now that all the calculations are done, print the display.
+		display.clearScreen();
+		this.Display_Boards();
+		display.putStaticLine("");
+		if(hit)
+			display.putStaticLine(attack_coord + "... Hit!");
+		else
+			display.putStaticLine(attack_coord + "... Miss");
+		display.putStaticLine("");
+		if(sunk!="nothing")
+			display.putStaticLine("You sunk his " + sunk);  //not sure of syntax on this
+		display.putStaticLine("");
+		if(victory)
+			display.putStaticLine("You WIN!!!!!!");
+		
+		
 			// It's not my turn anymore
+		hit=false;
 		this.isTurn=false;
 		return true;
 }
@@ -141,27 +158,45 @@ public class Player {
 		 * update hit_history
 		 */
 		myBoard.hit_history[xcoor][ycoor]=1;  
-		display.clearScreen();
-		this.Display_Boards();
+
+		boolean hit=false;
+		
 		display.putStaticLine("");
-		display.putStaticLine("Opponent attacked " + opponent_coord+"...");
 		if(myBoard.hit_or_miss(xcoor, ycoor)){
 			Sound.playSound("res/explosion.wav");
-			display.putStaticLine("Hit!");
+			hit=true;
 		}
 		else{
 			Sound.playSound("res/Missile_Incoming_FlyBy.wav");
-			display.putStaticLine("Miss");
 		}
+
+		
+		// Check if a ship was sunk and update the board accordingly
 		String sunk=myBoard.check_sunk();
 		if(sunk!="nothing"){
-			display.putStaticLine("He sunk your " + sunk); 
 			Sound.playSound("res/bubbles.wav");
 			if(hisBoard.check_all_sunk()){
-				display.putStaticLine("You LOSE!!!!!!");
 				opponent_victory=true;
 			}
 		}
+		
+			// Handle all the output/display after all the calculation...
+		display.clearScreen();
+		this.Display_Boards();
+		display.putStaticLine("");
+		if(hit)
+			display.putStaticLine("Opponent attacked " + opponent_coord+"... " + "Hit!");
+		else
+			display.putStaticLine("Opponent attacked " + opponent_coord+"... " + "Miss");
+		if(sunk!="nothing"){
+			display.putStaticLine("");
+			display.putStaticLine("He sunk your " + sunk); 
+		}
+		if(opponent_victory){
+			display.putStaticLine("");
+			display.putStaticLine("You LOSE!!!!!!");
+		}
+		
 		display.putStaticLine("");
 		if(this.messaging)
 			display.putStaticLine("Press Enter to continue with you turn...");
@@ -169,6 +204,9 @@ public class Player {
 			display.putStaticLine("Press 2, then Enter to continue with your turn...");
 		display.printScreen();
 		display.printPrompt("user> ");
+		
+		hit=false;
+		
 		// now it's my turn again
 		this.isTurn=true;
 	}

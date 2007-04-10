@@ -315,11 +315,6 @@ public class BattleshipGame{
 							}
 						continue START2;	// If they chose to quit
 					}
-					
-					//player.Display_Boards();   except for the client's first display, the rest of the displays are called inside the player class
-					if(player.victory || player.opponent_victory)
-						continue START2;   //if victory, exit giant loop
-						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
 					display.putStaticLine("");
@@ -348,6 +343,15 @@ public class BattleshipGame{
 					}
 					display.clearScreen();	// Clear the screen
 					player.Display_Boards();
+				}
+					// Check for victory!
+				if(player.victory || player.opponent_victory){
+						// Pause for recognition
+					display.putStaticLine("");
+					display.putStaticLine(" Press enter to continue... ");
+					display.printScreen();
+					display.readLine();
+					continue START2;   //if victory, restart giant loop
 				}
 			}
 		
