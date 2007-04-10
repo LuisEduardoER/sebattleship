@@ -110,7 +110,8 @@ public class GameMenu extends Menu {
 				display.clearScreen();
 				player.Display_Boards();
 				player.My_Turn(server, client);
-				display.putStaticLine("                Waiting for Opponent's Move....");
+				if(!player.victory)
+					display.putStaticLine("                Waiting for Opponent's Move....");
 				display.printScreen();
 			}
 			break;
