@@ -53,7 +53,7 @@ public class BattleshipServer extends Server{
 		while((clientName = this.Listen()) == null);
 		display.putStaticLine(" ");
 		display.putStaticLine(clientName + " has joined your game!");
-		display.putStaticLine("Pres Enter to continue... ");
+		display.putStaticLine("Press Enter to continue... ");
 		display.printScreen();
 		display.readLine();
 	}

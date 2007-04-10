@@ -3,6 +3,7 @@ package Gameplay;
 
 import Networking.*;
 import Utilities.Console;
+import Utilities.Sound;
 
 import java.io.*;
 import java.util.Random;
@@ -94,17 +95,24 @@ public class Player {
 		/*
 		 * update hit_history
 		 */
-		hisBoard.hit_history[xcoor][ycoor]=1;   
+		hisBoard.hit_history[xcoor][ycoor]=1;     
+		display.clearScreen();
+		this.Display_Boards();
+		display.putStaticLine("");
 		
-		
-		if(hisBoard.hit_or_miss(xcoor, ycoor))
+		if(hisBoard.hit_or_miss(xcoor, ycoor)){
 			display.putStaticLine(attack_coord + ": Hit!");
-		else
+			Sound.playSound("res/explosion.wav");
+		}
+		else{
 			display.putStaticLine(attack_coord + ": Miss");
+			Sound.playSound("res/Missile_Incoming_FlyBy.wav");
+		}
 		String sunk=hisBoard.check_sunk();
 		if(sunk!="nothing"){
 			display.putStaticLine("");
 			display.putStaticLine("You sunk his " + sunk);  //not sure of syntax on this
+			Sound.playSound("res/bubbles.wav");
 			if(hisBoard.check_all_sunk()){
 				display.putStaticLine("You WIN!!!!!!");
 				victory=true;
@@ -136,14 +144,18 @@ public class Player {
 		this.Display_Boards();
 		display.putStaticLine("");
 		display.putStaticLine("Opponent attacked " + opponent_coord+"...");
-		if(myBoard.hit_or_miss(xcoor, ycoor))
+		if(myBoard.hit_or_miss(xcoor, ycoor)){
+			Sound.playSound("res/explosion.wav");
 			display.putStaticLine("Hit!");
-		else
+		}
+		else{
+			Sound.playSound("res/Missile_Incoming_FlyBy.wav");
 			display.putStaticLine("Miss");
-		
+		}
 		String sunk=myBoard.check_sunk();
 		if(sunk!="nothing"){
-			display.putStaticLine("He sunk your " + sunk);  //not sure of syntax on this
+			display.putStaticLine("He sunk your " + sunk); 
+			Sound.playSound("res/bubbles.wav");
 			if(hisBoard.check_all_sunk()){
 				display.putStaticLine("You LOSE!!!!!!");
 				opponent_victory=true;
