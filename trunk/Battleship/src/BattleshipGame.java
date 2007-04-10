@@ -246,7 +246,7 @@ public class BattleshipGame{
 			display.clearScreen();
 			player.Display_Boards();
 			display.printScreen();
-			Sound.playSound("res/braveheart.wav");
+			Sound.playSound("res/bravehearta.wav");
 			player.board_received=false;		// clear the flag so we never do this again
 		
 				// Loop forever.  When its my turn, take my turn.

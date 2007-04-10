@@ -54,27 +54,27 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 	
 	if(battleship.position[xcoor][ycoor]>=1){
 		battleship.position_hit[xcoor][ycoor]=1;
-		battleship.update_sunk();
+		
 		return true;
 	}
 	if(carrier.position[xcoor][ycoor]>=1){
 		carrier.position_hit[xcoor][ycoor]=1;
-		carrier.update_sunk();
+		
 		return true;
 	}
 	if(submarine.position[xcoor][ycoor]>=1){
 		submarine.position_hit[xcoor][ycoor]=1;
-		submarine.update_sunk();
+		
 		return true;
 	}
 	if(cruiser.position[xcoor][ycoor]>=1){
 		cruiser.position_hit[xcoor][ycoor]=1;
-		cruiser.update_sunk();
+		
 		return true;
 	}
 	if(patrolboat.position[xcoor][ycoor]>=1){
 		patrolboat.position_hit[xcoor][ycoor]=1;
-		patrolboat.update_sunk();
+		
 		return true;
 	}
 	else 
@@ -102,6 +102,11 @@ public boolean already_attacked(int xcoor, int ycoor){
  * in which case no ships were sunk this turn.
  */
 public String check_sunk(){
+	carrier.update_sunk();
+	battleship.update_sunk();
+	submarine.update_sunk();
+	cruiser.update_sunk();
+	patrolboat.update_sunk();
 	if(battleship.sunk_this_turn){
 		shipsleft--;
 		return Battleship.name; }
