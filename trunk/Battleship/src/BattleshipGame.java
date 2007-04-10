@@ -168,6 +168,28 @@ public class BattleshipGame{
 				listener = new ThreadedReceiver(client, player);
 				break;
 			case 3:
+				if(server!=null){
+					if(server.serverSocket!=null)
+						try {
+							server.serverSocket.close();
+						} catch (IOException e2) {
+							e2.printStackTrace();
+						}
+					if(server.clientSocket!=null)
+						try {
+							server.clientSocket.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}
+				if(client!=null){
+					if(client.clientSocket!=null)
+						try {
+							client.clientSocket.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}
 				break START1;
 			}
 			
@@ -331,9 +353,11 @@ public class BattleshipGame{
 		if(response.charAt(0)=='y' || response.charAt(0)=='Y')
 			//GO BACK TO BOARD SETUP.  INCOMPLETE.****************************
 			 * */
-			 
+			
+		display.putStaticLine("");
 		display.putStaticLine("Goodbye... ");
-		
+		display.printScreen();
+		System.exit(0);
 	}
 
 	public static void DisplayTitleScreen(Console display){
