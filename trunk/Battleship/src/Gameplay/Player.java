@@ -25,6 +25,7 @@ public class Player {
 	private String attack_coord;
 	protected int xcoor;
 	protected int ycoor;
+	public boolean messaging=false;
 	
 	/**
 	 * Player class constructor
@@ -162,7 +163,10 @@ public class Player {
 			}
 		}
 		display.putStaticLine("");
-		display.putStaticLine("Press 2, then Enter to continue with you turn...");
+		if(this.messaging)
+			display.putStaticLine("Press Enter to continue with you turn...");
+		else
+			display.putStaticLine("Press 3, then Enter to continue with your turn...");
 		display.printScreen();
 		display.printPrompt("user> ");
 		// now it's my turn again

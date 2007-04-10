@@ -169,6 +169,7 @@ public class BattleshipGame{
 				break;
 			case 3:
 				if(server!=null){
+					
 					if(server.serverSocket!=null)
 						try {
 							server.serverSocket.close();
@@ -214,7 +215,20 @@ public class BattleshipGame{
 			
 			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu);
 			switch (boardMenuChoice){
-			case 0:	break START1;
+			case 0:
+				if(server!=null)
+					try {
+						server.Send("S");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				if(client!=null)
+					try {
+						client.Send("S");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break START1;
 			case 1:
 				if(server!=null)
 					try {
@@ -307,6 +321,7 @@ public class BattleshipGame{
 						                //victory messages are taken care of in My_Turn and His_Turn
 				}
 				while(!player.isTurn){	// keep getting inputs as long is it's not my turn
+					display.putStaticLine("");
 					String gmmenu[] = game_menu.PrintMenu(false);
 					for(int i=0; i<gmmenu.length; i++)
 						display.putStaticLine(gmmenu[i]);
