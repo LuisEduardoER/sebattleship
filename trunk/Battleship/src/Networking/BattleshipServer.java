@@ -59,7 +59,14 @@ public class BattleshipServer extends Server{
 		display.printScreen();
 		
 			// Wait for a connection
-		super.Connect();
+		if(!super.Connect()){
+			display.putStaticLine("");
+			display.putStaticLine("## Error establishing a connection");
+			display.putStaticLine(" Press Enter to Continue...");
+			display.printScreen();
+			display.readLine();
+			return false;
+		}
 		
 			// Send server name and block to receive client name
 		try {

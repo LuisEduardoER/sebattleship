@@ -48,8 +48,14 @@ public class BattleshipClient extends Client {
 	
 	
 	public boolean Connect(Console display){
-		if(!super.Connect(serverIP, serverPort))
+		if(!super.Connect(serverIP, serverPort)){
+			display.putStaticLine(" ");
+			display.putStaticLine("## Error connecting to: " + serverIP + ":" + serverPort);
+			display.putStaticLine("Press Enter to continue... ");
+			display.printScreen();
+			display.readLine();
 			return false;
+		}
 		try {
 			this.Send(this.clientName);
 		} catch (IOException e) {

@@ -57,10 +57,8 @@ public class Client {
 			out = new DataOutputStream( clientSocket.getOutputStream() );
 			in = new DataInputStream(clientSocket.getInputStream());
 	    } catch( UnknownHostException e ) {
-	        System.err.println( "Unknown host: " + serverIP );
 	        return false;
 	    } catch( IOException e ) {
-	        System.err.println( "I/O exception in connecting to: " + serverPort );
 	        return false;
 	    } // try_catch
 	    return true;
