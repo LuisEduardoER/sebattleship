@@ -91,6 +91,8 @@ public class GameMenu extends Menu {
 			display.putStaticLine("Enter Message");
 			display.printScreen();
 			String message = display.readLine("user> ");
+			if(listener.error)
+				return false;
 			if(server!=null)
 				try {
 					server.Send("M"+message);
