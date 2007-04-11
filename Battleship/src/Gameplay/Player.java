@@ -175,7 +175,7 @@ public class Player {
 		String sunk=myBoard.check_sunk();
 		if(sunk!="nothing"){
 			Sound.playSound("res/bubbles.wav");
-			if(hisBoard.check_all_sunk()){
+			if(myBoard.check_all_sunk()){
 				opponent_victory=true;
 			}
 		}
