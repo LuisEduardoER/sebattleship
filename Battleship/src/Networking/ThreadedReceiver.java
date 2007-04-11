@@ -170,7 +170,7 @@ public class ThreadedReceiver extends Thread {
 			        	display.putStaticLine("      You Win!!!");
 			        	display.putStaticLine("");
 			        	display.putStaticLine("");
-			        	display.putStaticLine("Press 3, then Enter to continue");
+			        	display.putStaticLine("Press Enter to continue");
 			        	display.printScreen();
 			        	display.printPrompt("user> ");
 			        	error=true;
