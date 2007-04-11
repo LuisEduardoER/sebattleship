@@ -11,6 +11,7 @@ import Gameplay.Ship;
 import Gameplay.Submarine;
 import Networking.BattleshipClient;
 import Networking.BattleshipServer;
+import Networking.ThreadedReceiver;
 
 /**
  * A menu class containing the options to be displayed while in the game.
@@ -69,14 +70,16 @@ public class GameMenu extends Menu {
 	 * @return	True if the menu choice was handled by the Input() function.  False if
 	 * 			outside handling needs to be performed
 	 */
-	public boolean Input(Player player, BattleshipServer server, BattleshipClient client, boolean myturn){
+	public boolean Input(Player player, BattleshipServer server, BattleshipClient client, boolean myturn,ThreadedReceiver listener){
 
-		for(getInput();!check(1,3);) {
+		for(getInput(listener);!check(1,3) && !(listener.error);) {
 			//display.scroll("Invalid Input: " + choice);  redundant error message.  -nate
 			display.printScreen();
 			display.printPrompt("user> ");
-			getInput();
+			getInput(listener);
 		}
+		if(listener.error)
+			return false;
 
 		
 		switch(choice){

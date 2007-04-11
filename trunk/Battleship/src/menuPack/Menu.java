@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Networking.ThreadedReceiver;
 import Utilities.Console;
 
 import Gameplay.Player;
@@ -33,6 +34,33 @@ public abstract class Menu {
 	}
 
 	// open up standard input
+	protected boolean getInput(ThreadedReceiver listener) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		choice = 0;
+
+		// read the username from the command-line; need to use try/catch with
+		// the
+		// readLine() method
+		try {
+			choice = Integer.parseInt(br.readLine());
+			return true;
+		} catch (IOException ioe) {
+			if(listener.error)
+				return true;
+			display.scroll("Invalid Command");
+			display.printScreen();
+			return false;
+		}
+		catch(NumberFormatException nfe){
+			if(listener.error)
+				return true;
+			display.scroll("Input Invalid");
+			display.printScreen();
+			return false;
+		}
+	}
+	
 	protected boolean getInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
