@@ -112,7 +112,7 @@ public class ThreadedReceiver extends Thread {
 						// figure out what system messages might come and
 						// determine how to handle them here
 						display.clearScreen();
-						display.putStaticLine("Network Disconnection Detected...");
+						display.putStaticLine("Client Disconnection Detected...");
 						display.putStaticLine("");
 						display.putStaticLine("");
 						display.putStaticLine("      You Win!!!");
@@ -130,7 +130,7 @@ public class ThreadedReceiver extends Thread {
 						display.printPrompt("user> ");
 					}
 		        } catch (IOException e) {        	
-			//		System.out.println( "IO: "+e.getMessage() );
+
 		        }
 			}
 		}

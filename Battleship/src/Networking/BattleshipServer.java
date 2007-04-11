@@ -39,7 +39,7 @@ public class BattleshipServer extends Server{
 	 * @param name	Desired name to use as reference to this server
 	 */
 	public BattleshipServer(int port, String name) {
-		serverName=name;
+		this.serverName=name;
 		this.serverPort=port;
 	}
 	

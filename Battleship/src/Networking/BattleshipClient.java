@@ -41,7 +41,7 @@ public class BattleshipClient extends Client {
 	 * @param clientName	Desired name to use as reference to this client
 	 */
 	public BattleshipClient(String serverIP, int serverPort, String clientName){
-		this.clientName=clientName;
+		this.serverIP=serverIP;
 		this.serverPort=serverPort;
 		this.clientName=clientName;
 	}
