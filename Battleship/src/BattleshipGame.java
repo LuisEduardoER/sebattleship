@@ -221,7 +221,7 @@ public class BattleshipGame{
 			display.printScreen();
 			display.printPrompt("user> ");
 			
-			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu);
+			int boardMenuChoice = board_menu.Input(player, custom_menu, random_menu,listener);
 			switch (boardMenuChoice){
 			case 0:
 				if(server!=null)
@@ -281,9 +281,10 @@ public class BattleshipGame{
 					}
 			}
 			
-			
+			///////////////////////////////////////////////////////////////////////////////
 			// By this point the board has been set up and the game is ready to be played.
-	
+			///////////////////////////////////////////////////////////////////////////////
+			
 				// block for the player to send his board	
 			while(!player.board_received);
 				// Once we've got it, display it and go on to the game process
@@ -307,7 +308,7 @@ public class BattleshipGame{
 					display.printPrompt("user> ");
 					
 					// Block for input
-					if(!game_menu.Input(player, server, client, true)){
+					if(!game_menu.Input(player, server, client, true,listener)){
 						if(server!=null)
 							try {
 								server.Send("S");
@@ -332,7 +333,7 @@ public class BattleshipGame{
 					display.printPrompt("user> ");
 					
 						// block for input
-					if(!game_menu.Input(player, server, client, false)){
+					if(!game_menu.Input(player, server, client, false,listener)){
 						Sound.playSound("res/power_down.wav");
 						if(server!=null)
 							try {

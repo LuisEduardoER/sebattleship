@@ -12,6 +12,7 @@ import Gameplay.Submarine;
 import Gameplay.PatrolBoat;
 import Gameplay.Ship;
 import Gameplay.Player;
+import Networking.ThreadedReceiver;
 
 /**
  * @author Steve
@@ -36,14 +37,16 @@ public class RandomBoardMenu extends Menu {
 		 	return menu;
 	}
 
-	public boolean Input(Player player){
-
-		for(getInput();!check(1,8);) {
+	public int Input(Player player,ThreadedReceiver listener){
+		for(getInput(listener);!check(1,8) && !(listener.error);) {
 			display.scroll("Invalid Input: " + choice);
 			display.printScreen();
 			display.printPrompt("user> ");
-			getInput();
+			getInput(listener);
 		}
+		if(listener.error)
+			return 0;
+		
 	
 		whichShip = choice;
 		Ship temp = new Ship();
@@ -83,7 +86,7 @@ public class RandomBoardMenu extends Menu {
 		case 8:
 			if(player.myBoard.carrier.placed && player.myBoard.battleship.placed && player.myBoard.cruiser.placed
 					&& player.myBoard.submarine.placed && player.myBoard.patrolboat.placed){
-			return true;
+			return 1;
 			} else {
 				display.scroll("You must place all ships before you can continue.");
 				display.printScreen();
@@ -124,7 +127,7 @@ public class RandomBoardMenu extends Menu {
 			display.putStaticLine("1) Right   2) Down   3) Left   4) Up");
 			display.printScreen();
 			display.printPrompt("user> ");
-			getInput();
+			getInput(listener);
 			direction = choice;
 
 
@@ -143,7 +146,7 @@ public class RandomBoardMenu extends Menu {
 			}
 		}
 			
-		return false;
+		return 2;
 	}
 		
 	public void GetCoord(){

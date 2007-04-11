@@ -49,14 +49,16 @@ public class BoardSetupMenu extends Menu {
 		return menu;
 	}
 
-	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board){
+	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board,ThreadedReceiver listener){
 		// block until the user gives appropriate input
-		for(getInput();!check(1,4);) {
+		for(getInput(listener);!check(1,4) && !(listener.error);) {
 			//display.scroll("Invalid Input: " + choice);  redundant error message
 			display.printScreen();
 			display.printPrompt("user> ");
-			getInput();
+			getInput(listener);
 		}
+		if(listener.error)
+			return 1;
 		
 		// Must handle all messages in here
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -67,10 +69,10 @@ public class BoardSetupMenu extends Menu {
 		// NEED TO DO
 		// NEED TO DO		
 		
-		boolean done = false;
+		int done = 2;
 		switch(choice){
 		case 1:
-			while(!done){
+			while(done == 2){
 				// Display the board custom board menu
 				display.clearScreen();
 				
@@ -91,14 +93,17 @@ public class BoardSetupMenu extends Menu {
 				
 				display.printScreen();
 				display.printPrompt("user> ");
-				done = custom_board.Input(player);
+				done = custom_board.Input(player,listener);
 			}
 				// When done... send board to opponent
-
+			if(done==0)	// an error occured, there was likely a disconnect
+				return 1;
+			
+			// if we get to here, done == 1 and that means it was sucessful
 			break;
 		case 2:
 			player.PlaceRandomBoard();
-			while(!done){
+			while(done==2){
 				display.clearScreen();
 				// Display the board custom board menu
 				String brd[]=player.DisplayMyBoard();
@@ -120,8 +125,10 @@ public class BoardSetupMenu extends Menu {
 				display.printScreen();
 				display.printPrompt("user> ");
 				
-				done = random_board.Input(player);
+				done = random_board.Input(player,listener);
 			}	
+			if(done==0)
+				return 1;
 			break;
 		case 3:
 				// Return to restart from the top
