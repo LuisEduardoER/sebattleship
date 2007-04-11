@@ -16,8 +16,7 @@ import Gameplay.My_Board;
 import Gameplay.Ship;
 
 /**
- * @author Steve
- * 
+ * @author   Steve
  */
 public abstract class Menu {
 	public Console display = new Console();

@@ -28,8 +28,7 @@ import Gameplay.Board;
 */
 
 /**
- * @author Steve
- *
+ * @author   Steve
  */
 public class BoardSetupMenu extends Menu {
 	public Console display = new Console();
