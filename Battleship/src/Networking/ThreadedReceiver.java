@@ -45,7 +45,7 @@ public class ThreadedReceiver extends Thread {
 	 */
 	public Console display = new Console();
 	
-	
+	public boolean error = false;
 	
 	/**
 	 * ThreadReceiver Constructor.
@@ -120,7 +120,8 @@ public class ThreadedReceiver extends Thread {
 						display.putStaticLine("");
 						display.putStaticLine("Press 3, then Enter to continue");
 						display.printScreen();
-						display.printPrompt("user> ");	
+						display.printPrompt("user> ");
+						error=true;
 						return;	
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!
@@ -172,6 +173,7 @@ public class ThreadedReceiver extends Thread {
 			        	display.putStaticLine("Press 3, then Enter to continue");
 			        	display.printScreen();
 			        	display.printPrompt("user> ");
+			        	error=true;
 			        	return;
 					case 'M':		// Chat Message	
 						default:   	//  use as default, if all else fails, print it!

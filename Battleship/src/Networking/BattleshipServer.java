@@ -79,7 +79,6 @@ public class BattleshipServer extends Server{
 		display.putStaticLine(clientName + " has joined your game!");
 		display.putStaticLine("Press Enter to continue... ");
 		display.printScreen();
-		display.readLine();
 		return true;
 	}
 	

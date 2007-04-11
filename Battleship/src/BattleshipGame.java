@@ -143,6 +143,9 @@ public class BattleshipGame{
 					continue START2;
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(server, player);
+				display.readLine();
+				if(listener.error)
+					continue START2;
 				break;
 			case 2:
 				display.putStaticLine("Enter your name: ");
@@ -168,6 +171,9 @@ public class BattleshipGame{
 					continue START2;
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(client, player);
+				display.readLine();
+				if(listener.error)
+					continue START2;
 				break;
 			case 3:
 				if(server!=null){
