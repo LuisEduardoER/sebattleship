@@ -29,6 +29,10 @@ public class CustomBoardMenu extends Menu {
 	 * 
 	 * @see menuPack.Menu#printMenu()
 	 */
+	/**
+	 * This menu is used to place ships on the board manually
+	 * Ships may be replaced, or the board reset if so desired
+	 */
 	public String[] PrintMenu() {
 		String menu[]=new String[7];
 		
@@ -43,6 +47,13 @@ public class CustomBoardMenu extends Menu {
 		return menu;
 	}
 	
+	/**
+	 * This is part of PrintMenu for CustomBoardMenu
+	 * 
+	 * @param player Player object
+	 * @param listener Network object
+	 * @return Integers used in deciding whether to continue or quit
+	 */
 	public int Input(Player player,ThreadedReceiver listener){
 
 		for(getInput(listener);!check(1,7) && !(listener.error);) {
