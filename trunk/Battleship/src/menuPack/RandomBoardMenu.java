@@ -51,22 +51,27 @@ public class RandomBoardMenu extends Menu {
 		case 1:
 			temp = new Carrier();
 			temp.name="Carrier";
+			player.myBoard.carrier.Reset();
 			break;
 		case 2:
 			temp = new Battleship();
 			temp.name="Battleship";
+			player.myBoard.battleship.Reset();
 			break;
 		case 3:
 			temp = new Cruiser();
 			temp.name="Cruiser";
+			player.myBoard.cruiser.Reset();
 			break;
 		case 4:
 			temp = new Submarine();
 			temp.name="Submarine";
+			player.myBoard.submarine.Reset();
 			break;
 		case 5:
 			temp = new PatrolBoat();
 			temp.name="Patrol Boat";
+			player.myBoard.patrolboat.Reset();
 			break;
 		case 6:
 			player.myBoard.resetAllShips();
