@@ -48,7 +48,7 @@ public class Client {
 	 * @param serverIP	IP address of the server to connect to.
 	 * @param serverPort	Port number to use when connecting to server.
 	 */
-	public Client(String serverIP, int serverPort){
+	public boolean Connect(String serverIP, int serverPort){
     	this.serverIP=serverIP;
     	this.serverPort=serverPort;
 	 
@@ -58,11 +58,12 @@ public class Client {
 			in = new DataInputStream(clientSocket.getInputStream());
 	    } catch( UnknownHostException e ) {
 	        System.err.println( "Unknown host: " + serverIP );
-	        System.exit(1);
+	        return false;
 	    } catch( IOException e ) {
 	        System.err.println( "I/O exception in connecting to: " + serverPort );
-	        System.exit(1);
+	        return false;
 	    } // try_catch
+	    return true;
     } // end Constructor
 	
 	/**

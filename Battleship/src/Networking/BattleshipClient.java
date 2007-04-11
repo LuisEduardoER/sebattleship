@@ -25,9 +25,11 @@ public class BattleshipClient extends Client {
 	 */
 	private String clientName = null;
 	
+	private String serverIP = null;
 	
-	public Console display = new Console();
+	private int serverPort = 7777;
 	
+
 	/**
 	 * BattleshipClient Constructor
 	 * Creates a connection to the designated server.
@@ -39,8 +41,15 @@ public class BattleshipClient extends Client {
 	 * @param clientName	Desired name to use as reference to this client
 	 */
 	public BattleshipClient(String serverIP, int serverPort, String clientName){
-		super(serverIP, serverPort);
 		this.clientName=clientName;
+		this.serverPort=serverPort;
+		this.clientName=clientName;
+	}
+	
+	
+	public boolean Connect(Console display){
+		if(!super.Connect(serverIP, serverPort))
+			return false;
 		try {
 			this.Send(this.clientName);
 		} catch (IOException e) {
@@ -52,7 +61,9 @@ public class BattleshipClient extends Client {
 		display.putStaticLine("Press Enter to continue... ");
 		display.printScreen();
 		display.readLine();
+		return true;
 	}
+	
 	
 	/**
 	 * Gets the name of this client.

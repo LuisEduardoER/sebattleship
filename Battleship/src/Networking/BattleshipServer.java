@@ -25,6 +25,8 @@ public class BattleshipServer extends Server{
 	 */
 	private String clientName = null;
 	
+	private int serverPort = 7777;
+	
 
 	
 	/**
@@ -36,14 +38,29 @@ public class BattleshipServer extends Server{
 	 * @param port	Port number to use for communication on this server
 	 * @param name	Desired name to use as reference to this server
 	 */
-	public BattleshipServer(int port, String name, Console display) {
-		super(port);
+	public BattleshipServer(int port, String name) {
 		serverName=name;
-			// Wait for a connection
+		this.serverPort=port;
+	}
+	
+	public boolean Connect(Console display){
+		if(!super.Start(serverPort)){
+			display.putStaticLine("");
+			display.putStaticLine("## Error listening on port " + serverPort);
+			display.putStaticLine(" Press Enter to Continue...");
+			display.printScreen();
+			display.readLine();
+			return false;
+		}
+
+		// Wait for a connection
 		display.putStaticLine(" ");
 		display.putStaticLine("Waiting for a connection...");
 		display.printScreen();
+		
+			// Wait for a connection
 		super.Connect();
+		
 			// Send server name and block to receive client name
 		try {
 			this.Send(this.serverName);
@@ -56,8 +73,8 @@ public class BattleshipServer extends Server{
 		display.putStaticLine("Press Enter to continue... ");
 		display.printScreen();
 		display.readLine();
+		return true;
 	}
-	
 	
 	/**
 	 * Gets the name of the client this server is

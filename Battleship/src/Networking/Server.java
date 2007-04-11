@@ -49,23 +49,23 @@ public class Server{
 	 * 
 	 * @param port Port of the local computer to listen on for clients.
 	 */
-	public Server(int port){
+	public boolean Start(int port){
     	this.port=port;
     	
     // Create socket for the server
         try {
 			serverSocket = new ServerSocket( this.port );
         } catch( IOException e ) {
-            System.err.println( "Could not listen on local port: " + port );
-            System.exit(1);
-        } // try_catch    	       
+            return false;
+        } // try_catch   
+        return true;
 	} // end Constructor
 	
 	/**
 	 *  Blocks while waiting for a client to connect. Establishes
 	 *   input and ouput data streams to the client
 	 */
-	public void Connect(){
+	public boolean Connect(){
 		try {
 	    		// stalls on this line until a client connects
 		    clientSocket = serverSocket.accept();
@@ -73,9 +73,9 @@ public class Server{
 	 	    out = new DataOutputStream(clientSocket.getOutputStream());
 	 	    in  = new DataInputStream(clientSocket.getInputStream());
 	    } catch (IOException e) {
-	        System.err.println( "Accept failed. ");
-		    System.exit(1);
+	       return false;
 	    } // try_catch
+	    return true;
 	} // end Connect
 	
 	/**

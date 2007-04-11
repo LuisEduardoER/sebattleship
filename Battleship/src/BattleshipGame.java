@@ -37,9 +37,6 @@ public class BattleshipGame{
 		RandomBoardMenu random_menu = new RandomBoardMenu();
 		GameMenu game_menu = new GameMenu();
 
-		
-		
-		
 
 			/*
 			 * One Time Only Stuff Goes HERE...
@@ -141,7 +138,9 @@ public class BattleshipGame{
 					// set this player as the host
 				player.host=true;
 					// Start the server connection
-				server = new BattleshipServer(server_port, name, display);
+				server = new BattleshipServer(server_port, name);
+				if(!server.Connect(display))
+					continue START2;
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(server, player);
 				break;
@@ -165,6 +164,8 @@ public class BattleshipGame{
 //				}
 				player.host=false;
 				client = new BattleshipClient(server_ip, server_port, name);
+				if(!client.Connect(display))
+					continue START2;
 				// Start the listener now so that we can receiver the opponent's board
 				listener = new ThreadedReceiver(client, player);
 				break;
