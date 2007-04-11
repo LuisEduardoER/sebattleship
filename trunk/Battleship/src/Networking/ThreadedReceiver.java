@@ -7,18 +7,8 @@ import Gameplay.*;
 
 
 /**
- * ThreadedReceiver is a class that polls the socket for incoming transmissions.  The
- * clas is threaded to allow it to run simultaneously with other code.  The thread
- * waits for a message to arrive and once it does, it parses the message type based
- * upon the first character of the message.  "B" indicates the message contains a board
- * in the form of a string.  "C" indicates the message contains a coordinate, the
- * coordinate just guessed by the opponent.  "S" indicates a system message, which
- * currently only entails a quit notification.  "M" indicates the remainder of the
- * message contains a message from the opponent and needs to be displayed to the console.
- * 
- * 
- * @author Josh
- *
+ * ThreadedReceiver is a class that polls the socket for incoming transmissions.  The clas is threaded to allow it to run simultaneously with other code.  The thread waits for a message to arrive and once it does, it parses the message type based upon the first character of the message.  "B" indicates the message contains a board in the form of a string.  "C" indicates the message contains a coordinate, the coordinate just guessed by the opponent.  "S" indicates a system message, which currently only entails a quit notification.  "M" indicates the remainder of the message contains a message from the opponent and needs to be displayed to the console.
+ * @author    Josh
  */
 public class ThreadedReceiver extends Thread {
 	// These are references to objects in the higher level class

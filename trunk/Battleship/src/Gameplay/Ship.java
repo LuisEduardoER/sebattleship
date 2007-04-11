@@ -4,12 +4,14 @@ package Gameplay;
  */
 
 /**
- * @author Nathan
- * Describes the abstract ship class.  The five different ship classes inherit this class.
+ * @author  Josh
  */
 public class Ship {
 
 public String name;
+/**
+ * @uml.property  name="size"
+ */
 protected int size;
 public boolean placed;
 protected boolean sunk;
@@ -70,6 +72,10 @@ public boolean get_position(int xcoor, int ycoor){
 		return false;
 }
 
+/**
+ * @return
+ * @uml.property  name="size"
+ */
 public int getSize() {
 	return size;
 }

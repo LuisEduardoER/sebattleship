@@ -2,8 +2,7 @@ package Gameplay;
 
 /**
  * Describes a generic BattleshipGame Board.  
- * @author Nathan
- *
+ * @author   Nathan
  */
 public abstract class Board extends Grid{
 public int [][] hit_history = new int [Grid.max_x][Grid.max_y];

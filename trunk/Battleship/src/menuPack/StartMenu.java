@@ -14,8 +14,7 @@ import Networking.BattleshipServer;
 import Networking.ThreadedReceiver;
 import Utilities.Console;
 /**
- * @author Steve
- *
+ * @author   Steve
  */
 public class StartMenu extends Menu {
 	public Console display = new Console();

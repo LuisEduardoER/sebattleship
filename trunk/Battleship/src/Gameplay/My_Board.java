@@ -5,8 +5,7 @@ import Gameplay.Board;
 
 
 /**
- * @author Nathan
- *
+ * @author   Nathan
  */
 public class My_Board extends Board{
 	private StringBuffer dynamic_line;

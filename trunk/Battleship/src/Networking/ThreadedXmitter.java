@@ -8,9 +8,7 @@ import Utilities.Console;
 
 /**
  * Deprecated.  Not in use by program....
- * 
- * @author Josh
- *
+ * @author    Josh
  */
 public class ThreadedXmitter extends Thread {
 	private BattleshipServer server = null;

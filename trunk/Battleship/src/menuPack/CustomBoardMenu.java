@@ -17,8 +17,7 @@ import Gameplay.Ship;
 import Gameplay.Submarine;
 
 /**
- * @author Steve
- * 
+ * @author   Steve
  */
 public class CustomBoardMenu extends Menu {
 	public Console display = new Console();

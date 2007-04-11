@@ -9,8 +9,7 @@ import java.io.*;
 import java.util.Random;
 
 /**
- * @author Nathan & Quinn
- *
+ * @author   Nathan & Quinn
  */
 public class Player {
 	public Console display = new Console();
@@ -284,7 +283,8 @@ public class Player {
 	}
 	
 	/**
-	 * @return the myBoard
+	 * @return  the myBoard
+	 * @uml.property  name="myBoard"
 	 */
 	public My_Board getMyBoard() {
 		return myBoard;

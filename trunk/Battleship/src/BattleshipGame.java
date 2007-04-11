@@ -13,8 +13,7 @@ import menuPack.*;
 
 
 /**
- * @author Josh
- *
+ * @author   Josh
  */
 public class BattleshipGame{
 
@@ -83,6 +82,7 @@ public class BattleshipGame{
 						e.printStackTrace();
 					}
 			}
+			
 			server = null;
 			client = null;
 			listener = null;
