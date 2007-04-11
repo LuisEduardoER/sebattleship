@@ -286,7 +286,12 @@ public class BattleshipGame{
 			///////////////////////////////////////////////////////////////////////////////
 			
 				// block for the player to send his board	
-			while(!player.board_received);
+			while(!player.board_received){
+				if(listener.error){		// check to see if there was an error
+					display.readLine();
+					continue START2;
+				}
+			}
 				// Once we've got it, display it and go on to the game process
 			display.clearScreen();
 			player.Display_Boards();
