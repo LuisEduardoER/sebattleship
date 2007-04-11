@@ -36,7 +36,11 @@ public class BoardSetupMenu extends Menu {
 	/* (non-Javadoc)
 	 * @see menuPack.Menu#printMenu()
 	 */
-	
+	/**
+	 * This menu selects between the Custom or Random board generation
+	 * 
+	 * @return
+	 */
 	public String[] PrintMenu() {
 		String menu[]=new String[4];
 
@@ -48,6 +52,15 @@ public class BoardSetupMenu extends Menu {
 		return menu;
 	}
 
+	/**
+	 * This is part of the PrintMenu for BoardSetupMenu
+	 * 
+	 * @param player Player object
+	 * @param custom_board CustomBoardMenu Object
+	 * @param random_board RandomBoardMenu Object
+	 * @param listener NetworkThread Object
+	 * @return Returns an integer noting wether to quit or continue
+	 */
 	public int Input(Player player, CustomBoardMenu custom_board, RandomBoardMenu random_board,ThreadedReceiver listener){
 		// block until the user gives appropriate input
 		for(getInput(listener);!check(1,4) && !(listener.error);) {

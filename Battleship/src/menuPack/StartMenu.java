@@ -1,6 +1,3 @@
-/**
- * 
- */
 package menuPack;
 
 import java.io.BufferedReader;

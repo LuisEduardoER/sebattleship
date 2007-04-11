@@ -24,6 +24,12 @@ public abstract class Menu {
 
 	abstract String[] PrintMenu();
 
+	/**
+	 * Depracated, also built into the getInput function
+	 * @param min
+	 * @param max
+	 * @return True if the choice in the current Menu object is in the given range
+	 */
 	boolean check(int min, int max) {
 		if (choice < min)
 			return false;
@@ -33,6 +39,9 @@ public abstract class Menu {
 	}
 
 	// open up standard input
+	/**
+	 * open up standard input
+	 */ 
 	protected boolean getInput(ThreadedReceiver listener) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -60,6 +69,10 @@ public abstract class Menu {
 		}
 	}
 	
+	/**
+	 * Depracated, use the getInput that uses range parameters
+	 * @return True if input is received
+	 */
 	protected boolean getInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -83,6 +96,12 @@ public abstract class Menu {
 		}
 	}
 	
+	/**
+	 * Gets a string from the user
+	 * 
+	 * @return the string
+	 * @throws IOException
+	 */
 	protected String getString()throws IOException{
 			String input="";
 			InputStreamReader converter = new InputStreamReader(System.in);
@@ -94,6 +113,12 @@ public abstract class Menu {
 		}
 	
 	// open up standard input
+	/**
+	 * Gets an integer input from the user.  Must be within the given range
+	 * @param min Min in range
+	 * @param max Max in range
+	 * @return True if the choice in the current Menu object is in the given range
+	 */
 	protected boolean getInput(int min, int max) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

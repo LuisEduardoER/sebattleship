@@ -23,7 +23,10 @@ public class RandomBoardMenu extends Menu {
 	int whichShip;
 	String coord;
 
-	
+	/**
+	 * This is called after the random board has been generated for
+	 * any desired user modification to take place
+	 */
 	 public String[] PrintMenu() {
 			String menu[] = new String[8];
 		 	menu[0]="1) Place/Adjust Aircraft Carrier";
@@ -37,6 +40,13 @@ public class RandomBoardMenu extends Menu {
 		 	return menu;
 	}
 
+	 /**
+	  * Generated the random board, and then asks the user for modifications
+	  * 
+	  * @param player Player object
+	  * @param listener Network Object
+	  * @return An integer used to decide whether to quit or continue
+	  */
 	public int Input(Player player,ThreadedReceiver listener){
 		for(getInput(listener);!check(1,8) && !(listener.error);) {
 			display.scroll("Invalid Input: " + choice);
