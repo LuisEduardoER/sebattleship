@@ -69,4 +69,37 @@ How to run Battleship:
 
 ------------------------------------------------------------------------------------
 
+How to Generate the JavaDoc Documentation:
+------------------------------------------
 
+	- Open a prompt and navigate to the root "Battleship" folder
+	
+		ie. cd "C:\Workspace\Battleship"
+
+	- From the Battleship folder, type the following command:
+	
+		Doxygen
+
+		*Note: This requires that Doxygen be downloaded and installed on the 
+			local computer.  If it is not, it will need to be downloaded.
+
+	- The documentation will be generated and placed inside the doc/ folder
+
+To view the HTML Documentation:
+-------------------------------
+	
+	- With the prompt located at the root "Battleship" folder, type
+
+		Documentation
+
+		*Note: This requires Mozilla Firefox to be installed.
+
+	- This will execute a batch file that will launch the index.html page in Firefox.
+
+		
+	- If Firefox is not available, then manually launch the index.html file located in:
+
+		Battleship/doc/html/index.html
+
+------------------------------------------------------------------------------------
+	
