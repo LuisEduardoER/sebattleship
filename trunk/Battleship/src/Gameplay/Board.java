@@ -83,7 +83,11 @@ public boolean hit_or_miss(int xcoor, int ycoor)
 
 
 
-/* checks to see if coordinates input have already been entered */
+/**
+ *  checks to see if coordinates input have already been entered 
+ *  @param xcoor
+ *  @param ycoor
+ *  */
 public boolean already_attacked(int xcoor, int ycoor){
 	if(hit_history[xcoor][ycoor]!=0)
 		return true;
@@ -99,6 +103,7 @@ public boolean already_attacked(int xcoor, int ycoor){
  * 
  * Whatever calls this must check to see if value is "nothing", 
  * in which case no ships were sunk this turn.
+ * @return name of the ship that was sunk this turn
  */
 public String check_sunk(){
 	carrier.update_sunk();
@@ -130,6 +135,7 @@ public String check_sunk(){
  * Checks to see if all of the ships of the board are sunk this turn
  * returns true if all are sunk
  * returns false if not all are sunk
+ * @return whether or not all the ships are sunk on this board
  */
 public boolean check_all_sunk(){
 	if(battleship.sunk && carrier.sunk && cruiser.sunk && submarine.sunk && patrolboat.sunk)
@@ -137,6 +143,10 @@ public boolean check_all_sunk(){
 	else
 		return false;	
 }
+/**
+ * Resets the position of all the ships on this board.  
+ *
+ */
 public void resetAllShips(){
 	carrier.Reset();
 	battleship.Reset();

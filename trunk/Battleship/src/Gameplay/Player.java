@@ -141,8 +141,9 @@ public class Player {
 		return true;
 }
 
-	/*
+	/**
 	 * His_Turn is the code ran for the opponents turn
+	 * @param the coordinate the opponent attacked
 	 */
 	public void His_Turn(String opponent_coord){
 
@@ -219,6 +220,8 @@ public class Player {
 	 * 2. be in the correct format
 	 * 3. not have already been attacked
 	 * 
+	 * @param attack_coord
+	 * @return whether or not the attack_coord is a valid move
 	 */
 	public boolean Validate_Input(String attack_coord){
 		attack_coord=attack_coord.trim();   //deletes any unecessary whitespace
@@ -323,7 +326,11 @@ public class Player {
 		//  Needs to be parsed and integrated
 	
 	
-
+	/**
+	 * Converts a letter of a coordinate to the corresponding integer
+	 * @param letter
+	 * @return integer
+	 */
 	public int letterToIndex(char letter) {
 		if (Character.toLowerCase(letter) == 'a')
 			return 0;
@@ -349,7 +356,11 @@ public class Player {
 			return -1;
 	}
 	
-	
+	/**
+	 * converts the given integer into a character for the coordinate system
+	 * @param index
+	 * @return the letter corresponding to the index
+	 */
 	public String indexToLetter(int index) {
 		if (index == 0)
 			return "a";
@@ -375,7 +386,12 @@ public class Player {
 			return null;
 	}
 	
-	
+	/**
+	 * checks to see if the given coordinate is occupied
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean isOccupied(int x, int y){
 		if(myBoard.carrier.get_position(x, y))
 			return true;
@@ -390,7 +406,13 @@ public class Player {
 		
 		return false;
 	}
-
+	
+	/**
+	 * Places a ship on the board
+	 * @param thisShip
+	 * @param coordinate
+	 * @param direction
+	 */
 	public void placeShip(Ship thisShip, String coordinate, int direction){
 		thisShip.placed = true;
 		int letterCoord = letterToIndex(coordinate.charAt(0));
@@ -439,6 +461,13 @@ public class Player {
 			
 		}
 
+	/**
+	 * Checks to see if a given ship can be positioned at the given coordinate
+	 * @param thisShip
+	 * @param coordinate
+	 * @param direction
+	 * @return
+	 */
 	public boolean validateShipPlacement(Ship thisShip, String coordinate,
 			int direction) {
 		int letterCoord = letterToIndex(coordinate.charAt(0));
@@ -489,7 +518,11 @@ public class Player {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Creates a random board for the user
+	 *
+	 */
 	public void PlaceRandomBoard(){
 
 		String whichShip;

@@ -4,7 +4,8 @@ package Gameplay;
  */
 
 /**
- * @author  Josh
+ * @author  Nate
+ * Describes the generic Ship class.  Is extended by the five different ship classes.
  */
 public class Ship {
 
@@ -29,7 +30,7 @@ public Ship(){
 		}
 	}
 }
-/*
+/**
  * Updates the ship's sunk status.  
  * If the number of hits is greater or equal to the size of the ship
  * then the ship is sunk, and it updates its member.
@@ -56,7 +57,7 @@ protected void update_sunk(){
 		sunk_this_turn=false;
 }
 
-/* UNFINISHED
+/**
  * Allows the program to set the position array of the ship.  
  * It takes in the x and y coordinates the program wants the ship to be positioned.
  * 
