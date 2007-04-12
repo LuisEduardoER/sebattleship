@@ -57,14 +57,13 @@ How to compile from source:
 How to run Battleship:
 ----------------------
 
-	- Open a prompt and navigate to the root "Battleship" folder and to the
-		\bin folder from there.
+	- Open a prompt and navigate to the root "Battleship" folder 
 
-		ie. cd "C:\Workspace\Battleship\bin"
+		ie. cd "C:\Workspace\Battleship"
 
-	- From the bin folder, type the following command:
+	- From the Battleship folder, type the following command:
 
-		java -cp . BattleshipGame
+		java -jar Battleship.jar
 
 	This will launch Battleship in your console.
 
