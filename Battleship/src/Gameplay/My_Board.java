@@ -5,6 +5,8 @@ import Gameplay.Board;
 
 
 /**
+ * Describes a player's own board.  It will display the different ship locations and the hits and misses
+ * on this board
  * @author   Nathan
  */
 public class My_Board extends Board{
@@ -14,14 +16,16 @@ public class My_Board extends Board{
 		super();
 		display_line[11]="           My Board             ";
 	}
-	/*
-	 * Receives the line it needs to return.
+	/**
+	 * Receives the index of the line it needs to return.
 	 * Updates the line by checking to see if any ships are on that row
 	 * Places corresponding letter if ship is on the row
 	 * 
 	 * It then puts a O depending on the hit_history
 	 * And then a X on top of that if it has been hit.
 	 * 
+	 * @param line_index
+	 * @return String of the corresponding index
 	 */
 	public String Display(int line_index){
 		
@@ -108,7 +112,10 @@ public class My_Board extends Board{
 		display.printScreen();
 	}
 	
-	
+	/**
+	 * converts the myboard to a string to be used in the networking classes
+	 * @return The board converted into a giant string
+	 */
 	public String ToString(){
 		return Display(0)+Display(1)+Display(2)+Display(3)+Display(4)+Display(5)+Display(6)+Display(7)+Display(8)+Display(9)+Display(10);
 	}

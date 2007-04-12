@@ -4,13 +4,14 @@ package Gameplay;
  */
 
 /**
+ * Describes the opponent's board.  Will not display the ship locations unless hit.
  * @author Nathan
  *
  */
 public class Opponent_Board extends Board{
 	private StringBuffer dynamic_line;
 	/**
-	 * 
+	 * The contructor
 	 */
 	public Opponent_Board() {
 		super();
@@ -19,13 +20,15 @@ public class Opponent_Board extends Board{
 		
 	}
 	
-	/*
-	 * Receives the line it needs to return.
+	/**
+	 * Receives the line index it needs to return.
 	 *
 	 * 
 	 * Puts an O depending on the hit_history
 	 * And then a X on top of that if it has been hit.
 	 * 
+	 * @param line_index
+	 * @return String corresponding to the input line_index
 	 */
 	public String Display(int line_index){
 		dynamic_line= new StringBuffer(display_line[line_index]);
@@ -70,8 +73,10 @@ public class Opponent_Board extends Board{
 		}
 	}
 	
-	/*
-	 * The incoming string turns into members.  Deletes the characters where the ships are
+	/**
+	 * Decodes a giant string into actual ship position data.  Sets the position of the ships on opponent_board
+	 * 
+	 * @param String to be converted into board data
 	 */
 	public void StringToOppBoard(String str){
 		display_line[0] = str.substring(0, 32);
