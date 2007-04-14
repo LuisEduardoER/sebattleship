@@ -25,6 +25,8 @@ public class Player {
 	protected int xcoor;
 	protected int ycoor;
 	public boolean messaging=false;
+	public boolean turn_change=false;
+	
 	
 	/**
 	 * Player class constructor
@@ -198,15 +200,12 @@ public class Player {
 		}
 		
 		display.putStaticLine("");
-		if(this.messaging)
-			display.putStaticLine("Press Enter to continue with you turn...");
-		else
-			display.putStaticLine("Press 2, then Enter to continue with your turn...");
+		display.putStaticLine("Press Enter to continue with you turn...");
 		display.printScreen();
 		display.printPrompt("user> ");
 		
 		hit=false;
-		
+		turn_change=true;
 		// now it's my turn again
 		this.isTurn=true;
 	}
