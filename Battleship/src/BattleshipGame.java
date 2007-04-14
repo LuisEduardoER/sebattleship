@@ -303,6 +303,8 @@ public class BattleshipGame{
 				//  Need to exit when the game is over...
 			while(true){
 				while(player.isTurn){	// keep getting inputs as long is it's my turn
+					if(player.turn_change)
+						player.turn_change=false;
 					display.clearScreen();
 					player.Display_Boards();
 					display.putStaticLine("");

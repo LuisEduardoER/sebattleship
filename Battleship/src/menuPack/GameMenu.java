@@ -72,7 +72,7 @@ public class GameMenu extends Menu {
 	 */
 	public boolean Input(Player player, BattleshipServer server, BattleshipClient client, boolean myturn,ThreadedReceiver listener){
 
-		for(getInput(listener);!check(1,3) && !(listener.error);) {
+		for(getInput(listener);!check(1,3) && !(listener.error) && !(player.turn_change);) {
 			//display.scroll("Invalid Input: " + choice);  redundant error message.  -nate
 			display.printScreen();
 			display.printPrompt("user> ");
@@ -80,6 +80,9 @@ public class GameMenu extends Menu {
 		}
 		if(listener.error)
 			return false;
+		if(player.turn_change)
+			return true;
+		
 
 		
 		switch(choice){
