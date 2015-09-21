@@ -1,0 +1,1 @@
+A command-line multiplayer battleship game playable over a network.
